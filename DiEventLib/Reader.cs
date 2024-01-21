@@ -750,21 +750,21 @@ namespace DiEventLib
                                 break;
 
                             case (elementID)1018:
-                                openingElement elementOpeningElement = new openingElement();
-                                elementOpeningElement.field_00 = reader.ReadUInt32();
-                                elementOpeningElement.unkFloat = reader.ReadSingle();
-                                elementOpeningElement.field_01 = new uint[5];
+                                sun elementSun = new sun();
+                                elementSun.field_00 = reader.ReadUInt32();
+                                elementSun.unkFloat = reader.ReadSingle();
+                                elementSun.field_01 = new uint[5];
                                 for (int i = 0; i < 5; i++)
                                 {
-                                    elementOpeningElement.field_01[i] = reader.ReadUInt32();
+                                    elementSun.field_01[i] = reader.ReadUInt32();
                                 }
-                                elementOpeningElement.animData = new uint[32];
+                                elementSun.animData = new uint[32];
                                 for (int i = 0; i < 32; i++)
                                 {
-                                    elementOpeningElement.animData[i] = reader.ReadUInt32();
+                                    elementSun.animData[i] = reader.ReadUInt32();
                                 }
 
-                                childNodeElementInfo.info = elementOpeningElement;
+                                childNodeElementInfo.info = elementSun;
                                 break;
 
                             case (elementID)1019:

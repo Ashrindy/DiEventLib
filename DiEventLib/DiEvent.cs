@@ -565,7 +565,7 @@ namespace DiEventLib
         public float[] data1;
     }
 
-    public struct openingElement
+    public struct sun
     {
         public uint field_00;
         public float unkFloat;
@@ -643,7 +643,7 @@ namespace DiEventLib
         caption = 1015,
         sound = 1016,
         time = 1017,
-        openingElement = 1018,
+        sun = 1018,
         lookAtIK = 1019,
         cameraBlurParam = 1020,
         generalTrigger = 1021,
