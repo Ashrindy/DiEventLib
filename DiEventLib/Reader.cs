@@ -1,6 +1,8 @@
 ﻿using HedgeLib.IO;
 using System.Text;
-using DiEventLib.Elements;
+using DiEventLib.Nodes.Elements;
+using DiEventLib.Nodes;
+using DiEventLib.Nodes.NodeTypes;
 
 namespace DiEventLib
 {

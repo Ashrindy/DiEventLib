@@ -1,4 +1,6 @@
-﻿using DiEventLib.Elements;
+﻿using DiEventLib.Nodes;
+using DiEventLib.Nodes.Elements;
+using DiEventLib.Nodes.NodeTypes;
 using HedgeLib.IO;
 using System.Text;
 
