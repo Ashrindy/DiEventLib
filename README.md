@@ -18,4 +18,17 @@ A library with simple reading and writing function for the .dvscene file from So
 
 |                      Name                       |   Use   |
 | :---------------------------------------------: | :------:|
-|     [HedgeLib](https://github.com/Radfordhound/HedgeLib/tree/master)     | Used for it upgraded and better binary reader and writer |
+|     [HedgeLib](https://github.com/Radfordhound/HedgeLib/tree/master)     | Used for its upgraded and better binary reader and writer |
+
+## 📝 Documentation 📝
+### Reading
+```csharp
+Reader reader = new Reader();
+DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
+```
+
+### Writing
+```csharp
+Writer writer = new Writer();
+writer.WriteDvScene("file-path-where-to-writer", your-diEvent);
+```
