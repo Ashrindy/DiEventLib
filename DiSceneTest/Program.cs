@@ -42,7 +42,7 @@ namespace DiEventTest
             foreach (var i in diEvent.common.nodes)
             {
                 Console.WriteLine("GUID: " + i.guid);
-                if (i.category == elementCategory.element)
+                if (i.category == nodeCategory.element)
                 {
                     Console.WriteLine("Type: " + i.category + " - " + ((elementProperties)i.info).elementID);
                 }
