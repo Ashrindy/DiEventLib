@@ -114,7 +114,7 @@ namespace DiEventLib
     public class node
     {
         public Guid guid;
-        public elementCategory category;
+        public nodeCategory category;
         public int nodeSize;
         public int childCount;
         public uint flags;
@@ -704,7 +704,7 @@ namespace DiEventLib
 
     #endregion
 
-    public enum elementCategory
+    public enum nodeCategory
     {
         path = 1,
         pathMotion = 2,

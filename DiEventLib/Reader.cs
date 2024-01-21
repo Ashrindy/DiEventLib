@@ -167,7 +167,7 @@ namespace DiEventLib
                 node childNode = new node();
 
                 childNode.guid = ReadGUID(reader);
-                childNode.category = (elementCategory)reader.ReadUInt32();
+                childNode.category = (nodeCategory)reader.ReadUInt32();
                 childNode.nodeSize = reader.ReadInt32();
                 childNode.childCount = reader.ReadInt32();
                 childNode.flags = reader.ReadUInt32();
@@ -181,7 +181,7 @@ namespace DiEventLib
 
                 switch (childNode.category)
                 {
-                    case (elementCategory)1:
+                    case (nodeCategory)1:
                         rootPathInfo childNodeRootPath = new rootPathInfo();
                         childNodeRootPath.matrix.M11 = reader.ReadSingle();
                         childNodeRootPath.matrix.M12 = reader.ReadSingle();
@@ -205,10 +205,10 @@ namespace DiEventLib
                         childNode.info = childNodeRootPath;
                         break;
 
-                    case (elementCategory)2:
+                    case (nodeCategory)2:
                         break;
 
-                    case (elementCategory)3:
+                    case (nodeCategory)3:
                         cameraInfo childNodeCameraInfo = new cameraInfo();
                         childNodeCameraInfo.flag = reader.ReadUInt32();
                         childNodeCameraInfo.frameProgressionCount = reader.ReadUInt32();
@@ -228,7 +228,7 @@ namespace DiEventLib
                         childNode.info = childNodeCameraInfo;
                         break;
 
-                    case (elementCategory)4:
+                    case (nodeCategory)4:
                         cameraMotionInfo childNodeCameraMotionInfo = new cameraMotionInfo();
                         childNodeCameraMotionInfo.flag = reader.ReadUInt32();
                         childNodeCameraMotionInfo.frameStart = reader.ReadUInt32();
@@ -238,7 +238,7 @@ namespace DiEventLib
                         childNode.info = childNodeCameraMotionInfo;
                         break;
 
-                    case (elementCategory)5:
+                    case (nodeCategory)5:
                         characterInfo childNodeCharacterInfo = new characterInfo();
                         childNodeCharacterInfo.field_00 = reader.ReadUInt32();
                         childNodeCharacterInfo.name1 = ReadDVString(reader);
@@ -253,7 +253,7 @@ namespace DiEventLib
                         childNode.info = childNodeCharacterInfo;
                         break;
 
-                    case (elementCategory)6:
+                    case (nodeCategory)6:
                         characterMotionInfo childNodeCharacterMotionInfo = new characterMotionInfo();
                         childNodeCharacterMotionInfo.flag = reader.ReadUInt32();
                         childNodeCharacterMotionInfo.frameStart = reader.ReadUInt32();
@@ -275,10 +275,10 @@ namespace DiEventLib
                         childNode.info = childNodeCharacterMotionInfo;
                         break;
 
-                    case (elementCategory)7:
+                    case (nodeCategory)7:
                         break;
 
-                    case (elementCategory)8:
+                    case (nodeCategory)8:
                         modelCustomInfo childNodeModelCustomInfo = new modelCustomInfo();
                         childNodeModelCustomInfo.field_00 = reader.ReadUInt32();
                         childNodeModelCustomInfo.name1 = ReadDVString(reader);
@@ -293,10 +293,10 @@ namespace DiEventLib
                         childNode.info = childNodeModelCustomInfo;
                         break;
 
-                    case (elementCategory)9:
+                    case (nodeCategory)9:
                         break;
                         
-                    case (elementCategory)10:
+                    case (nodeCategory)10:
                         reader.JumpAhead(0x04);
                         motionModelInfo childNodemotionModelInfo = new motionModelInfo();
                         childNodemotionModelInfo.frameStart = reader.ReadUInt32();
@@ -318,7 +318,7 @@ namespace DiEventLib
                         childNode.info = childNodemotionModelInfo;
                         break;
 
-                    case (elementCategory)11:
+                    case (nodeCategory)11:
                         modelNodeInfo childNodeNodeModelInfo = new modelNodeInfo();
                         childNodeNodeModelInfo.field_00 = reader.ReadUInt32();
                         childNodeNodeModelInfo.name1 = ReadDVString(reader);
@@ -331,7 +331,7 @@ namespace DiEventLib
                         childNode.info = childNodeNodeModelInfo;
                         break;
 
-                    case (elementCategory)12:
+                    case (nodeCategory)12:
                         elementProperties childNodeElementInfo = new elementProperties();
 
                         childNodeElementInfo.elementID = (elementID)reader.ReadUInt32();
@@ -962,22 +962,22 @@ namespace DiEventLib
                         childNode.info = childNodeElementInfo;
                         break;
 
-                    case (elementCategory)13:
+                    case (nodeCategory)13:
                         break;
 
-                    case (elementCategory)14:
+                    case (nodeCategory)14:
                         break;
 
-                    case (elementCategory)15:
+                    case (nodeCategory)15:
                         break;
 
-                    case (elementCategory)16:
+                    case (nodeCategory)16:
                         break;
 
-                    case (elementCategory)17:
+                    case (nodeCategory)17:
                         break;
 
-                    case (elementCategory)18:
+                    case (nodeCategory)18:
                         break;
                 }
 
