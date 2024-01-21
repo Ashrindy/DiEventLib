@@ -629,6 +629,17 @@ namespace DiEventLib
                                 childNodeElementInfo.info = elementShadowRes;
                                 break;
 
+                            case (elementID)1007:
+                                fog elementFog = new fog();
+                                elementFog.data = new char[300];
+                                for(int i =0; i <300; i++)
+                                {
+                                    elementFog.data[i] = reader.ReadChar();
+                                }
+
+                                childNodeElementInfo.info = elementFog;
+                                break;
+
                             case (elementID)1008:
                                 chromaticAberration elementChromatic = new chromaticAberration();
                                 elementChromatic.data = new float[17];
@@ -711,11 +722,11 @@ namespace DiEventLib
                                 break;
 
                             case (elementID)1014:
-                                bossCutoff elementBossCutoff = new bossCutoff();
-                                reader.JumpAhead(0x04);
-                                elementBossCutoff.field_00 = reader.ReadUInt32();
+                                bossName elementBossName = new bossName();
+                                elementBossName.field_00 = reader.ReadUInt32();
+                                elementBossName.bossID = (bossID)reader.ReadUInt32();
 
-                                childNodeElementInfo.info = elementBossCutoff;
+                                childNodeElementInfo.info = elementBossName;
                                 break;
 
                             case (elementID)1015:

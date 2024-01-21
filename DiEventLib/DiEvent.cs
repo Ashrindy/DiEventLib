@@ -601,9 +601,25 @@ namespace DiEventLib
 
     }
 
-    public struct bossCutoff
+    public enum bossID
+    {
+        giganto = 0,
+        wyvern,
+        knight,
+        supreme,
+        theEnd,
+        supremeTheEnd
+    }
+
+    public struct bossName
     {
         public uint field_00;
+        public bossID bossID;
+    }
+
+    public struct fog
+    {
+        public char[] data;
     }
 
     #endregion
@@ -633,13 +649,13 @@ namespace DiEventLib
         colorCorrection = 1002,
         cameraExposure = 1003,
         shadowResolution = 1004,
-        // heightFog = 1007,
+        atmosphericHeightFog = 1007,
         chromaticAberration = 1008,
         vignetteParam = 1009,
         fade = 1010,
         letterBox = 1011,
         modelClipping = 1012,
-        bossCutoff = 1014,
+        bossName = 1014,
         caption = 1015,
         sound = 1016,
         time = 1017,
