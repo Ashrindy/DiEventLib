@@ -11,22 +11,16 @@ namespace DiEventLib
         {
             this.filename = filename;
 
-            if (debugStuff ) 
-            {
-                Console.InputEncoding = Encoding.Unicode;
-                Console.OutputEncoding = Encoding.Unicode;
-            }
-
             string ReadDVString(ExtendedBinaryReader reader)
             {
-                char[] nameChars = new char[64];
+                byte[] nameBytes = new byte[64];
 
                 for (int x = 0; x < 64; x++)
                 {
-                    nameChars[x] = reader.ReadChar();
+                    nameBytes[x] = reader.ReadByte();
                 }
 
-                return new string(nameChars);
+                return Encoding.Unicode.GetString(nameBytes);
             }
 
             Guid ReadGUID(ExtendedBinaryReader reader)
@@ -200,8 +194,11 @@ namespace DiEventLib
                         childNodeRootPath.matrix.M43 = reader.ReadSingle();
                         childNodeRootPath.matrix.M44 = reader.ReadSingle();
                         childNodeRootPath.flag = reader.ReadUInt32();
-
-                        reader.JumpAhead(0x0c);
+                        childNodeRootPath.padding = new byte[12];
+                        for (int x = 0; (x < 12); x++)
+                        {
+                            childNodeRootPath.padding[x] = reader.ReadByte();
+                        }
 
                         childNode.info = childNodeRootPath;
                         break;
@@ -243,12 +240,13 @@ namespace DiEventLib
                         characterInfo childNodeCharacterInfo = new characterInfo();
                         childNodeCharacterInfo.field_00 = reader.ReadUInt32();
                         childNodeCharacterInfo.name1 = ReadDVString(reader);
+                        Console.WriteLine(childNodeCharacterInfo.name1);
                         childNodeCharacterInfo.name2 = ReadDVString(reader);
                         childNodeCharacterInfo.name3 = ReadDVString(reader);
-                        childNodeCharacterInfo.unk = new char[76];
+                        childNodeCharacterInfo.unk = new byte[76];
                         for (int x = 0; x < 76; x++)
                         {
-                            childNodeCharacterInfo.unk[x] = reader.ReadChar();
+                            childNodeCharacterInfo.unk[x] = reader.ReadByte();
                         }
 
                         childNode.info = childNodeCharacterInfo;
@@ -260,10 +258,10 @@ namespace DiEventLib
                         childNodeCharacterMotionInfo.frameStart = reader.ReadUInt32();
                         childNodeCharacterMotionInfo.frameEnd = reader.ReadUInt32();
                         reader.JumpAhead(0x04);
-                        childNodeCharacterMotionInfo.asmStateName = new char[8];
+                        childNodeCharacterMotionInfo.asmStateName = new byte[8];
                         for(int x = 0; x < 8; x++)
                         {
-                            childNodeCharacterMotionInfo.asmStateName[x] = reader.ReadChar();
+                            childNodeCharacterMotionInfo.asmStateName[x] = reader.ReadByte();
                         }
                         childNodeCharacterMotionInfo.field_50 = reader.ReadUInt32();
                         childNodeCharacterMotionInfo.field_54 = reader.ReadUInt32();
@@ -285,10 +283,10 @@ namespace DiEventLib
                         childNodeModelCustomInfo.name1 = ReadDVString(reader);
                         childNodeModelCustomInfo.name2 = ReadDVString(reader);
                         childNodeModelCustomInfo.name3 = ReadDVString(reader);
-                        childNodeModelCustomInfo.unk = new char[76];
+                        childNodeModelCustomInfo.unk = new byte[76];
                         for (int x = 0; x < 76; x++)
                         {
-                            childNodeModelCustomInfo.unk[x] = reader.ReadChar();
+                            childNodeModelCustomInfo.unk[x] = reader.ReadByte();
                         }
 
                         childNode.info = childNodeModelCustomInfo;
@@ -303,10 +301,10 @@ namespace DiEventLib
                         childNodemotionModelInfo.frameStart = reader.ReadUInt32();
                         childNodemotionModelInfo.frameEnd = reader.ReadUInt32();
                         reader.JumpAhead(0x04);
-                        childNodemotionModelInfo.asmStateName = new char[8];
+                        childNodemotionModelInfo.asmStateName = new byte[8];
                         for (int x = 0; x < 8; x++)
                         {
-                            childNodemotionModelInfo.asmStateName[x] = reader.ReadChar();
+                            childNodemotionModelInfo.asmStateName[x] = reader.ReadByte();
                         }
                         childNodemotionModelInfo.field_50 = reader.ReadUInt32();
                         childNodemotionModelInfo.field_54 = reader.ReadUInt32();
@@ -446,10 +444,10 @@ namespace DiEventLib
 
                             case (elementID)10:
                                 pathInterpolation elementPathInterpolation = new pathInterpolation();
-                                elementPathInterpolation.data = new char[592];
+                                elementPathInterpolation.data = new byte[592];
                                 for (int i = 0; i < 592; i++)
                                 {
-                                    elementPathInterpolation.data[i] = reader.ReadChar();
+                                    elementPathInterpolation.data[i] = reader.ReadByte();
                                 }
 
                                 childNodeElementInfo.info = elementPathInterpolation;
@@ -489,10 +487,10 @@ namespace DiEventLib
                                 visAnim elementVisAnim = new visAnim();
                                 elementVisAnim.field_40 = reader.ReadUInt32();
                                 elementVisAnim.filename = ReadDVString(reader);
-                                elementVisAnim.data1 = new char[16];
+                                elementVisAnim.data1 = new byte[16];
                                 for (int i = 0; i < 16; i++)
                                 {
-                                    elementVisAnim.data1[i] = reader.ReadChar();
+                                    elementVisAnim.data1[i] = reader.ReadByte();
                                 }
 
                                 childNodeElementInfo.info = elementVisAnim;
@@ -513,10 +511,10 @@ namespace DiEventLib
                             case (elementID)16:
                                 compAnim elementCompAnim = new compAnim();
                                 elementCompAnim.field_60 = reader.ReadUInt32();
-                                elementCompAnim.data = new char[8];
+                                elementCompAnim.data = new byte[8];
                                 for(int i = 0; i < 8; i++)
                                 {
-                                    elementCompAnim.data[i] = reader.ReadChar();
+                                    elementCompAnim.data[i] = reader.ReadByte();
                                 }
                                 elementCompAnim.field_6c = reader.ReadUInt32();
                                 elementCompAnim.animations = new anim[16];
@@ -632,10 +630,10 @@ namespace DiEventLib
 
                             case (elementID)1007:
                                 fog elementFog = new fog();
-                                elementFog.data = new char[300];
+                                elementFog.data = new byte[300];
                                 for(int i =0; i <300; i++)
                                 {
-                                    elementFog.data[i] = reader.ReadChar();
+                                    elementFog.data[i] = reader.ReadByte();
                                 }
 
                                 childNodeElementInfo.info = elementFog;
@@ -713,10 +711,10 @@ namespace DiEventLib
 
                             case (elementID)1012:
                                 modelClipping elementModelClipping = new modelClipping();
-                                elementModelClipping.data = new char[20];
+                                elementModelClipping.data = new byte[20];
                                 for (int i = 0; i < 20; i++)
                                 {
-                                    elementModelClipping.data[i] = reader.ReadChar();
+                                    elementModelClipping.data[i] = reader.ReadByte();
                                 }
 
                                 childNodeElementInfo.info = elementModelClipping;
@@ -732,10 +730,10 @@ namespace DiEventLib
 
                             case (elementID)1015:
                                 caption elementCaption = new caption();
-                                elementCaption.captionName = new char[16];
+                                elementCaption.captionName = new byte[16];
                                 for (int i = 0; i < 16; i++)
                                 {
-                                    elementCaption.captionName[i] = reader.ReadChar();
+                                    elementCaption.captionName[i] = reader.ReadByte();
                                 }
                                 elementCaption.languageType = (languageType)reader.ReadUInt32();
                                 elementCaption.padding = reader.ReadUInt32();
@@ -752,10 +750,10 @@ namespace DiEventLib
 
                             case (elementID)1017:
                                 time elementTime = new time();
-                                elementTime.data = new char[164];
+                                elementTime.data = new byte[164];
                                 for (int i = 0; i < 164; i++)
                                 {
-                                    elementTime.data[i] = reader.ReadChar();
+                                    elementTime.data[i] = reader.ReadByte();
                                 }
 
                                 childNodeElementInfo.info = elementTime;
@@ -840,18 +838,18 @@ namespace DiEventLib
                                 elementQTE.whiteLineOutlineThickness = reader.ReadSingle();
                                 elementQTE.failCount = reader.ReadUInt32();
                                 elementQTE.field_88 = reader.ReadUInt32();
-                                elementQTE.field_8c = new char[64];
+                                elementQTE.field_8c = new byte[64];
                                 for(int i = 0; i < 64; i++)
                                 {
-                                    elementQTE.field_8c[i] = reader.ReadChar();
+                                    elementQTE.field_8c[i] = reader.ReadByte();
                                 }
                                 elementQTE.field_cc = reader.ReadSingle();
                                 elementQTE.field_d0 = reader.ReadSingle();
                                 elementQTE.field_d4 = reader.ReadSingle();
-                                elementQTE.field_d8 = new char[264];
+                                elementQTE.field_d8 = new byte[264];
                                 for(int i = 0; i < 264; i++)
                                 {
-                                    elementQTE.field_d8[i] = reader.ReadChar();
+                                    elementQTE.field_d8[i] = reader.ReadByte();
                                 }
 
                                 childNodeElementInfo.info = elementQTE;
@@ -863,10 +861,10 @@ namespace DiEventLib
 
                             case (elementID)1027:
                                 aura elementAura = new aura();
-                                elementAura.data = new char[204];
+                                elementAura.data = new byte[204];
                                 for(int i = 0; i < 204; i++)
                                 {
-                                    elementAura.data[i] = reader.ReadChar();
+                                    elementAura.data[i] = reader.ReadByte();
                                 }
 
                                 childNodeElementInfo.info = elementAura;
@@ -1014,13 +1012,14 @@ namespace DiEventLib
                     tempResource.flags = reader.ReadUInt32();
                     tempResource.field_18 = reader.ReadUInt32();
 
-                    var builder = new StringBuilder();
+                    byte[] nameBytes = new byte[192];
 
-                    for (int y = 0; y < 192; y++)
+                    for (int x = 0; x < 192; x++)
                     {
-                        builder.Append(reader.ReadChar());
+                        nameBytes[x] = reader.ReadByte();
                     }
-                    tempResource.filename = builder.ToString();
+
+                    tempResource.filename = Encoding.Unicode.GetString(nameBytes);
 
                     tempResource.data = new List<byte>();
 
@@ -1033,6 +1032,7 @@ namespace DiEventLib
                 }
             }
 
+            reader.Close();
             return diEvent;
         }
     }

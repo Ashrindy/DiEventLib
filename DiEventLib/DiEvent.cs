@@ -129,7 +129,7 @@ namespace DiEventLib
     {
         public Matrix4x4 matrix;
         public uint flag;
-        public byte[]? padding;
+        public byte[] padding;
     }
 
     public struct cameraInfo
@@ -156,7 +156,7 @@ namespace DiEventLib
         public string name1;
         public string name2;
         public string name3;
-        public char[] unk;
+        public byte[] unk;
     }
 
     public struct characterMotionInfo
@@ -165,7 +165,7 @@ namespace DiEventLib
         public uint frameStart;
         public uint frameEnd;
         public uint field_0c;
-        public char[] asmStateName;
+        public byte[] asmStateName;
         public float field_50;
         public uint field_54;
         public uint[] field_58;
@@ -182,7 +182,7 @@ namespace DiEventLib
         public string name1;
         public string name2;
         public string name3;
-        public char[] unk;
+        public byte[] unk;
     }
 
     public struct motionModelInfo
@@ -191,7 +191,7 @@ namespace DiEventLib
         public uint frameStart;
         public uint frameEnd;
         public uint field_0c;
-        public char[] asmStateName;
+        public byte[] asmStateName;
         public float field_50;
         public uint field_54;
         public uint[] field_58;
@@ -254,7 +254,7 @@ namespace DiEventLib
 
     public struct pathInterpolation
     {
-        public char[] data;
+        public byte[] data;
     }
 
     public struct culling
@@ -276,7 +276,7 @@ namespace DiEventLib
     {
         public uint field_40;
         public string filename;
-        public char[] data1;
+        public byte[] data1;
     }
 
     public struct matAnim
@@ -306,7 +306,7 @@ namespace DiEventLib
     public struct compAnim
     {
         public uint field_60;
-        public char[] data;
+        public byte[] data;
         public uint field_6c;
         public anim[] animations;
         public uint field_03;
@@ -403,7 +403,7 @@ namespace DiEventLib
 
     public struct modelClipping
     {
-        public char[] data;
+        public byte[] data;
     }
 
     public enum languageType
@@ -424,7 +424,7 @@ namespace DiEventLib
 
     public struct caption
     {
-        public char[] captionName;
+        public byte[] captionName;
         public languageType languageType;
         public uint padding;
     }
@@ -438,7 +438,7 @@ namespace DiEventLib
 
     public struct time
     {
-        public char[] data;
+        public byte[] data;
     }
 
     public struct lookAtIK
@@ -511,11 +511,11 @@ namespace DiEventLib
         public float whiteLineOutlineThickness;
         public uint failCount;
         public uint field_88;
-        public char[] field_8c;
+        public byte[] field_8c;
         public float field_cc;
         public float field_d0;
         public float field_d4;
-        public char[] field_d8;
+        public byte[] field_d8;
     }
 
     public struct overrideASM
@@ -525,7 +525,7 @@ namespace DiEventLib
 
     public struct aura
     {
-        public char[] data;
+        public byte[] data;
     }
 
     public struct changeTimeScale
@@ -619,7 +619,7 @@ namespace DiEventLib
 
     public struct fog
     {
-        public char[] data;
+        public byte[] data;
     }
 
     #endregion
