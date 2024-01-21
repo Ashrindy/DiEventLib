@@ -1,5 +1,5 @@
-﻿using HedgeLib.IO;
-using System.Resources;
+﻿using DiEventLib.Elements;
+using HedgeLib.IO;
 using System.Text;
 
 namespace DiEventLib

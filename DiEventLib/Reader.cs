@@ -1,5 +1,6 @@
 ﻿using HedgeLib.IO;
 using System.Text;
+using DiEventLib.Elements;
 
 namespace DiEventLib
 {
