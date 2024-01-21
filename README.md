@@ -1,6 +1,4 @@
 # `DiEventLib (C# Library)`
-[![downloads](https://img.shields.io/github/downloads/Ashrindy/DiEventLib/total?color=green)](#)
-</br>
 **_C# library for Sonic Frontiers (.dvscene)_**
 ## 📜 Description 📜
 A library with simple reading and writing function for the .dvscene file from Sonic Frontiers 
