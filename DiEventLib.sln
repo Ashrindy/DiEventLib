@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiEventLib", "DiEventLib\DiEventLib.csproj", "{A82B2498-3EC7-43FB-B32B-FDF3DC8FC221}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiEventTest", "DiSceneTest\DiEventTest.csproj", "{C3C233E3-80A9-4403-A3AB-5D2CFA7ACAEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HedgeLib", "HedgeLib\HedgeLib.csproj", "{EEB16FCA-FF9F-40B5-9D43-F2460AA930C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A82B2498-3EC7-43FB-B32B-FDF3DC8FC221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82B2498-3EC7-43FB-B32B-FDF3DC8FC221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82B2498-3EC7-43FB-B32B-FDF3DC8FC221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82B2498-3EC7-43FB-B32B-FDF3DC8FC221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C233E3-80A9-4403-A3AB-5D2CFA7ACAEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C233E3-80A9-4403-A3AB-5D2CFA7ACAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C233E3-80A9-4403-A3AB-5D2CFA7ACAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C233E3-80A9-4403-A3AB-5D2CFA7ACAEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB16FCA-FF9F-40B5-9D43-F2460AA930C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB16FCA-FF9F-40B5-9D43-F2460AA930C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB16FCA-FF9F-40B5-9D43-F2460AA930C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB16FCA-FF9F-40B5-9D43-F2460AA930C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CB8179A-2D43-4F7D-BBF6-E4DBA954BFD6}
+	EndGlobalSection
+EndGlobal
