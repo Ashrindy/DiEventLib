@@ -18,7 +18,7 @@ A library with simple reading and writing function for the .dvscene file from So
 
 |                      Name                       |   Use   |
 | :---------------------------------------------: | :------:|
-|     [HedgeLib](https://github.com/Radfordhound/HedgeLib/tree/master)     | Used for it upgraded and better binary reader and writer |
+|     [HedgeLib](https://github.com/Radfordhound/HedgeLib/tree/master)     | Used for its upgraded and better binary reader and writer |
 
 ## 📝 Documentation 📝
 ### Reading
