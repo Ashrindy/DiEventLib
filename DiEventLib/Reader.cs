@@ -200,6 +200,7 @@ namespace DiEventLib
                         childNodeRootPath.matrix.M43 = reader.ReadSingle();
                         childNodeRootPath.matrix.M44 = reader.ReadSingle();
                         childNodeRootPath.flag = reader.ReadUInt32();
+
                         reader.JumpAhead(0x0c);
 
                         childNode.info = childNodeRootPath;
