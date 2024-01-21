@@ -143,46 +143,14 @@ namespace DiEventLib
                 switch (childNode.category)
                 {
                     case (nodeCategory)1:
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M11);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M12);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M13);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M14);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M21);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M22);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M23);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M24);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M31);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M32);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M33);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M34);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M41);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M42);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M43);
-                        Writer.Write(((rootPathInfo)childNode.info).matrix.M44);
-                        Writer.Write(((rootPathInfo)childNode.info).flag);
-
-                        foreach(var i in ((rootPathInfo)childNode.info).padding)
-                        {
-                            Writer.Write(i);
-                        }
+                        DvPath path = new DvPath(childNode, writer: Writer);
                         break;
 
                     case (nodeCategory)2:
                         break;
 
                     case (nodeCategory)3:
-                        Writer.Write(((cameraInfo)childNode.info).flag);
-                        Writer.Write(((cameraInfo)childNode.info).frameProgressionCount);
-                        Writer.Write(((cameraInfo)childNode.info).captionCount);
-                        Writer.AddOffset("02", 0x04);
-                        foreach(var i in ((cameraInfo)childNode.info).frameProgression)
-                        {
-                            Writer.Write(i);
-                        }
-                        foreach (var i in ((cameraInfo)childNode.info).frameProgressionSpeed)
-                        {
-                            Writer.Write(i);
-                        }
+                        DvCamera camera = new DvCamera(childNode, writer: Writer);
                         break;
 
                     case (nodeCategory)4:

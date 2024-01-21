@@ -179,54 +179,14 @@ namespace DiEventLib
                 switch (childNode.category)
                 {
                     case (nodeCategory)1:
-                        rootPathInfo childNodeRootPath = new rootPathInfo();
-                        childNodeRootPath.matrix.M11 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M12 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M13 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M14 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M21 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M22 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M23 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M24 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M31 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M32 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M33 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M34 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M41 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M42 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M43 = reader.ReadSingle();
-                        childNodeRootPath.matrix.M44 = reader.ReadSingle();
-                        childNodeRootPath.flag = reader.ReadUInt32();
-                        childNodeRootPath.padding = new byte[12];
-                        for (int x = 0; (x < 12); x++)
-                        {
-                            childNodeRootPath.padding[x] = reader.ReadByte();
-                        }
-
-                        childNode.info = childNodeRootPath;
+                        childNode.info = new DvPath(reader: reader);
                         break;
 
                     case (nodeCategory)2:
                         break;
 
                     case (nodeCategory)3:
-                        cameraInfo childNodeCameraInfo = new cameraInfo();
-                        childNodeCameraInfo.flag = reader.ReadUInt32();
-                        childNodeCameraInfo.frameProgressionCount = reader.ReadUInt32();
-                        childNodeCameraInfo.captionCount = reader.ReadUInt32();
-                        reader.JumpAhead(0x04);
-                        childNodeCameraInfo.frameProgression = new float[childNodeCameraInfo.frameProgressionCount];
-                        childNodeCameraInfo.frameProgressionSpeed = new float[childNodeCameraInfo.frameProgressionCount];
-                        for(int i = 0; i < childNodeCameraInfo.frameProgressionCount; i++)
-                        {
-                            childNodeCameraInfo.frameProgression[i] = reader.ReadSingle();
-                        }
-                        for (int i = 0; i < childNodeCameraInfo.frameProgressionCount; i++)
-                        {
-                            childNodeCameraInfo.frameProgressionSpeed[i] = reader.ReadSingle();
-                        }
-
-                        childNode.info = childNodeCameraInfo;
+                        childNode.info = new DvCamera(reader: reader);
                         break;
 
                     case (nodeCategory)4:
