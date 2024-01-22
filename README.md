@@ -30,3 +30,17 @@ DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
 Writer writer = new Writer();
 writer.WriteDvScene("file-path-where-to-write", your-diEvent);
 ```
+
+### Better Casting
+```csharp
+Reader reader = new Reader();
+DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
+
+uint amountOfFrame = diEvent.GetNodeByGUID(Guid.Parse("your-guid")).GetInfoByType<DvCamera>().cameraInfo.frameProgressionCount;
+```
+```csharp
+Reader reader = new Reader();
+DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
+
+byte[] name = diEvent.GetNodeByGUID(Guid.Parse("your-guid")).GetInfoByType<DvElement>().GetElementInfoByType<DvElementCaption>().caption.captionName;
+```
