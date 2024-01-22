@@ -1,5 +1,6 @@
 ﻿using DiEventLib;
 using DiEventLib.Nodes;
+using DiEventLib.Nodes.NodeTypes;
 using System.Text;
 
 namespace DiEventTest
