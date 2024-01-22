@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiEventLib.Nodes.NodeTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,11 @@ namespace DiEventLib.Nodes
         public string name;
         public object info;
         public List<node> children;
+
+        public DvNodeObject GetInfoByType<DvNodeObject>()
+        {
+            return (DvNodeObject)info;
+        }
     }
 
     public enum nodeCategory

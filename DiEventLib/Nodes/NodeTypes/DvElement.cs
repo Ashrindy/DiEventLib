@@ -106,6 +106,19 @@ namespace DiEventLib.Nodes.NodeTypes
             if (reader != null) { Read(reader); } else if (writer != null) { Write(writer, Node); }
         }
 
+        public DvNodeObject GetElementInfoByType<DvNodeObject>()
+        {
+            object result = null;
+            try
+            {
+                result = (DvNodeObject)elementInfo.info;
+            }
+            catch
+            {
+            }
+            return (DvNodeObject)result;
+        }
+
         public override void Read(ExtendedBinaryReader reader)
         {
             elementInfo.elementID = (elementID)reader.ReadUInt32();

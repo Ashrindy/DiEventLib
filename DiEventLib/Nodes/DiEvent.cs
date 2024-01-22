@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using DiEventLib.Nodes.NodeTypes;
 
 namespace DiEventLib.Nodes
 {
@@ -13,6 +13,20 @@ namespace DiEventLib.Nodes
             this.sceneHeader = sceneHeader;
             this.common = common;
             this.resources = resources;
+        }
+
+        public node GetNodeByGUID(Guid guid) 
+        {
+            node returnValue = null;
+            if (common.nodes.Find(i => i.guid == guid) == null)
+            {
+                throw new Exception();
+            } else
+            {
+                returnValue = common.nodes.Find(i => i.guid == guid);
+            }
+
+            return returnValue;
         }
     }
 
