@@ -28,5 +28,5 @@ DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
 ### Writing
 ```csharp
 Writer writer = new Writer();
-writer.WriteDvScene("file-path-where-to-writer", your-diEvent);
+writer.WriteDvScene("file-path-where-to-write", your-diEvent);
 ```
