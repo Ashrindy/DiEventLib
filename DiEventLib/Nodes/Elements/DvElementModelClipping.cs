@@ -8,33 +8,26 @@ using System.Threading.Tasks;
 
 namespace DiEventLib.Nodes.Elements
 {
-    public struct cameraOffset
+    public struct modelClipping
     {
-        public float[] data;
-        public float[] animData;
+        public byte[] data;
     }
 
-    public class DvElementCameraOffset : DvNodeObject
+    public class DvElementModelClipping : DvNodeObject
     {
-        public cameraOffset cameraOffset;
+        public modelClipping modelClipping;
 
-        public DvElementCameraOffset(node Node = null, ExtendedBinaryReader reader = null, ExtendedBinaryWriter writer = null)
+        public DvElementModelClipping(node Node = null, ExtendedBinaryReader reader = null, ExtendedBinaryWriter writer = null)
         {
             if (reader != null) { Read(reader); } else if (writer != null) { Write(writer, Node); }
         }
 
         public override void Read(ExtendedBinaryReader reader)
         {
-            cameraOffset.data = new float[12];
-            for (int i = 0; i < 12; i++)
+            modelClipping.data = new byte[20];
+            for (int i = 0; i < 20; i++)
             {
-                cameraOffset.data[i] = reader.ReadSingle();
-            }
-
-            cameraOffset.animData = new float[256];
-            for (int i = 0; i < 256; i++)
-            {
-                cameraOffset.animData[i] = reader.ReadSingle();
+                modelClipping.data[i] = reader.ReadByte();
             }
         }
 

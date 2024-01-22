@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DiEventLib.Nodes.NodeTypes;
+using HedgeLib.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +20,39 @@ namespace DiEventLib.Nodes.Elements
     {
         public RGBA32 color;
         public float[] curveData;
+    }
+
+    public class DvElementFade : DvNodeObject
+    {
+        public fade fade;
+
+        public DvElementFade(node Node = null, ExtendedBinaryReader reader = null, ExtendedBinaryWriter writer = null)
+        {
+            if (reader != null) { Read(reader); } else if (writer != null) { Write(writer, Node); }
+        }
+
+        public override void Read(ExtendedBinaryReader reader)
+        {
+            fade.color.A = reader.ReadUInt32();
+            fade.color.B = reader.ReadUInt32();
+            fade.color.G = reader.ReadUInt32();
+            fade.color.R = reader.ReadUInt32();
+            fade.curveData = new float[32];
+            for (int i = 0; i < 32; i++)
+            {
+                fade.curveData[i] = reader.ReadSingle();
+            }
+        }
+
+        public override void Write(ExtendedBinaryWriter Writer, node Node)
+        {
+            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
+            Writer.Write(((DvPath)Node.info).rootPath.flag);
+
+            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            {
+                Writer.Write(i);
+            }
+        }
     }
 }

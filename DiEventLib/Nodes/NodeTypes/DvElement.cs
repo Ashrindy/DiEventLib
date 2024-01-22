@@ -124,41 +124,11 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)3:
-                    drawOff elementDrawOff = new drawOff();
-                    elementDrawOff.field_00 = new uint[4];
-                    for (int i = 0; i < 4; i++)
-                    {
-                        elementDrawOff.field_00[i] = reader.ReadUInt32();
-                    }
-
-                    elementInfo.info = elementDrawOff;
+                    elementInfo.info = new DvElementDrawOff(reader: reader);
                     break;
 
                 case (elementID)5:
-                    pathAdjustment elementPathAdjustment = new pathAdjustment();
-                    elementPathAdjustment.matrix.M11 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M12 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M13 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M14 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M21 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M22 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M23 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M24 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M31 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M32 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M33 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M34 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M41 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M42 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M43 = reader.ReadSingle();
-                    elementPathAdjustment.matrix.M44 = reader.ReadSingle();
-                    elementPathAdjustment.field_40 = new uint[4];
-                    for (int i = 0; i < 4; i++)
-                    {
-                        elementPathAdjustment.field_40[i] = reader.ReadUInt32();
-                    }
-
-                    elementInfo.info = elementPathAdjustment;
+                    elementInfo.info = new DvElementPathAdjustment(reader: reader);
                     break;
 
                 case (elementID)6:
@@ -166,66 +136,15 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)7:
-                    cameraShakeLoop elementCamShakeLoop = new cameraShakeLoop();
-                    elementCamShakeLoop.field_60 = reader.ReadUInt32();
-                    elementCamShakeLoop.field_64 = reader.ReadUInt32();
-                    elementCamShakeLoop.field_68 = new float[6];
-                    for (int i = 0; i < 6; i++)
-                    {
-                        elementCamShakeLoop.field_68[i] = reader.ReadSingle();
-                    }
-                    elementCamShakeLoop.field_curveData = new float[64];
-                    for (int i = 0; i < 64; i++)
-                    {
-                        elementCamShakeLoop.field_curveData[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementCamShakeLoop;
+                    elementInfo.info = new DvElementCameraShakeLoop(reader: reader);
                     break;
 
                 case (elementID)8:
-                    effect elementEffect = new effect();
-                    elementEffect.matrix.M11 = reader.ReadSingle();
-                    elementEffect.matrix.M12 = reader.ReadSingle();
-                    elementEffect.matrix.M13 = reader.ReadSingle();
-                    elementEffect.matrix.M14 = reader.ReadSingle();
-                    elementEffect.matrix.M21 = reader.ReadSingle();
-                    elementEffect.matrix.M22 = reader.ReadSingle();
-                    elementEffect.matrix.M23 = reader.ReadSingle();
-                    elementEffect.matrix.M24 = reader.ReadSingle();
-                    elementEffect.matrix.M31 = reader.ReadSingle();
-                    elementEffect.matrix.M32 = reader.ReadSingle();
-                    elementEffect.matrix.M33 = reader.ReadSingle();
-                    elementEffect.matrix.M34 = reader.ReadSingle();
-                    elementEffect.matrix.M41 = reader.ReadSingle();
-                    elementEffect.matrix.M42 = reader.ReadSingle();
-                    elementEffect.matrix.M43 = reader.ReadSingle();
-                    elementEffect.matrix.M44 = reader.ReadSingle();
-                    elementEffect.field_9c = reader.ReadUInt32();
-                    elementEffect.filename = Helper.ReadDVString(reader);
-                    elementEffect.field_dc = new uint[8];
-                    for (int i = 0; i < 8; i++)
-                    {
-                        elementEffect.field_dc[i] = reader.ReadUInt32();
-                    }
-                    elementEffect.animData = new float[128];
-                    for (int i = 0; i < 128; i++)
-                    {
-                        elementEffect.animData[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementEffect;
+                    elementInfo.info = new DvElementEffect(reader: reader);
                     break;
 
                 case (elementID)10:
-                    pathInterpolation elementPathInterpolation = new pathInterpolation();
-                    elementPathInterpolation.data = new byte[592];
-                    for (int i = 0; i < 592; i++)
-                    {
-                        elementPathInterpolation.data[i] = reader.ReadByte();
-                    }
-
-                    elementInfo.info = elementPathInterpolation;
+                    elementInfo.info = new DvElementPathInterpolation(reader: reader);
                     break;
 
                 case (elementID)11:
@@ -233,145 +152,39 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)12:
-                    nearFarSetting elementNearFarSetting = new nearFarSetting();
-                    elementNearFarSetting.field_00 = reader.ReadUInt32();
-                    elementNearFarSetting.near = reader.ReadSingle();
-                    elementNearFarSetting.far = reader.ReadSingle();
-                    elementNearFarSetting.field_10 = new uint[5];
-                    for (int i = 0; i < 5; i++)
-                    {
-                        elementNearFarSetting.field_10[i] = reader.ReadUInt32();
-                    }
-
-                    elementInfo.info = elementNearFarSetting;
+                    elementInfo.info = new DvElementNearFarSetting(reader: reader);
                     break;
 
                 case (elementID)13:
-                    uvAnim elementUVAnim = new uvAnim();
-                    elementUVAnim.field_00 = reader.ReadUInt32();
-                    elementUVAnim.filename = Helper.ReadDVString(reader);
-                    elementUVAnim.Field44 = reader.ReadUInt32();
-                    elementUVAnim.Field48 = reader.ReadSingle();
-                    elementUVAnim.Field4C = reader.ReadUInt32();
-                    elementUVAnim.Field50 = reader.ReadUInt32();
-
-                    elementInfo.info = elementUVAnim;
+                    elementInfo.info = new DvElementUVAnimation(reader: reader);
                     break;
 
                 case (elementID)14:
-                    visAnim elementVisAnim = new visAnim();
-                    elementVisAnim.field_40 = reader.ReadUInt32();
-                    elementVisAnim.filename = Helper.ReadDVString(reader);
-                    elementVisAnim.data1 = new byte[16];
-                    for (int i = 0; i < 16; i++)
-                    {
-                        elementVisAnim.data1[i] = reader.ReadByte();
-                    }
-
-                    elementInfo.info = elementVisAnim;
+                    elementInfo.info = new DvElementVisibilityAnimation(reader: reader);
                     break;
 
                 case (elementID)15:
-                    matAnim elementMatAnim = new matAnim();
-                    elementMatAnim.field_00 = reader.ReadUInt32();
-                    elementMatAnim.filename = Helper.ReadDVString(reader);
-                    elementMatAnim.Field44 = reader.ReadUInt32();
-                    elementMatAnim.Field48 = reader.ReadSingle();
-                    elementMatAnim.Field4C = reader.ReadUInt32();
-                    elementMatAnim.Field50 = reader.ReadUInt32();
-
-                    elementInfo.info = elementMatAnim;
+                    elementInfo.info = new DvElementMaterialAnimation(reader: reader);
                     break;
 
                 case (elementID)16:
-                    compAnim elementCompAnim = new compAnim();
-                    elementCompAnim.field_60 = reader.ReadUInt32();
-                    elementCompAnim.data = new byte[8];
-                    for (int i = 0; i < 8; i++)
-                    {
-                        elementCompAnim.data[i] = reader.ReadByte();
-                    }
-                    elementCompAnim.field_6c = reader.ReadUInt32();
-                    elementCompAnim.animations = new anim[16];
-                    for (int i = 0; i < 16; i++)
-                    {
-                        elementCompAnim.animations[i] = new anim();
-                        elementCompAnim.animations[i].animType = (animType)reader.ReadUInt32();
-                        elementCompAnim.animations[i].filename = Helper.ReadDVString(reader);
-                    }
-                    elementCompAnim.field_03 = reader.ReadUInt32();
-
-                    elementInfo.info = elementCompAnim;
+                    elementInfo.info = new DvElementComplexAnimation(reader: reader);
                     break;
 
                 case (elementID)17:
-                    cameraOffset elementCameraOffset = new cameraOffset();
-                    elementCameraOffset.data = new float[12];
-                    for (int i = 0; i < 12; i++)
-                    {
-                        elementCameraOffset.data[i] = reader.ReadSingle();
-                    }
-
-                    elementCameraOffset.animData = new float[256];
-                    for (int i = 0; i < 256; i++)
-                    {
-                        elementCameraOffset.animData[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementCameraOffset;
+                    elementInfo.info = new DvElementCameraOffset(reader: reader);
                     break;
 
                 case (elementID)20:
-                    sonicCam elementSonicCam = new sonicCam();
-                    elementSonicCam.field_4c = new float[80];
-                    for (int i = 0; i < 80; i++)
-                    {
-                        elementSonicCam.field_4c[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementSonicCam;
+                    elementInfo.info = new DvElementSonicCamera(reader: reader);
                     break;
 
                 case (elementID)21:
-                    gameCam elementGameCam = new gameCam();
-                    elementGameCam.field_4c = new float[26];
-                    for (int i = 0; i < 26; i++)
-                    {
-                        elementGameCam.field_4c[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementGameCam;
+                    elementInfo.info = new DvElementGameCamera(reader: reader);
                     break;
 
                 case (elementID)1001:
-                    dof elementDOF = new dof();
-                    elementDOF.field_60 = reader.ReadUInt32();
-                    elementDOF.field_64 = reader.ReadSingle();
-                    elementDOF.field_68 = reader.ReadSingle();
-                    elementDOF.field_6c = reader.ReadSingle();
-                    elementDOF.far1 = reader.ReadSingle();
-                    elementDOF.field_74 = reader.ReadSingle();
-                    elementDOF.field_78 = reader.ReadSingle();
-                    elementDOF.field_7c = reader.ReadSingle();
-                    elementDOF.far2 = reader.ReadSingle();
-                    elementDOF.field_84 = reader.ReadSingle();
-                    elementDOF.field_88 = reader.ReadSingle();
-                    elementDOF.field_8c = reader.ReadUInt32();
-                    elementDOF.field_90 = reader.ReadUInt32();
-                    elementDOF.field_94 = reader.ReadSingle();
-                    elementDOF.field_98 = reader.ReadSingle();
-                    elementDOF.field_9c = reader.ReadSingle();
-                    elementDOF.field_a0 = reader.ReadSingle();
-                    elementDOF.field_a4 = reader.ReadSingle();
-                    elementDOF.field_a8 = reader.ReadSingle();
-                    elementDOF.field_ac = reader.ReadSingle();
-                    elementDOF.animData = new float[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementDOF.animData[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementDOF;
+                    elementInfo.info = new DvElementDOF(reader: reader);
                     break;
 
                 case (elementID)1002:
@@ -379,257 +192,75 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)1003:
-                    camExposure elementCamExposure = new camExposure();
-                    elementCamExposure.unk1 = reader.ReadInt32();
-                    elementCamExposure.field_48 = new float[7];
-                    for (int i = 0; i < 7; i++)
-                    {
-                        elementCamExposure.field_48[i] = reader.ReadSingle();
-                    }
-                    elementCamExposure.field_80 = new float[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementCamExposure.field_80[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementCamExposure;
+                    elementInfo.info = new DvElementCameraExposure(reader: reader);
                     break;
 
                 case (elementID)1004:
-                    shadowRes elementShadowRes = new shadowRes();
-                    elementShadowRes.shadowRes1 = reader.ReadUInt32();
-                    elementShadowRes.shadowRes2 = reader.ReadUInt32();
-
-                    elementInfo.info = elementShadowRes;
+                    elementInfo.info = new DvElementShadowResolution(reader: reader);
                     break;
 
                 case (elementID)1007:
-                    fog elementFog = new fog();
-                    elementFog.data = new byte[300];
-                    for (int i = 0; i < 300; i++)
-                    {
-                        elementFog.data[i] = reader.ReadByte();
-                    }
-
-                    elementInfo.info = elementFog;
+                    elementInfo.info = new DvElementFog(reader: reader);
                     break;
 
                 case (elementID)1008:
-                    chromaticAberration elementChromatic = new chromaticAberration();
-                    elementChromatic.data = new float[17];
-                    for (int i = 0; i < 17; i++)
-                    {
-                        elementChromatic.data[i] = reader.ReadSingle();
-                    }
-                    elementChromatic.data1 = new float[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementChromatic.data1[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementChromatic;
+                    elementInfo.info = new DvElementChromaticAberration(reader: reader);
                     break;
 
                 case (elementID)1009:
-                    vignette elementVignette = new vignette();
-                    elementVignette.data1 = new float[9];
-                    for (int i = 0; i < 9; i++)
-                    {
-                        elementVignette.data1[i] = reader.ReadSingle();
-                    }
-                    elementVignette.data2 = reader.ReadInt32();
-                    elementVignette.data3 = new float[24];
-                    for (int i = 0; i < 24; i++)
-                    {
-                        elementVignette.data3[i] = reader.ReadSingle();
-                    }
-                    elementVignette.data4 = reader.ReadInt32();
-                    elementVignette.data5 = new float[15];
-                    for (int i = 0; i < 15; i++)
-                    {
-                        elementVignette.data5[i] = reader.ReadSingle();
-                    }
-                    elementVignette.data6 = new float[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementVignette.data6[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementVignette;
+                    elementInfo.info = new DvElementVignette(reader: reader);
                     break;
 
                 case (elementID)1010:
-                    fade elementFade = new fade();
-                    elementFade.color.A = reader.ReadUInt32();
-                    elementFade.color.B = reader.ReadUInt32();
-                    elementFade.color.G = reader.ReadUInt32();
-                    elementFade.color.R = reader.ReadUInt32();
-                    elementFade.curveData = new float[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementFade.curveData[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementFade;
+                    elementInfo.info = new DvElementFade(reader: reader);
                     break;
 
                 case (elementID)1011:
-                    letterBox elementLetterBox = new letterBox();
-                    elementLetterBox.curveData = new float[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementLetterBox.curveData[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementLetterBox;
+                    elementInfo.info = new DvElementLetterBox(reader: reader);
                     break;
 
                 case (elementID)1012:
-                    modelClipping elementModelClipping = new modelClipping();
-                    elementModelClipping.data = new byte[20];
-                    for (int i = 0; i < 20; i++)
-                    {
-                        elementModelClipping.data[i] = reader.ReadByte();
-                    }
-
-                    elementInfo.info = elementModelClipping;
+                    elementInfo.info = new DvElementModelClipping(reader: reader);
                     break;
 
                 case (elementID)1014:
-                    bossName elementBossName = new bossName();
-                    elementBossName.field_00 = reader.ReadUInt32();
-                    elementBossName.bossID = (bossID)reader.ReadUInt32();
-
-                    elementInfo.info = elementBossName;
+                    elementInfo.info = new DvElementBossName(reader: reader);
                     break;
 
                 case (elementID)1015:
-                    caption elementCaption = new caption();
-                    elementCaption.captionName = new byte[16];
-                    for (int i = 0; i < 16; i++)
-                    {
-                        elementCaption.captionName[i] = reader.ReadByte();
-                    }
-                    elementCaption.languageType = (languageType)reader.ReadUInt32();
-                    elementCaption.padding = reader.ReadUInt32();
-
-                    elementInfo.info = elementCaption;
+                    elementInfo.info = new DvElementCaption(reader: reader);
                     break;
 
                 case (elementID)1016:
-                    sound elementSound = new sound();
-                    elementSound.cueName = Helper.ReadDVString(reader);
-                    elementSound.field_a0 = reader.ReadUInt32();
-                    elementSound.field_a4 = reader.ReadUInt32();
-
-                    elementInfo.info = elementSound;
+                    elementInfo.info = new DvElementSound(reader: reader);
                     break;
 
                 case (elementID)1017:
-                    time elementTime = new time();
-                    elementTime.data = new byte[164];
-                    for (int i = 0; i < 164; i++)
-                    {
-                        elementTime.data[i] = reader.ReadByte();
-                    }
-
-                    elementInfo.info = elementTime;
+                    elementInfo.info = new DvElementTime(reader: reader);
                     break;
 
                 case (elementID)1018:
-                    sun elementSun = new sun();
-                    elementSun.field_00 = reader.ReadUInt32();
-                    elementSun.unkFloat = reader.ReadSingle();
-                    elementSun.field_01 = new uint[5];
-                    for (int i = 0; i < 5; i++)
-                    {
-                        elementSun.field_01[i] = reader.ReadUInt32();
-                    }
-                    elementSun.animData = new uint[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementSun.animData[i] = reader.ReadUInt32();
-                    }
-
-                    elementInfo.info = elementSun;
+                    elementInfo.info = new DvElementSun(reader: reader);
                     break;
 
                 case (elementID)1019:
-                    lookAtIK elementLookAtIK = new lookAtIK();
-                    elementLookAtIK.field_60 = reader.ReadUInt32();
-                    elementLookAtIK.field_64 = reader.ReadUInt32();
-                    elementLookAtIK.guid = Helper.ReadGUID(reader);
-                    elementLookAtIK.field_78 = new uint[11];
-                    for (int i = 0; i < 11; i++)
-                    {
-                        elementLookAtIK.field_78[i] = reader.ReadUInt32();
-                    }
-                    elementLookAtIK.field_80 = new float[64];
-                    for (int i = 0; i < 64; i++)
-                    {
-                        elementLookAtIK.field_80[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementLookAtIK;
+                    elementInfo.info = new DvElementLookAtIK(reader: reader);
                     break;
 
                 case (elementID)1020:
-                    camBlur elementCamBlur = new camBlur();
-                    elementCamBlur.flag = reader.ReadUInt32();
-                    elementCamBlur.blurAmount = reader.ReadUInt32();
-                    elementCamBlur.curveData = new float[34];
-                    for (int i = 0; i < 34; i++)
-                    {
-                        elementCamBlur.curveData[i] = reader.ReadSingle();
-                    }
-
-                    elementInfo.info = elementCamBlur;
+                    elementInfo.info = new DvElementCameraBlur(reader: reader);
                     break;
 
                 case (elementID)1021:
-                    generalTrigger elementGeneralTrigger = new generalTrigger();
-                    elementGeneralTrigger.field_00 = reader.ReadUInt32();
-                    elementGeneralTrigger.triggerName = Helper.ReadDVString(reader);
-
-                    elementInfo.info = elementGeneralTrigger;
+                    elementInfo.info = new DvElementGeneralTrigger(reader: reader);
                     break;
 
                 case (elementID)1023:
-                    ditherParam elementDither = new ditherParam();
-                    elementDither.param1 = reader.ReadSingle();
-                    elementDither.param2 = reader.ReadSingle();
-
-                    elementInfo.info = elementDither;
+                    elementInfo.info = new DvElementDither(reader: reader);
                     break;
 
                 case (elementID)1024:
-                    QTE elementQTE = new QTE();
-                    elementQTE.qteType = (QTEType)reader.ReadUInt32();
-                    elementQTE.qteButton = (QTEButton)reader.ReadUInt32();
-                    elementQTE.redCircleSize = reader.ReadSingle();
-                    elementQTE.redCircleThickness = reader.ReadSingle();
-                    elementQTE.whiteLineThickness = reader.ReadSingle();
-                    elementQTE.whiteLineSpeed = reader.ReadSingle();
-                    elementQTE.multiplier = reader.ReadSingle();
-                    elementQTE.redCircleOutlineThickness = reader.ReadSingle();
-                    elementQTE.whiteLineOutlineThickness = reader.ReadSingle();
-                    elementQTE.failCount = reader.ReadUInt32();
-                    elementQTE.field_88 = reader.ReadUInt32();
-                    elementQTE.field_8c = new byte[64];
-                    for (int i = 0; i < 64; i++)
-                    {
-                        elementQTE.field_8c[i] = reader.ReadByte();
-                    }
-                    elementQTE.field_cc = reader.ReadSingle();
-                    elementQTE.field_d0 = reader.ReadSingle();
-                    elementQTE.field_d4 = reader.ReadSingle();
-                    elementQTE.field_d8 = new byte[264];
-                    for (int i = 0; i < 264; i++)
-                    {
-                        elementQTE.field_d8[i] = reader.ReadByte();
-                    }
-
-                    elementInfo.info = elementQTE;
+                    elementInfo.info = new DvElementQTE(reader: reader);
                     break;
 
                 case (elementID)1026:
@@ -637,14 +268,7 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)1027:
-                    aura elementAura = new aura();
-                    elementAura.data = new byte[204];
-                    for (int i = 0; i < 204; i++)
-                    {
-                        elementAura.data[i] = reader.ReadByte();
-                    }
-
-                    elementInfo.info = elementAura;
+                    elementInfo.info = new DvElementAura(reader: reader);
                     break;
 
                 case (elementID)1028:
@@ -652,27 +276,11 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)1029:
-                    cyberSpaceNoise elementCyberSpaceNoise = new cyberSpaceNoise();
-                    elementCyberSpaceNoise.field_4f = reader.ReadUInt32();
-                    elementCyberSpaceNoise.data = new float[32];
-                    for (int i = 0; i < 32; i++)
-                    {
-                        elementCyberSpaceNoise.data[i] = reader.ReadUInt32();
-                    }
-
-                    elementInfo.info = elementCyberSpaceNoise;
+                    elementInfo.info = new DvElementCyberSpaceNoise(reader: reader);
                     break;
 
                 case (elementID)1031:
-                    auraRoad elementAuraRoad = new auraRoad();
-                    elementAuraRoad.field_00 = reader.ReadUInt32();
-                    elementAuraRoad.animData = new float[64];
-                    for (int i = 0; i < 64; i++)
-                    {
-                        elementAuraRoad.animData[i] = reader.ReadUInt32();
-                    }
-
-                    elementInfo.info = elementAuraRoad;
+                    elementInfo.info = new DvElementAuraRoad(reader: reader);
                     break;
 
                 case (elementID)1032:
@@ -680,45 +288,11 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)1034:
-                    weather elementWeather = new weather();
-                    elementWeather.field_40 = new uint[33];
-                    for (int i = 0; i < 33; i++)
-                    {
-                        elementWeather.field_40[i] = reader.ReadUInt32();
-                    }
-
-                    elementInfo.info = elementWeather;
+                    elementInfo.info = new DvElementWeather(reader: reader);
                     break;
 
                 case (elementID)1036:
-                    variablePointLight elementPointLight = new variablePointLight();
-                    elementPointLight.unk1 = new float[7];
-                    for (int i = 0; i < 7; i++)
-                    {
-                        elementPointLight.unk1[i] = reader.ReadUInt32();
-                    }
-                    elementPointLight.unk2 = new int[6];
-                    for (int i = 0; i < 6; i++)
-                    {
-                        elementPointLight.unk2[i] = reader.ReadInt32();
-                    }
-                    elementPointLight.unk3 = new float[8];
-                    for (int i = 0; i < 8; i++)
-                    {
-                        elementPointLight.unk3[i] = reader.ReadUInt32();
-                    }
-                    elementPointLight.unk4 = reader.ReadInt32();
-                    elementPointLight.unk5 = new int[10];
-                    for (int i = 0; i < 10; i++)
-                    {
-                        elementPointLight.unk5[i] = reader.ReadInt32();
-                    }
-                    elementPointLight.data1 = new float[128];
-                    for (int i = 0; i < 128; i++)
-                    {
-                        elementPointLight.data1[i] = reader.ReadSingle();
-                    }
-                    elementInfo.info = elementPointLight;
+                    elementInfo.info = new DvElementVariablePointLight(reader: reader);
                     break;
 
                 case (elementID)1037:

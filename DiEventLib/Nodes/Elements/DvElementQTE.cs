@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DiEventLib.Nodes.NodeTypes;
+using HedgeLib.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,5 +55,54 @@ namespace DiEventLib.Nodes.Elements
         public float field_d0;
         public float field_d4;
         public byte[] field_d8;
+    }
+
+    public class DvElementQTE : DvNodeObject
+    {
+        public QTE QTE;
+
+        public DvElementQTE(node Node = null, ExtendedBinaryReader reader = null, ExtendedBinaryWriter writer = null)
+        {
+            if (reader != null) { Read(reader); } else if (writer != null) { Write(writer, Node); }
+        }
+
+        public override void Read(ExtendedBinaryReader reader)
+        {
+            QTE.qteType = (QTEType)reader.ReadUInt32();
+            QTE.qteButton = (QTEButton)reader.ReadUInt32();
+            QTE.redCircleSize = reader.ReadSingle();
+            QTE.redCircleThickness = reader.ReadSingle();
+            QTE.whiteLineThickness = reader.ReadSingle();
+            QTE.whiteLineSpeed = reader.ReadSingle();
+            QTE.multiplier = reader.ReadSingle();
+            QTE.redCircleOutlineThickness = reader.ReadSingle();
+            QTE.whiteLineOutlineThickness = reader.ReadSingle();
+            QTE.failCount = reader.ReadUInt32();
+            QTE.field_88 = reader.ReadUInt32();
+            QTE.field_8c = new byte[64];
+            for (int i = 0; i < 64; i++)
+            {
+                QTE.field_8c[i] = reader.ReadByte();
+            }
+            QTE.field_cc = reader.ReadSingle();
+            QTE.field_d0 = reader.ReadSingle();
+            QTE.field_d4 = reader.ReadSingle();
+            QTE.field_d8 = new byte[264];
+            for (int i = 0; i < 264; i++)
+            {
+                QTE.field_d8[i] = reader.ReadByte();
+            }
+        }
+
+        public override void Write(ExtendedBinaryWriter Writer, node Node)
+        {
+            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
+            Writer.Write(((DvPath)Node.info).rootPath.flag);
+
+            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            {
+                Writer.Write(i);
+            }
+        }
     }
 }
