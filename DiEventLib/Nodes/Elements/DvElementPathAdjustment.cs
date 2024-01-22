@@ -36,10 +36,9 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            Helper.WriteMatrix(Writer, ((DvElementPathAdjustment)prop.info).pathAdjustment.matrix);
+            foreach (var i in ((DvElementPathAdjustment)prop.info).pathAdjustment.field_40)
             {
                 Writer.Write(i);
             }

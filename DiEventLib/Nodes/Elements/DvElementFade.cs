@@ -46,10 +46,13 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            fade elementFade = ((DvElementFade)prop.info).fade;
+            Writer.Write(elementFade.color.A);
+            Writer.Write(elementFade.color.B);
+            Writer.Write(elementFade.color.G);
+            Writer.Write(elementFade.color.R);
+            foreach (var i in elementFade.curveData)
             {
                 Writer.Write(i);
             }

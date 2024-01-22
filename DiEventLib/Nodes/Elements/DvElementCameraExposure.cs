@@ -41,10 +41,15 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            camExposure elementCamExposure = ((DvElementCameraExposure)prop.info).camExposure;
+            Writer.Write(elementCamExposure.unk1);
+            elementCamExposure.field_48 = new float[7];
+            foreach (var i in elementCamExposure.field_48)
+            {
+                Writer.Write(i);
+            }
+            foreach (var i in elementCamExposure.field_80)
             {
                 Writer.Write(i);
             }

@@ -31,13 +31,10 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
-            {
-                Writer.Write(i);
-            }
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            ditherParam elementDither = ((DvElementDither)prop.info).dither;
+            Writer.Write(elementDither.param1);
+            Writer.Write(elementDither.param2);
         }
     }
 }

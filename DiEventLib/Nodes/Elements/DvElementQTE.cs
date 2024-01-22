@@ -96,10 +96,27 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            QTE elementQTE = ((DvElementQTE)prop.info).QTE;
+            Writer.Write((uint)elementQTE.qteType);
+            Writer.Write((uint)elementQTE.qteButton);
+            Writer.Write(elementQTE.redCircleSize);
+            Writer.Write(elementQTE.redCircleThickness);
+            Writer.Write(elementQTE.whiteLineThickness);
+            Writer.Write(elementQTE.whiteLineSpeed);
+            Writer.Write(elementQTE.multiplier);
+            Writer.Write(elementQTE.redCircleOutlineThickness);
+            Writer.Write(elementQTE.whiteLineOutlineThickness);
+            Writer.Write(elementQTE.failCount);
+            Writer.Write(elementQTE.field_88);
+            foreach (var i in elementQTE.field_8c)
+            {
+                Writer.Write(i);
+            }
+            Writer.Write(elementQTE.field_cc);
+            Writer.Write(elementQTE.field_d0);
+            Writer.Write(elementQTE.field_d4);
+            foreach (var i in elementQTE.field_d8)
             {
                 Writer.Write(i);
             }

@@ -39,13 +39,14 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
-            {
-                Writer.Write(i);
-            }
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            uvAnim elementUVAnim = ((DvElementUVAnimation)prop.info).uvAnim;
+            Writer.Write(elementUVAnim.field_00);
+            Helper.WriteDvString(Writer, elementUVAnim.filename);
+            Writer.Write(elementUVAnim.Field44);
+            Writer.Write(elementUVAnim.Field48);
+            Writer.Write(elementUVAnim.Field4C);
+            Writer.Write(elementUVAnim.Field50);
         }
     }
 }

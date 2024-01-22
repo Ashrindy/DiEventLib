@@ -43,10 +43,16 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            sun elementSun = ((DvElementSun)prop.info).sun;
+            Writer.Write(elementSun.field_00);
+            Writer.Write(elementSun.unkFloat);
+            elementSun.field_01 = new uint[5];
+            foreach (var i in elementSun.field_01)
+            {
+                Writer.Write(i);
+            }
+            foreach (var i in elementSun.animData)
             {
                 Writer.Write(i);
             }

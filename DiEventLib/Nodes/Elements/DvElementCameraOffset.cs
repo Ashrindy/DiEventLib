@@ -40,10 +40,14 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            cameraOffset elementCameraOffset = ((DvElementCameraOffset)prop.info).cameraOffset;
+            foreach (var i in elementCameraOffset.data)
+            {
+                Writer.Write(i);
+            }
 
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            foreach (var i in elementCameraOffset.animData)
             {
                 Writer.Write(i);
             }

@@ -73,10 +73,29 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            dof elementDOF = ((DvElementDOF)prop.info).DOF;
+            Writer.Write(elementDOF.field_60);
+            Writer.Write(elementDOF.field_64);
+            Writer.Write(elementDOF.field_68);
+            Writer.Write(elementDOF.field_6c);
+            Writer.Write(elementDOF.far1);
+            Writer.Write(elementDOF.field_74);
+            Writer.Write(elementDOF.field_78);
+            Writer.Write(elementDOF.field_7c);
+            Writer.Write(elementDOF.far2);
+            Writer.Write(elementDOF.field_84);
+            Writer.Write(elementDOF.field_88);
+            Writer.Write(elementDOF.field_8c);
+            Writer.Write(elementDOF.field_90);
+            Writer.Write(elementDOF.field_94);
+            Writer.Write(elementDOF.field_98);
+            Writer.Write(elementDOF.field_9c);
+            Writer.Write(elementDOF.field_a0);
+            Writer.Write(elementDOF.field_a4);
+            Writer.Write(elementDOF.field_a8);
+            Writer.Write(elementDOF.field_ac);
+            foreach (var i in elementDOF.animData)
             {
                 Writer.Write(i);
             }

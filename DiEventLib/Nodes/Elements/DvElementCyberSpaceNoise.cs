@@ -35,10 +35,10 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            cyberSpaceNoise elementCyberSpaceNoise = ((DvElementCyberSpaceNoise)prop.info).cyberSpaceNoise;
+            Writer.Write(elementCyberSpaceNoise.field_4f);
+            foreach (var i in elementCyberSpaceNoise.data)
             {
                 Writer.Write(i);
             }

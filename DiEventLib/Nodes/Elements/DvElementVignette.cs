@@ -55,10 +55,23 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            vignette elementVignette = ((DvElementVignette)prop.info).vignette;
+            foreach (var i in elementVignette.data1)
+            {
+                Writer.Write(i);
+            }
+            Writer.Write(elementVignette.data2);
+            foreach (var i in elementVignette.data3)
+            {
+                Writer.Write(i);
+            }
+            Writer.Write(elementVignette.data4);
+            foreach (var i in elementVignette.data5)
+            {
+                Writer.Write(i);
+            }
+            foreach (var i in elementVignette.data6)
             {
                 Writer.Write(i);
             }

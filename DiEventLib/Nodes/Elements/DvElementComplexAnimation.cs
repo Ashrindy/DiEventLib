@@ -60,13 +60,20 @@ namespace DiEventLib.Nodes.Elements
 
         public override void Write(ExtendedBinaryWriter Writer, node Node)
         {
-            Helper.WriteMatrix(Writer, ((DvPath)Node.info).rootPath.matrix);
-            Writer.Write(((DvPath)Node.info).rootPath.flag);
-
-            foreach (var i in ((DvPath)Node.info).rootPath.padding)
+            elementProperties prop = ((DvElement)Node.info).elementInfo;
+            compAnim elementCompAnim = ((DvElementComplexAnimation)prop.info).compAnim;
+            Writer.Write(elementCompAnim.field_60);
+            foreach (var i in elementCompAnim.data)
             {
                 Writer.Write(i);
             }
+            Writer.Write(elementCompAnim.field_6c);
+            foreach (var i in elementCompAnim.animations)
+            {
+                Writer.Write((uint)i.animType);
+                Helper.WriteDvString(Writer, i.filename);
+            }
+            Writer.Write(elementCompAnim.field_03);
         }
     }
 }
