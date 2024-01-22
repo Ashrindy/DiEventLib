@@ -1,5 +1,6 @@
 ﻿using DiEventLib;
 using DiEventLib.Nodes;
+using DiEventLib.Nodes.Elements;
 using DiEventLib.Nodes.NodeTypes;
 using System.Text;
 
@@ -32,7 +33,7 @@ namespace DiEventTest
               Console.WriteLine("GUID: " + i.guid);
               if (i.category == nodeCategory.element)
               {
-                   Console.WriteLine("Type: " + i.category + " - " + ((elementProperties)i.info).elementID);
+                   Console.WriteLine("Type: " + i.category + " - " + ((DvElement)i.info).elementInfo.elementID);
                }
                else
                {

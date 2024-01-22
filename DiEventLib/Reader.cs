@@ -14,29 +14,6 @@ namespace DiEventLib
         {
             this.filename = filename;
 
-            string ReadDVString(ExtendedBinaryReader reader)
-            {
-                byte[] nameBytes = new byte[64];
-
-                for (int x = 0; x < 64; x++)
-                {
-                    nameBytes[x] = reader.ReadByte();
-                }
-
-                return Encoding.Unicode.GetString(nameBytes);
-            }
-
-            Guid ReadGUID(ExtendedBinaryReader reader)
-            {
-                byte[] guidBytes = new byte[16];
-
-                for (int x = 0; x < 16; x++)
-                {
-                    guidBytes[x] = reader.ReadByte();
-                }
-                return new Guid(guidBytes);
-            }
-
             ExtendedBinaryReader reader = new(File.OpenRead(filename));
 
             uint commonPointer = reader.ReadUInt32() + 32;
@@ -163,7 +140,7 @@ namespace DiEventLib
             {
                 node childNode = new node();
 
-                childNode.guid = ReadGUID(reader);
+                childNode.guid = Helper.ReadGUID(reader);
                 childNode.category = (nodeCategory)reader.ReadUInt32();
                 childNode.nodeSize = reader.ReadInt32();
                 childNode.childCount = reader.ReadInt32();
@@ -174,7 +151,7 @@ namespace DiEventLib
                 {
                     childNode.padding[x] = reader.ReadByte();
                 }
-                childNode.name = ReadDVString(reader);
+                childNode.name = Helper.ReadDVString(reader);
 
                 switch (childNode.category)
                 {
@@ -269,7 +246,7 @@ namespace DiEventLib
                 {
                     resource tempResource = new resource();
 
-                    tempResource.guid = ReadGUID(reader);
+                    tempResource.guid = Helper.ReadGUID(reader);
                     tempResource.resourceType = (resourceKind)reader.ReadUInt32();
                     tempResource.flags = reader.ReadUInt32();
                     tempResource.field_18 = reader.ReadUInt32();

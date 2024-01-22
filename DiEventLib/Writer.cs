@@ -17,24 +17,6 @@ namespace DiEventLib
                 Console.OutputEncoding = Encoding.Unicode;
             }
 
-            void WriteGUID(ExtendedBinaryWriter Writer, Guid guid)
-            {
-                int index = 0;
-                foreach (var i in guid.ToByteArray())
-                {
-                    Writer.Write(i);
-                    index++;
-                }
-            }
-
-            void WriteDvString(ExtendedBinaryWriter Writer, string String)
-            {
-                foreach (var i in Encoding.Unicode.GetBytes(String))
-                {
-                    Writer.Write(i);
-                }
-            }
-
             ExtendedBinaryWriter Writer = new(File.Create(filename), encoding: Encoding.Unicode);
 
             Writer.Write(diEvent.sceneHeader.commonPointer - 32);
@@ -128,7 +110,7 @@ namespace DiEventLib
 
             void saveFirstNodeChild(node childNode)
             {
-                WriteGUID(Writer, childNode.guid);
+                Helper.WriteGUID(Writer, childNode.guid);
                 Writer.Write((uint)childNode.category);
                 Writer.Write(childNode.nodeSize);
                 Writer.Write(childNode.childCount);
@@ -138,7 +120,7 @@ namespace DiEventLib
                 {
                     Writer.Write(i);
                 }
-                WriteDvString(Writer, childNode.name);
+                Helper.WriteDvString(Writer, childNode.name);
 
                 switch (childNode.category)
                 {
@@ -216,11 +198,11 @@ namespace DiEventLib
 
                 foreach(var tempResource in diEvent.resources.resources)
                 {
-                    WriteGUID(Writer, tempResource.guid);
+                    Helper.WriteGUID(Writer, tempResource.guid);
                     Writer.Write((uint)tempResource.resourceType);
                     Writer.Write(tempResource.flags);
                     Writer.Write(tempResource.field_18);
-                    WriteDvString(Writer, tempResource.filename);
+                    Helper.WriteDvString(Writer, tempResource.filename);
                     foreach(var i in tempResource.data)
                     {
                         Writer.Write(i);
