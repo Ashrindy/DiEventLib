@@ -201,7 +201,7 @@ namespace DiEventLib.Nodes.NodeTypes
                     break;
 
                 case (elementID)1002:
-                    reader.JumpAhead(0xA0);
+                    elementInfo.info = new DvElementColorCorrection(reader: reader);
                     break;
 
                 case (elementID)1003:
@@ -407,7 +407,7 @@ namespace DiEventLib.Nodes.NodeTypes
                         break;
 
                     case (elementID)1002:
-                        Writer.AddOffset("11", 0xA0);
+                        new DvElementColorCorrection(Node, writer: Writer);
                         break;
 
                     case (elementID)1003:
