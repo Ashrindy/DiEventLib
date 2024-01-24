@@ -17,6 +17,6 @@ public class DvElementLetterBox : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.WriteArray(CurveData);
     }
 }

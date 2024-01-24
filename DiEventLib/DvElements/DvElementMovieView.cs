@@ -14,6 +14,5 @@ public class DvElementMovieView : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
     }
 }

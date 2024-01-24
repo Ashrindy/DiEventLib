@@ -75,8 +75,37 @@ public class DvNodeElement : DvNodeObject
         writer.Write(PlayType);
         writer.Write(UpdateTiming);
         writer.Skip(4);
-        writer.Skip(NodeSize);
-        //Element.Write(writer);
+        // writer.Skip(NodeSize);
+        switch (ElementID)
+        {
+            case DvElementID.GameCamera:
+                Element.Write(writer);
+                break;
+            case DvElementID.Fade:
+                Element.Write(writer);
+                break;
+            case DvElementID.LetterBox:
+                Element.Write(writer);
+                break;
+            case DvElementID.Caption:
+                Element.Write(writer);
+                break;
+            /*
+            case DvElementID.QTE:
+                Element = new DvElementQTE(reader);
+                break;
+            */
+            case DvElementID.MovieView:
+                Element.Write(writer);
+                break;
+            case DvElementID.OpeningLogo:
+                Element.Write(writer);
+                break;
+
+            default:
+                writer.Skip(NodeSize);
+                break;
+        }
     }
 }
 

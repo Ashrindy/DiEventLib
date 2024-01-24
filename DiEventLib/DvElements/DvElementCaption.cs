@@ -20,7 +20,9 @@ public class DvElementCaption : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, Name, 16);
+        writer.Write(Language);
+        writer.Skip(4);
     }
 }
 
