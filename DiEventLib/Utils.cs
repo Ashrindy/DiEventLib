@@ -12,7 +12,13 @@ namespace DiEventLib;
 
             return result;
         }
-    }
+
+        public static void WriteObjectCollection<T>(this BinaryObjectWriter writer, IEnumerable<T> items) where T : IBinarySerializable
+        {
+            foreach (var item in items)
+                writer.WriteObject(item);
+        }
+}
 
 public struct RGBA32
 {

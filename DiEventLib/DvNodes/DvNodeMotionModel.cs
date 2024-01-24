@@ -41,7 +41,17 @@ public class DvNodeMotionModel : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Flags);
+        writer.Write(FrameStart * 100);
+        writer.Write(FrameEnd * 100);
+        writer.Write(Field0C);
+        writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, StateName, 8);
+        writer.Write(Field14);
+        writer.Write(Field18);
+        writer.Write(Field1C);
+        writer.Write(Field20);
+        writer.Write(Field24);
+        writer.Write(Field28);
     }
 
 }

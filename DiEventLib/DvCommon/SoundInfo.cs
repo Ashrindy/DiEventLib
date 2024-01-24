@@ -17,6 +17,9 @@ public class SoundInfo : DvObject, IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Count);
+        writer.Write(AllocatedSize);
+        writer.Skip(8);
+        writer.WriteCollection(Frames);
     }
 }

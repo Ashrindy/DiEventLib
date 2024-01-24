@@ -2,6 +2,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Reflection.PortableExecutable;
 namespace DiEventLib;
 
 public abstract class DvNodeObject : IBinarySerializable
@@ -87,7 +88,19 @@ public class DvNode : IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Guid);
+        writer.Write(Category);
+        writer.Write(NodeSize / 4);
+        writer.Write(ChildCount);
+        writer.Write(Flags);
+        writer.Write(Priority);
+        writer.Skip(12);
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, Name, 64);
+
+        NodeObject.Write(writer);
+
+        writer.WriteObjectCollection(ChildNodes);
     }
 
 }

@@ -6,6 +6,8 @@ namespace DiEventLib;
 public class DvNodeCamera : DvNodeObject
 {
     public uint Flags { get; set; }
+    public int FrameProgressionCount { get; set; }
+    public int CaptionCount { get; set; }
     public uint Field0C { get; set; }   // Is caption list ???
     public List<float> FrameProgression { get; set; } = new();
     public List<float> FrameProgressionSpeed { get; set; } = new();
@@ -16,16 +18,20 @@ public class DvNodeCamera : DvNodeObject
     public override void Read(BinaryObjectReader reader)
     {
         Flags = reader.Read<uint>();
-        int frameProgressionCount = reader.Read<int>();
-        int captionCount = reader.Read<int>();
+        FrameProgressionCount = reader.Read<int>();
+        CaptionCount = reader.Read<int>();
         Field0C = reader.Read<uint>();
-        FrameProgression.AddRange(reader.ReadArray<float>(frameProgressionCount));
-        FrameProgressionSpeed.AddRange(reader.ReadArray<float>(frameProgressionCount));
+        FrameProgression.AddRange(reader.ReadArray<float>(FrameProgressionCount));
+        FrameProgressionSpeed.AddRange(reader.ReadArray<float>(FrameProgressionCount));
     }
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Flags);
+        writer.Write(FrameProgressionCount);
+        writer.Write(CaptionCount); 
+        writer.Write(Field0C);
+        writer.WriteCollection(FrameProgression);
+        writer.WriteCollection(FrameProgressionSpeed);
     }
-
 }

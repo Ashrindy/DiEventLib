@@ -21,7 +21,9 @@ public class DvNodeModelNode : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Field00);
+        writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, NodeName, 64);
+        writer.Skip(12);
     }
 
 }

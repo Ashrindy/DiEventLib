@@ -1,5 +1,6 @@
 ﻿using Amicitia.IO.Binary;
 using System.Text;
+using static DiEventLib.DisableFrameInfo;
 
 namespace DiEventLib;
 
@@ -18,7 +19,10 @@ public class DvPageConditionQTE : DvObject, IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Count);
+        writer.Write(AllocatedSize);
+        writer.Skip(8);
+        writer.WriteObjectCollection(Entries);
     }
 }
 
@@ -67,7 +71,25 @@ public class DvPage : IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Version); 
+        writer.Write(Flags);
+        writer.Write(Start * 100);
+        writer.Write(End * 100);
+        writer.Write(TransitionCount); 
+        writer.Write(TransitionSize); 
+        writer.Write(SkipFrame * 100);
+        writer.Write(Index);
+        writer.Write(SkipLinkIndexNum);
+        writer.Skip(12);
+        writer.WriteString(Encoding.UTF8, StringBinaryFormat.FixedLength, Name, 64);
+        if (SkipLinkIndexNum != 0)
+        {
+            writer.Write(Field50); 
+            writer.Write(Field54); 
+            writer.Write(Field58);
+            writer.Write(Field5C);
+        }
+        writer.WriteObjectCollection(Transitions);
     }
 }
 
@@ -91,7 +113,11 @@ public class Transition : IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(DestPageIndex); 
+        writer.Write(ConditionNum);
+        writer.Write(ConditionSize);
+        writer.Skip(4);
+        writer.WriteObjectCollection<Condition>(Conditions);
     }
 }
 
@@ -113,6 +139,9 @@ public class Condition : IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(ConditionType);
+        writer.Write(ParameterSize);
+        writer.Skip(8);
+        writer.WriteArray(Data);
     }
 }

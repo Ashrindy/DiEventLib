@@ -18,7 +18,10 @@ public class DvResource : DvObject, IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Count);
+        writer.Write(AllocatedSize);
+        writer.Skip(8);
+        writer.WriteObjectCollection(Entries);
     }
 }
 
@@ -57,6 +60,11 @@ public class ResourceEntry : IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Guid);
+        writer.Write(Type);
+        writer.Write(Field14);
+        writer.Write(Field18);
+        writer.WriteString(StringBinaryFormat.FixedLength, Name, 64);
+        writer.Skip(0x2D4);
     }
 }

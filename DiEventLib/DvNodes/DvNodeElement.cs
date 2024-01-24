@@ -2,6 +2,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Reflection.PortableExecutable;
 namespace DiEventLib;
 
 public class DvNodeElement : DvNodeObject
@@ -66,9 +67,17 @@ public class DvNodeElement : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(ElementID);
+        writer.Write(Start);
+        writer.Write(End);
+        writer.Write(Version);
+        writer.Write(Flags);
+        writer.Write(PlayType);
+        writer.Write(UpdateTiming);
+        writer.Skip(4);
+        writer.Skip(NodeSize);
+        //Element.Write(writer);
     }
-
 }
 
 public enum DvElementID : uint

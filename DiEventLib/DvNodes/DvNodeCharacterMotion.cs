@@ -41,7 +41,19 @@ public class DvNodeCharacterMotion : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Flags);
+        // DiEvent using ticks for these values (1 frame = 100 ticks)
+        writer.Write(FrameStart * 100);
+        writer.Write(FrameEnd * 100);
+        writer.Write(Field0C);
+        // Mostly is Dst0000
+        writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, StateName, 8);
+        writer.Write(Field14);
+        writer.Write(Field18);
+        writer.Write(Field1C);
+        writer.Write(Field20);
+        writer.Write(Field24);
+        writer.Write(Field28);
     }
 
 }

@@ -14,10 +14,11 @@ namespace DiEventTest
                 Console.WriteLine("What's the .dvscene?");
                 filepath = Console.ReadLine();
 
-           // Reader reader = new Reader();
+            //Reader reader = new Reader();
             //Writer writer = new Writer();
 
             DvScene diEvent = new(filepath);
+            diEvent.Write(filepath);
             //writer.WriteDvScene(filepath, diEvent);
 
 

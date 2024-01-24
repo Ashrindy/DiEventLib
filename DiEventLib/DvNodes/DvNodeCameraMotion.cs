@@ -24,7 +24,11 @@ public class DvNodeCameraMotion : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        throw new NotImplementedException();
+        writer.Write(Flags);
+        // DiEvent using ticks for these values (1 frame = 100 ticks)
+        writer.Write(FrameStart * 100);
+        writer.Write(FrameEnd * 100);
+        writer.Write(Field0C);
     }
 
 }
