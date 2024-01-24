@@ -65,6 +65,6 @@ public class ResourceEntry : IBinarySerializable
         writer.Write(Field14);
         writer.Write(Field18);
         writer.WriteString(StringBinaryFormat.FixedLength, Name, 64);
-        writer.Skip(0x2D4);
+        writer.WriteArray(new byte[0x2D4]);
     }
 }

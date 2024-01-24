@@ -25,8 +25,12 @@ namespace DiEventTest
             Console.WriteLine("");
             Console.WriteLine("Common:");
 
-            Console.WriteLine(((DvNodePath)diEvent.Common.Nodes.NodeObject).Position);
-            
+            foreach(var i in diEvent.Resource.Entries) 
+            { 
+                Console.WriteLine(i.Name); 
+                Console.WriteLine(i.Guid); 
+                Console.WriteLine(i.Type); 
+            } 
         }
     }
 }
