@@ -16,31 +16,11 @@ A library with simple reading and writing function for the .dvscene file from So
 
 |                      Name                       |   Use   |
 | :---------------------------------------------: | :------:|
-|     [HedgeLib](https://github.com/Radfordhound/HedgeLib/tree/master)     | Used for its upgraded and better binary reader and writer |
+|     [Amiticia.IO]([https://github.com/Radfordhound/HedgeLib/tree/master](https://github.com/tge-was-taken/Amicitia.IO))     | Used for its upgraded and better binary reader and writer |
 
 ## 📝 Documentation 📝
 ### Reading
 ```csharp
 Reader reader = new Reader();
 DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
-```
-
-### Writing
-```csharp
-Writer writer = new Writer();
-writer.WriteDvScene("file-path-where-to-write", your-diEvent);
-```
-
-### Better Casting
-```csharp
-Reader reader = new Reader();
-DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
-
-uint amountOfFrame = diEvent.GetNodeByGUID(Guid.Parse("your-guid")).GetInfoByType<DvCamera>().cameraInfo.frameProgressionCount;
-```
-```csharp
-Reader reader = new Reader();
-DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
-
-byte[] name = diEvent.GetNodeByGUID(Guid.Parse("your-guid")).GetInfoByType<DvElement>().GetElementInfoByType<DvElementCaption>().caption.captionName;
 ```
