@@ -1,13 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HedgeLib\HedgeLib\HedgeLib.csproj" />
+    <Compile Remove="Nodes\**" />
+    <EmbeddedResource Remove="Nodes\**" />
+    <None Remove="Nodes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helper.cs" />
+    <Compile Remove="Reader.cs" />
+    <Compile Remove="Resource.cs" />
+    <Compile Remove="Writer.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Runtime.Experimental" Version="6.0.2" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <!--<ProjectReference Include="..\HedgeLib\HedgeLib\HedgeLib.csproj" />-->
+	<ProjectReference Include="..\Amicitia.IO\src\Amicitia.IO\Amicitia.IO.csproj" />
   </ItemGroup>
 
 </Project>
