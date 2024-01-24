@@ -21,6 +21,5 @@ A library with simple reading and writing function for the .dvscene file from So
 ## 📝 Documentation 📝
 ### Reading
 ```csharp
-Reader reader = new Reader();
-DiEvent diEvent = reader.ReadDvScene("file-path-to-the-dvscene");
+DiEvent diEvent = new("file-path-to-the-dvscene");
 ```
