@@ -24,7 +24,7 @@ namespace DiEventTest
             Console.WriteLine("");
             Console.WriteLine("Common:");
 
-
+            Console.WriteLine(((DvNodePath)diEvent.Common.Nodes.NodeObject).Position);
             
         }
     }

@@ -34,7 +34,6 @@ public class DvNodeElement : DvNodeObject
         reader.Skip(4);
         switch (ElementID)
         {
-            /*
             case DvElementID.GameCamera:
                 Element = new DvElementGameCamera(reader);
                 break;
@@ -44,7 +43,6 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.LetterBox:
                 Element = new DvElementLetterBox(reader);
                 break;
-            */
             case DvElementID.Caption:
                 Element = new DvElementCaption(reader);
                 break;
@@ -52,11 +50,13 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.QTE:
                 Element = new DvElementQTE(reader);
                 break;
+            */
             case DvElementID.MovieView:
                 Element = new DvElementMovieView(reader);
                 break;
-            
-            */
+            case DvElementID.OpeningLogo:
+                Element = new DvElementOpeningLogo(reader);
+                break;
 
             default:
                 reader.Skip(NodeSize);
@@ -81,7 +81,7 @@ public enum DvElementID : uint
     Effect = 8,
     PathInterpolation = 10,
     Culling = 11,
-    // NearFarSetting = 12,
+    NearFarSetting = 12,
     UVAnimation = 13,
     VisibilityAnimation = 14,
     MaterialAnimation = 15,
@@ -93,7 +93,7 @@ public enum DvElementID : uint
     //SpotlightModel = 26,
 
     DOF = 1001,
-    //ColorCorrection = 1002,
+    ColorCorrection = 1002,
     CameraExposure = 1003,
     ShadowResolution = 1004,
     AtmosphereHeightFogParam = 1007,

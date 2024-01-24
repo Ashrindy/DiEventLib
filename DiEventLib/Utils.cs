@@ -14,3 +14,11 @@ namespace DiEventLib;
         }
     }
 
+public struct RGBA32
+{
+    public uint A;
+    public uint R;
+    public uint G;
+    public uint B;
+}
+
