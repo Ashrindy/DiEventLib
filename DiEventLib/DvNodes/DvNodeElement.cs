@@ -80,6 +80,24 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.DrawOff:
                 Element = new DvElementDrawOff(reader);
                 break;
+            case DvElementID.NearFarSetting:
+                Element = new DvElementNearFarSetting(reader);
+                break;
+            case DvElementID.CameraBlurParam:
+                Element = new DvElementCameraBlur(reader);
+                break;
+            case DvElementID.CameraExposure:
+                Element = new DvElementCameraExposure(reader);
+                break;
+            case DvElementID.CameraOffset:
+                Element = new DvElementCameraOffset(reader);
+                break;
+            case DvElementID.CameraShake:
+                Element = new DvElementCameraShake(reader);
+                break;
+            case DvElementID.CameraShakeLoop:
+                Element = new DvElementCameraShakeLoop(reader);
+                break;
             /*
             case DvElementID.QTE:
                 Element = new DvElementQTE(reader);
@@ -154,6 +172,24 @@ public class DvNodeElement : DvNodeObject
                 Element.Write(writer);
                 break;
             case DvElementID.DrawOff:
+                Element.Write(writer);
+                break;
+            case DvElementID.NearFarSetting:
+                Element.Write(writer);
+                break;
+            case DvElementID.CameraBlurParam:
+                Element.Write(writer);
+                break;
+            case DvElementID.CameraExposure:
+                Element.Write(writer);
+                break;
+            case DvElementID.CameraOffset:
+                Element.Write(writer);
+                break;
+            case DvElementID.CameraShake:
+                Element.Write(writer);
+                break;
+            case DvElementID.CameraShakeLoop:
                 Element.Write(writer);
                 break;
             /*
