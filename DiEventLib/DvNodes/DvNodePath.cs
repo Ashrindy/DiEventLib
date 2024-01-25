@@ -29,7 +29,7 @@ public class DvNodePath : DvNodeObject
         var mtxPos = Matrix4x4.CreateTranslation(Position);
         var mtxRot = Matrix4x4.CreateFromQuaternion(Rotation);
         var mtxSca = Matrix4x4.CreateScale(Scale);
-        writer.Write(mtxPos+mtxRot+mtxSca);
+        writer.Write(mtxPos*mtxRot*mtxSca);
         writer.Write(Flags);
         writer.Skip(12);
     }
