@@ -23,3 +23,7 @@ A library with simple reading and writing function for the .dvscene file from So
 ```csharp
 DiEvent diEvent = new("file-path-to-the-dvscene");
 ```
+### Writing
+```csharp
+diEvent.write("file-path-to-your-new-dvscene");
+```
