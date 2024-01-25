@@ -11,7 +11,7 @@ public class DvResource : DvObject, IBinarySerializable
     {
         Count = reader.Read<int>();
         AllocatedSize = reader.Read<int>();
-        reader.Skip(8);
+        Padding = reader.Read<long>();
         Entries.AddRange(reader.ReadObjectArray<ResourceEntry>(Count));
 
     }
@@ -20,7 +20,7 @@ public class DvResource : DvObject, IBinarySerializable
     {
         writer.Write(Count);
         writer.Write(AllocatedSize);
-        writer.Skip(8);
+        writer.Write(Padding);
         writer.WriteObjectCollection(Entries);
     }
 }

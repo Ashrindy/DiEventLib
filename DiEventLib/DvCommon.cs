@@ -9,6 +9,7 @@ public class DvObject
     public uint Pointer { get; set; }
     public int Count;
     public int AllocatedSize;
+    public long Padding;
 }
 
 public class DvCommon : IBinarySerializable
