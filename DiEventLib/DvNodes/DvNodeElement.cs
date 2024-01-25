@@ -47,6 +47,39 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.Caption:
                 Element = new DvElementCaption(reader);
                 break;
+            case DvElementID.DOF:
+                Element = new DvElementDOF(reader);
+                break;
+            case DvElementID.PathAdjustment:
+                Element = new DvElementPathAdjustment(reader);
+                break;
+            case DvElementID.PathInterpolation:
+                Element = new DvElementPathInterpolation(reader);
+                break;
+            case DvElementID.SonicCamera:
+                Element = new DvElementSonicCamera(reader);
+                break;
+            case DvElementID.Sound:
+                Element = new DvElementSound(reader);
+                break;
+            case DvElementID.Time:
+                Element = new DvElementTime(reader);
+                break;
+            case DvElementID.VignetteParam:
+                Element = new DvElementVignette(reader);
+                break;
+            case DvElementID.Weather:
+                Element = new DvElementWeather(reader);
+                break;
+            case DvElementID.ShadowResolution:
+                Element = new DvElementShadowResolution(reader);
+                break;
+            case DvElementID.RifleBeastLighting:
+                Element = new DvElementRifleBeastLighting(reader);
+                break;
+            case DvElementID.DrawOff:
+                Element = new DvElementDrawOff(reader);
+                break;
             /*
             case DvElementID.QTE:
                 Element = new DvElementQTE(reader);
@@ -88,6 +121,39 @@ public class DvNodeElement : DvNodeObject
                 Element.Write(writer);
                 break;
             case DvElementID.Caption:
+                Element.Write(writer);
+                break;
+            case DvElementID.DOF:
+                Element.Write(writer);
+                break;
+            case DvElementID.PathAdjustment:
+                Element.Write(writer);
+                break;
+            case DvElementID.PathInterpolation:
+                Element.Write(writer);
+                break;
+            case DvElementID.SonicCamera:
+                Element.Write(writer);
+                break;
+            case DvElementID.Sound:
+                Element.Write(writer);
+                break;
+            case DvElementID.Time:
+                Element.Write(writer);
+                break;
+            case DvElementID.VignetteParam:
+                Element.Write(writer);
+                break;
+            case DvElementID.Weather:
+                Element.Write(writer);
+                break;
+            case DvElementID.ShadowResolution:
+                Element.Write(writer);
+                break;
+            case DvElementID.RifleBeastLighting:
+                Element.Write(writer);
+                break;
+            case DvElementID.DrawOff:
                 Element.Write(writer);
                 break;
             /*
