@@ -24,6 +24,7 @@ A library with simple reading and writing function for the .dvscene file from So
 DiEvent diEvent = new("file-path-to-the-dvscene");
 ```
 ### Writing
+*(Writing currently randomly cuts off when writing resources)*
 ```csharp
 diEvent.Write("file-path-to-your-new-dvscene");
 ```
