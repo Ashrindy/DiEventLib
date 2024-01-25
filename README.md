@@ -25,5 +25,5 @@ DiEvent diEvent = new("file-path-to-the-dvscene");
 ```
 ### Writing
 ```csharp
-diEvent.write("file-path-to-your-new-dvscene");
+diEvent.Write("file-path-to-your-new-dvscene");
 ```
