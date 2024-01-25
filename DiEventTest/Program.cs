@@ -11,19 +11,15 @@ namespace DiEventTest
             Console.OutputEncoding = Encoding.GetEncoding("Shift-JIS");
             string filepath;
 
-                Console.WriteLine("What's the .dvscene?");
-                filepath = Console.ReadLine();
-
-            //Reader reader = new Reader();
-            //Writer writer = new Writer();
+            Console.WriteLine("What's the .dvscene?");
+            filepath = Console.ReadLine();
 
             DvScene diEvent = new(filepath);
             diEvent.Write(filepath);
-            //writer.WriteDvScene(filepath, diEvent);
 
 
             Console.WriteLine("");
-            Console.WriteLine("Common:");
+            Console.WriteLine("Resource:");
 
             foreach(var i in diEvent.Resource.Entries) 
             { 

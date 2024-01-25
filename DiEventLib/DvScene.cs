@@ -33,6 +33,7 @@ public class DvScene
         Common.Write(writer);
         writer.Seek(Resource.Pointer + 0x20, SeekOrigin.Begin);
         Resource.Write(writer);
+        writer.Dispose();
     }
 }
 

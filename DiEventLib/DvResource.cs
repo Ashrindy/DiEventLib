@@ -46,6 +46,7 @@ public class ResourceEntry : IBinarySerializable
     public int Field14 { get; set; }
     public int Field18 { get; set; }
     public string Name { get; set; }
+    public byte[] Data { get; set; }
 
     // TODO: Find Start and End like in Yakuza games
     public void Read(BinaryObjectReader reader)
@@ -54,8 +55,8 @@ public class ResourceEntry : IBinarySerializable
         Type = reader.Read<DvResourceType>();
         Field14 = reader.Read<int>();
         Field18 = reader.Read<int>();
-        Name = reader.ReadString(StringBinaryFormat.FixedLength,64);
-        reader.Skip(0x2D4);
+        Name = reader.ReadString(StringBinaryFormat.FixedLength,192);
+        Data = reader.ReadArray<byte>(0x254);
     }
 
     public void Write(BinaryObjectWriter writer)
@@ -64,7 +65,7 @@ public class ResourceEntry : IBinarySerializable
         writer.Write(Type);
         writer.Write(Field14);
         writer.Write(Field18);
-        writer.WriteString(StringBinaryFormat.FixedLength, Name, 64);
-        writer.WriteArray(new byte[0x2D4]);
+        writer.WriteString(StringBinaryFormat.FixedLength, Name, 192);
+        writer.WriteArray(Data);
     }
 }
