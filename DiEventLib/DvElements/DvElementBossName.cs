@@ -14,7 +14,7 @@ public class DvElementBossName : DvNodeObject
     public override void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
-        BossName = reader.Read<uint>();
+        BossName = reader.Read<BossID>();
     }
 
     public override void Write(BinaryObjectWriter writer)

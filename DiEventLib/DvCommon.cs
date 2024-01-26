@@ -85,7 +85,7 @@ public class DvCommon : IBinarySerializable
         writer.Seek(SoundInfo.Pointer + 0x20, SeekOrigin.Begin);
         SoundInfo.Write(writer);
         writer.Seek(NodesPointer + 0x20, SeekOrigin.Begin);
-        Nodes.Write(writer);
+        Node.Write(writer);
         writer.Skip(4);
     }
 }
