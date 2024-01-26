@@ -22,7 +22,7 @@ public class DvNode : IBinarySerializable
     public int Flags { get; set; }
     public int Priority { get; set; }
     public string Name { get; set; }
-    List<DvNode> ChildNodes { get; set; } = new();
+    public List<DvNode> ChildNodes { get; set; } = new();
     public DvNodeObject NodeObject { get; set; } = new DvNodePath();
 
     public void Read(BinaryObjectReader reader)
