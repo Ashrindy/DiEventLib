@@ -113,6 +113,9 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.Culling:
                 Element = new DvElementCulling(reader);
                 break;
+            case DvElementID.Effect:
+                Element = new DvElementEffect(reader);
+                break;
             /*
             case DvElementID.QTE:
                 Element = new DvElementQTE(reader);
@@ -220,6 +223,9 @@ public class DvNodeElement : DvNodeObject
                 Element.Write(writer);
                 break;
             case DvElementID.Culling:
+                Element.Write(writer);
+                break;
+            case DvElementID.Effect:
                 Element.Write(writer);
                 break;
             /*
