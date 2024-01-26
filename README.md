@@ -4,7 +4,7 @@
 A library with simple reading and writing function for the .dvscene file from Sonic Frontiers 
 </br>
 </br>
-<b>Huge credit goes to <a href="https://github.com/ik-01">ik-01</a>, who did the research of the .dvscene files and who refactored the entirety of this library, without his research this library wouldn't exist.</b>
+<b>Huge credit goes to <a href="https://github.com/ik-01">ik-01</a>, who did the research of the .dvscene files and who refactored the entirety of this library, without his research and help this library wouldn't exist.</b>
 
 ## 🗂️ Projects 🗂️
 
