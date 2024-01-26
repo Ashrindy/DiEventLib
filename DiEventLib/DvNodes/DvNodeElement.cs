@@ -98,6 +98,21 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.CameraShakeLoop:
                 Element = new DvElementCameraShakeLoop(reader);
                 break;
+            case DvElementID.Aura:
+                Element = new DvElementAura(reader);
+                break;
+            case DvElementID.AuraRoad:
+                Element = new DvElementAuraRoad(reader);
+                break;
+            case DvElementID.BossName:
+                Element = new DvElementBossName(reader);
+                break;
+            case DvElementID.ChangeTimeScale:
+                Element = new DvElementChangeTimeScale(reader);
+                break;
+            case DvElementID.Culling:
+                Element = new DvElementCulling(reader);
+                break;
             /*
             case DvElementID.QTE:
                 Element = new DvElementQTE(reader);
@@ -190,6 +205,21 @@ public class DvNodeElement : DvNodeObject
                 Element.Write(writer);
                 break;
             case DvElementID.CameraShakeLoop:
+                Element.Write(writer);
+                break;
+            case DvElementID.Aura:
+                Element.Write(writer);
+                break;
+            case DvElementID.AuraRoad:
+                Element.Write(writer);
+                break;
+            case DvElementID.BossName:
+                Element.Write(writer);
+                break;
+            case DvElementID.ChangeTimeScale:
+                Element.Write(writer);
+                break;
+            case DvElementID.Culling:
                 Element.Write(writer);
                 break;
             /*
