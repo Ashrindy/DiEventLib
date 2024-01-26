@@ -116,11 +116,55 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.Effect:
                 Element = new DvElementEffect(reader);
                 break;
-            /*
             case DvElementID.QTE:
                 Element = new DvElementQTE(reader);
                 break;
-            */
+            case DvElementID.ChromaticAberration:
+                Element = new DvElementChromaticAberration(reader);
+                break;
+            case DvElementID.ColorCorrection:
+                Element = new DvElementColorCorrection(reader);
+                break;
+            case DvElementID.CompositeAnimation:
+                Element = new DvElementCompositeAnimation(reader);
+                break;
+            case DvElementID.CyberSpaceNoise:
+                Element = new DvElementCyberSpaceNoise(reader);
+                break;
+            case DvElementID.DitherParam:
+                Element = new DvElementDither(reader);
+                break;
+            case DvElementID.AtmosphereHeightFogParam:
+                Element = new DvElementAtmosphereHeightFogParam(reader);
+                break;
+            case DvElementID.GeneralTrigger:
+                Element = new DvElementGeneralTrigger(reader);
+                break;
+            case DvElementID.LookAtIK:
+                Element = new DvElementLookAtIK(reader);
+                break;
+            case DvElementID.MaterialAnimation:
+                Element = new DvElementMaterialAnimation(reader);
+                break;
+            case DvElementID.ModelClipping:
+                Element = new DvElementModelClipping(reader);
+                break;
+            case DvElementID.OverrideASM:
+                Element = new DvElementOverrideASM(reader);
+                break;
+            case DvElementID.Sun:
+                Element = new DvElementSun(reader);
+                break;
+            case DvElementID.TheEndCableObject:
+                // Element = new DvElementTheEndCableObject(reader);
+                reader.Skip(NodeSize);
+                break;
+            case DvElementID.VariablePointLight:
+                Element = new DvElementVariablePointLight(reader);
+                break;
+            case DvElementID.VisibilityAnimation:
+                Element = new DvElementVisibilityAnimation(reader);
+                break;
             case DvElementID.MovieView:
                 Element = new DvElementMovieView(reader);
                 break;
@@ -144,106 +188,7 @@ public class DvNodeElement : DvNodeObject
         writer.Write(PlayType);
         writer.Write(UpdateTiming);
         writer.Skip(4);
-        // writer.Skip(NodeSize);
-        switch (ElementID)
-        {
-            case DvElementID.GameCamera:
-                Element.Write(writer);
-                break;
-            case DvElementID.Fade:
-                Element.Write(writer);
-                break;
-            case DvElementID.LetterBox:
-                Element.Write(writer);
-                break;
-            case DvElementID.Caption:
-                Element.Write(writer);
-                break;
-            case DvElementID.DOF:
-                Element.Write(writer);
-                break;
-            case DvElementID.PathAdjustment:
-                Element.Write(writer);
-                break;
-            case DvElementID.PathInterpolation:
-                Element.Write(writer);
-                break;
-            case DvElementID.SonicCamera:
-                Element.Write(writer);
-                break;
-            case DvElementID.Sound:
-                Element.Write(writer);
-                break;
-            case DvElementID.Time:
-                Element.Write(writer);
-                break;
-            case DvElementID.VignetteParam:
-                Element.Write(writer);
-                break;
-            case DvElementID.Weather:
-                Element.Write(writer);
-                break;
-            case DvElementID.ShadowResolution:
-                Element.Write(writer);
-                break;
-            case DvElementID.RifleBeastLighting:
-                Element.Write(writer);
-                break;
-            case DvElementID.DrawOff:
-                Element.Write(writer);
-                break;
-            case DvElementID.NearFarSetting:
-                Element.Write(writer);
-                break;
-            case DvElementID.CameraBlurParam:
-                Element.Write(writer);
-                break;
-            case DvElementID.CameraExposure:
-                Element.Write(writer);
-                break;
-            case DvElementID.CameraOffset:
-                Element.Write(writer);
-                break;
-            case DvElementID.CameraShake:
-                Element.Write(writer);
-                break;
-            case DvElementID.CameraShakeLoop:
-                Element.Write(writer);
-                break;
-            case DvElementID.Aura:
-                Element.Write(writer);
-                break;
-            case DvElementID.AuraRoad:
-                Element.Write(writer);
-                break;
-            case DvElementID.BossName:
-                Element.Write(writer);
-                break;
-            case DvElementID.ChangeTimeScale:
-                Element.Write(writer);
-                break;
-            case DvElementID.Culling:
-                Element.Write(writer);
-                break;
-            case DvElementID.Effect:
-                Element.Write(writer);
-                break;
-            /*
-            case DvElementID.QTE:
-                Element = new DvElementQTE(reader);
-                break;
-            */
-            case DvElementID.MovieView:
-                Element.Write(writer);
-                break;
-            case DvElementID.OpeningLogo:
-                Element.Write(writer);
-                break;
-
-            default:
-                writer.Skip(NodeSize);
-                break;
-        }
+        Element.Write(writer);
     }
 }
 
@@ -289,7 +234,7 @@ public enum DvElementID : uint
     DitherParam = 1023,
     QTE = 1024,
     LipAnimation = 1025,
-    OverrideAsm = 1026,
+    OverrideASM = 1026,
     Aura = 1027,
     ChangeTimeScale = 1028,
     CyberSpaceNoise = 1029,
