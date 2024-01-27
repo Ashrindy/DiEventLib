@@ -48,7 +48,7 @@ namespace DiEventTest
             mainNode.Name = "NearFarSettingTest";
             mainNode.NodeObject = element;
 
-            diEvent.Common.Node.ChildNodes.Add(mainNode);
+            diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, mainNode);
 
             diEvent.Write(filepath);
 

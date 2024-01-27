@@ -38,7 +38,7 @@ public class DvElementVignette : DvNodeObject
         Unk1 = reader.ReadArray<float>(4);
         Feather = reader.Read<float>();
         Radius2 = reader.Read<float>();
-        Unk2 = reader.ReadArray<float>(36);
+        Unk2 = reader.ReadArray<float>(34);
         CurveData = reader.ReadArray<float>(32);
     }
 
