@@ -23,7 +23,7 @@ public class DvNodeModelNode : DvNodeObject
     {
         writer.Write(Field00);
         writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, NodeName, 64);
-        writer.Skip(12);
+        writer.WriteNulls(12);
     }
 
 }

@@ -22,7 +22,7 @@ public class DvElementCaption : DvNodeObject
     {
         writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, Name, 16);
         writer.Write(Language);
-        writer.Skip(4);
+        writer.WriteNulls(4);
     }
 }
 

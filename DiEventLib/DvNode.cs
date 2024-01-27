@@ -94,7 +94,7 @@ public class DvNode : IBinarySerializable
         writer.Write(ChildCount);
         writer.Write(Flags);
         writer.Write(Priority);
-        writer.Skip(12);
+        writer.WriteNulls(12);
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, Name, 64);
 

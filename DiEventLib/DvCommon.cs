@@ -9,7 +9,6 @@ public class DvObject
     public uint Pointer { get; set; }
     public int Count;
     public int AllocatedSize;
-    public long Padding;
 }
 
 public class DvCommon : IBinarySerializable
@@ -86,7 +85,7 @@ public class DvCommon : IBinarySerializable
         SoundInfo.Write(writer);
         writer.Seek(NodesPointer + 0x20, SeekOrigin.Begin);
         Node.Write(writer);
-        writer.Skip(4);
+        writer.WriteNulls(4);
     }
 }
 

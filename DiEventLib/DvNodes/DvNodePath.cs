@@ -31,7 +31,7 @@ public class DvNodePath : DvNodeObject
         var mtxSca = Matrix4x4.CreateScale(Scale);
         writer.Write(mtxPos*mtxRot*mtxSca);
         writer.Write(Flags);
-        writer.Skip(12);
+        writer.WriteNulls(12);
     }
 
 }

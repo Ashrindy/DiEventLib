@@ -171,6 +171,12 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.OpeningLogo:
                 Element = new DvElementOpeningLogo(reader);
                 break;
+            case DvElementID.UVAnimation:
+                Element = new DvElementUVAnimation(reader);
+                break;
+            case DvElementID.SpotlightModel:
+                Element = new DvElementSpotlightModel(reader);
+                break;
 
             default:
                 reader.Skip(NodeSize);
@@ -187,7 +193,7 @@ public class DvNodeElement : DvNodeObject
         writer.Write(Flags);
         writer.Write(PlayType);
         writer.Write(UpdateTiming);
-        writer.Skip(4);
+        writer.WriteNulls(4);
         Element.Write(writer);
     }
 }
@@ -211,7 +217,7 @@ public enum DvElementID : uint
     // ModelFade = 18,
     SonicCamera = 20,
     GameCamera = 21,
-    //SpotlightModel = 26,
+    SpotlightModel = 26,
 
     DOF = 1001,
     ColorCorrection = 1002,
@@ -256,7 +262,16 @@ public enum ElementPlayType : uint
 
 public enum ElementUpdateTiming : uint
 {
-    Normal = 0x0,
-    Oneshot = 0x1,
-    Always = 0x2,
+    OnExecPath = 0,
+    OnPreUpdate = 1,
+    CharacterFixPosture = 2,
+    OnPostUpdateCharacter = 3,
+    OnUpdatePos = 4,
+    OnFixBonePosture = 5,
+    OnEvaluateDetailMotion = 6,
+    CharacterJobUpdate = 7,
+    ModifyPoseAfter = 8,
+    JobRegister = 9,
+    MotionUpdate = 10,
+    Normal = 2
 };

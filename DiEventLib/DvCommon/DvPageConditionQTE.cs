@@ -21,7 +21,7 @@ public class DvPageConditionQTE : DvObject, IBinarySerializable
     {
         writer.Write(Count);
         writer.Write(AllocatedSize);
-        writer.Skip(8);
+        writer.WriteNulls(8); 
         writer.WriteObjectCollection(Entries);
     }
 }
@@ -80,7 +80,7 @@ public class DvPage : IBinarySerializable
         writer.Write(SkipFrame * 100);
         writer.Write(Index);
         writer.Write(SkipLinkIndexNum);
-        writer.Skip(12);
+        writer.WriteNulls(12);
         writer.WriteString(Encoding.UTF8, StringBinaryFormat.FixedLength, Name, 64);
         if (SkipLinkIndexNum != 0)
         {
@@ -116,7 +116,7 @@ public class Transition : IBinarySerializable
         writer.Write(DestPageIndex); 
         writer.Write(ConditionNum);
         writer.Write(ConditionSize);
-        writer.Skip(4);
+        writer.WriteNulls(4);
         writer.WriteObjectCollection<Condition>(Conditions);
     }
 }
@@ -141,7 +141,7 @@ public class Condition : IBinarySerializable
     {
         writer.Write(ConditionType);
         writer.Write(ParameterSize);
-        writer.Skip(8);
+        writer.WriteNulls(8);
         writer.WriteArray(Data);
     }
 }

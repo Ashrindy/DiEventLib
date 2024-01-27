@@ -19,7 +19,7 @@ public class CutInfo : DvObject, IBinarySerializable
     {
         writer.Write(Count);
         writer.Write(AllocatedSize);
-        writer.Skip(8);
+        writer.WriteNulls(8);
         writer.WriteCollection(FrameCut);
     }
 }
