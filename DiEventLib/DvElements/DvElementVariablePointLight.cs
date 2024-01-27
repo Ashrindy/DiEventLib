@@ -10,7 +10,7 @@ public class DvElementVariablePointLight : DvNodeObject
     public float[] Unk3 { get; set; }
     public int Unk4 { get; set; }
     public int[] Unk5 { get; set; }
-    public float[] Data { get; set; }
+    public float[] CurveData { get; set; }
     public DvElementVariablePointLight() { }
     public DvElementVariablePointLight(BinaryObjectReader reader)
         => Read(reader);
@@ -21,7 +21,7 @@ public class DvElementVariablePointLight : DvNodeObject
         Unk3 = reader.ReadArray<float>(8);
         Unk4 = reader.Read<int>();
         Unk5 = reader.ReadArray<int>(10);
-        Data = reader.ReadArray<float>(128);
+        CurveData = reader.ReadArray<float>(128);
     }
 
     public override void Write(BinaryObjectWriter writer)
@@ -31,6 +31,6 @@ public class DvElementVariablePointLight : DvNodeObject
         writer.WriteArray(Unk3);
         writer.Write(Unk4);
         writer.WriteArray(Unk5);
-        writer.WriteArray(Data);
+        writer.WriteArray(CurveData);
     }
 }
