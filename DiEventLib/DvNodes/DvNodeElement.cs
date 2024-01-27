@@ -156,8 +156,7 @@ public class DvNodeElement : DvNodeObject
                 Element = new DvElementSun(reader);
                 break;
             case DvElementID.TheEndCableObject:
-                // Element = new DvElementTheEndCableObject(reader);
-                reader.Skip(NodeSize);
+                Element = new DvElementTheEndCableObject(reader);
                 break;
             case DvElementID.VariablePointLight:
                 Element = new DvElementVariablePointLight(reader);

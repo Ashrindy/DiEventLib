@@ -19,7 +19,7 @@ public class DvElementCameraShake : DvNodeObject
         Field_00 = reader.Read<uint>();
         Intensity = reader.Read<float>();
         Frequency = reader.Read<float>();
-        reader.Skip(12);
+        reader.Skip(16);
     }
 
     public override void Write(BinaryObjectWriter writer)
@@ -28,6 +28,6 @@ public class DvElementCameraShake : DvNodeObject
         writer.Write(Field_00);
         writer.Write(Intensity);
         writer.Write(Frequency);
-        writer.Skip(12);
+        writer.Skip(16);
     }
 }
