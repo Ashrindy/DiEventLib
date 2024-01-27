@@ -12,13 +12,13 @@ public class DvElementCyberSpaceNoise : DvNodeObject
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {
-        Field_4f = reader.Read<uint>();
-        Data = reader.ReadArray<float>(32);
+        Flags = reader.Read<uint>();
+        CurveData = reader.ReadArray<float>(32);
     }
 
     public override void Write(BinaryObjectWriter writer)
     {
-        writer.Write(Field_4f);
-        writer.WriteArray(Data);
+        writer.Write(Flags);
+        writer.WriteArray(CurveData);
     }
 }

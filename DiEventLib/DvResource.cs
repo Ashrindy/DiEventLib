@@ -13,12 +13,11 @@ public class DvResource : DvObject, IBinarySerializable
         AllocatedSize = reader.Read<int>();
         reader.Skip(8);
         Entries.AddRange(reader.ReadObjectArray<ResourceEntry>(Count));
-
     }
 
     public void Write(BinaryObjectWriter writer)
     {
-        writer.Write(Count);
+        writer.Write(Entries.Count);
         writer.Write(AllocatedSize);
         writer.WriteNulls(8);
         writer.WriteObjectCollection(Entries);

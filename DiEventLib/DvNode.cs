@@ -91,7 +91,7 @@ public class DvNode : IBinarySerializable
         writer.Write(Guid);
         writer.Write(Category);
         writer.Write(NodeSize / 4);
-        writer.Write(ChildCount);
+        writer.Write(ChildNodes.Count);
         writer.Write(Flags);
         writer.Write(Priority);
         writer.WriteNulls(12);
