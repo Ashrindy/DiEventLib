@@ -31,7 +31,7 @@ public class DvElementEffect : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        writer.Write(Utils.ComposeMatrix(Position, Rotation, Scale));
+        writer.Write(Utils.ComposeMatrix(Position, Scale, Utils.ToQuaternion(Rotation)));
         writer.Write(Field9C);
         writer.WriteString(StringBinaryFormat.FixedLength, FileName, 64);
         writer.WriteArray(FieldDC);

@@ -28,49 +28,28 @@ public static class Utils
         writer.WriteArray(nulls);
     }
 
-    public static float ConvertDegToRad(float degrees)
+    // From KnuxLib Helpers
+    public static Matrix4x4 ComposeMatrix(Vector3 translation, Vector3 scale, Quaternion rotation)
     {
-        return ((float)Math.PI / (float)180) * degrees;
-    }
+        // Create the initial matrix from the rotation.
+        Matrix4x4 matrix = Matrix4x4.CreateFromQuaternion(rotation);
 
-    public static Matrix4x4 GetTranslationMatrix(Vector3 position)
-    {
-        return new Matrix4x4(1, 0, 0, 0,
-                             0, 1, 0, 0,
-                             0, 0, 1, 0,
-                             position.X, position.Y, position.Z, 1);
-    }
+        // Set the matrix's translation.
+        matrix.Translation = translation;
 
-    public static Matrix4x4 GetRotationMatrix(Vector3 anglesDeg)
-    {
-        anglesDeg = new Vector3(ConvertDegToRad(anglesDeg[0]), ConvertDegToRad(anglesDeg[1]), ConvertDegToRad(anglesDeg[2]));
+        // Apply the scale values to the matrix.
+        matrix.M11 *= scale.X;
+        matrix.M12 *= scale.X;
+        matrix.M13 *= scale.X;
+        matrix.M21 *= scale.Y;
+        matrix.M22 *= scale.Y;
+        matrix.M23 *= scale.Y;
+        matrix.M31 *= scale.Z;
+        matrix.M32 *= scale.Z;
+        matrix.M33 *= scale.Z;
 
-        Matrix4x4 rotationX = new Matrix4x4(1, 0, 0, 0,
-                                            0, (float)Math.Cos(anglesDeg[0]), (float)Math.Sin(anglesDeg[0]), 0,
-                                            0, (float)-Math.Sin(anglesDeg[0]), (float)Math.Cos(anglesDeg[0]), 0,
-                                            0, 0, 0, 1);
-
-        Matrix4x4 rotationY = new Matrix4x4((float)Math.Cos(anglesDeg[1]), 0, (float)-Math.Sin(anglesDeg[1]), 0,
-                                            0, 1, 0, 0,
-                                            (float)Math.Sin(anglesDeg[1]), 0, (float)Math.Cos(anglesDeg[1]), 0,
-                                            0, 0, 0, 1);
-        Matrix4x4 rotationZ = new Matrix4x4((float)Math.Cos(anglesDeg[2]), (float)Math.Sin(anglesDeg[2]), 0, 0,
-                                            (float)-Math.Sin(anglesDeg[2]), (float)Math.Cos(anglesDeg[2]), 0, 0,
-                                            0, 0, 1, 0,
-                                            0, 0, 0, 1);
-        return rotationX * rotationY * rotationZ;
-    }
-    public static Matrix4x4 GetScaleMatrix(Vector3 scale)
-    {
-        return new Matrix4x4(scale.X, 0, 0, 0,
-                             0, scale.Y, 0, 0,
-                             0, 0, scale.Z, 0,
-                             0, 0, 0, 1);
-    }
-
-    public static Matrix4x4 ComposeMatrix(Vector3 position, Vector3 rotationAngles, Vector3 scale)
-    {
-        return GetTranslationMatrix(position) * GetRotationMatrix(rotationAngles) * GetScaleMatrix(scale);
+        // Return the generated matrix.
+        return matrix;
     }
 
     public static Vector3 ToEulerAngles(Quaternion q)
@@ -96,6 +75,26 @@ public static class Utils
         angles.Z = (float)Math.Atan2(siny_cosp, cosy_cosp);
 
         return angles;
+    }
+
+    public static Quaternion ToQuaternion(Vector3 v)
+    {
+
+        float cy = (float)Math.Cos(v.Z * 0.5);
+        float sy = (float)Math.Sin(v.Z * 0.5);
+        float cp = (float)Math.Cos(v.Y * 0.5);
+        float sp = (float)Math.Sin(v.Y * 0.5);
+        float cr = (float)Math.Cos(v.X * 0.5);
+        float sr = (float)Math.Sin(v.X * 0.5);
+
+        return new Quaternion
+        {
+            W = (cr * cp * cy + sr * sp * sy),
+            X = (sr * cp * cy - cr * sp * sy),
+            Y = (cr * sp * cy + sr * cp * sy),
+            Z = (cr * cp * sy - sr * sp * cy)
+        };
+
     }
 }
 
