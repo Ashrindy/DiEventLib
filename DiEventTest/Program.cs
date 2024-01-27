@@ -75,7 +75,7 @@ namespace DiEventTest
                     {
                         if(i.Category == DvNodeCategory.Element)
                         {
-                            if(((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox)
+                            if(((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade)
                             {
                                 diEvent.Common.Node.ChildNodes.Add(i);
                             }
