@@ -6,25 +6,22 @@ namespace DiEventLib;
 
 public class DvObject
 {
-    public uint Pointer { get; set; }
     public int Count;
     public int AllocatedSize;
 }
 
 public class DvCommon : IBinarySerializable
 {
-    public uint Pointer { get; set; }
     public uint Version { get; set; }
     public uint Flags { get; set; }
     public float Start { get; set; }
     public float End { get; set; }
     public uint NodeDrawNum { get; set; }
-    private uint NodesPointer { get; set; }
-    public CutInfo CutInfo { get; set; } = new();
+    public DvCutInfo CutInfo { get; set; } = new();
     public DvPageConditionQTE PageConditionQTE { get; set; } = new();
-    public DisableFrameInfo DisableFrameInfo { get; set; } = new();
-    public ResourceCutInfo ResourceCutInfo { get; set; } = new();
-    public SoundInfo SoundInfo { get; set; } = new();
+    public DvDisableFrameInfo DisableFrameInfo { get; set; } = new();
+    public DvResourceCutInfo ResourceCutInfo { get; set; } = new();
+    public DvSoundInfo SoundInfo { get; set; } = new();
     public DvNode Node { get; set; } = new();
     public float ChainCameraIn { get; set; }
     public float ChainCameraOut { get; set; }
@@ -37,18 +34,12 @@ public class DvCommon : IBinarySerializable
         Start = reader.Read<float>();
         End = reader.Read<float>();
         NodeDrawNum = reader.Read<uint>();
-        CutInfo.Pointer = reader.Read<uint>();
-        PageConditionQTE.Pointer = reader.Read<uint>();
-        DisableFrameInfo.Pointer = reader.Read<uint>();
-        ResourceCutInfo.Pointer = reader.Read<uint>();
-        SoundInfo.Pointer = reader.Read<uint>();
-        NodesPointer = reader.Read<uint>();
-        reader.ReadAtOffset(CutInfo.Pointer + 0x20, () => CutInfo.Read(reader));
-        reader.ReadAtOffset(PageConditionQTE.Pointer + 0x20, () => PageConditionQTE.Read(reader));
-        reader.ReadAtOffset(DisableFrameInfo.Pointer + 0x20, () => DisableFrameInfo.Read(reader));
-        reader.ReadAtOffset(ResourceCutInfo.Pointer + 0x20, () => ResourceCutInfo.Read(reader));
-        reader.ReadAtOffset(SoundInfo.Pointer + 0x20, () => SoundInfo.Read(reader));
-        reader.ReadAtOffset(NodesPointer + 0x20, () => Node.Read(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => CutInfo.Read(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => PageConditionQTE.Read(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => DisableFrameInfo.Read(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => ResourceCutInfo.Read(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => SoundInfo.Read(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => Node.Read(reader));
         ChainCameraIn = reader.Read<float>();
         ChainCameraOut = reader.Read<float>();
         Type = reader.Read<int>();
@@ -63,29 +54,66 @@ public class DvCommon : IBinarySerializable
         writer.Write(Start);
         writer.Write(End);
         writer.Write(NodeDrawNum);
-        writer.Write(CutInfo.Pointer);
-        writer.Write(PageConditionQTE.Pointer);
-        writer.Write(DisableFrameInfo.Pointer);
-        writer.Write(ResourceCutInfo.Pointer);
-        writer.Write(SoundInfo.Pointer);
-        writer.Write(NodesPointer);
+        long cutInfoPointerPos = writer.Position;
+        long pageConditionQTEPointerPos = writer.Position + 4;
+        long disableFrameInfoPointerPos = writer.Position + 8;
+        long resourceCutInfoPointerPos = writer.Position + 12;
+        long soundInfoPointerPos = writer.Position + 16;
+        long nodePointerPos = writer.Position + 20;
+        writer.WriteNulls(24);
         writer.Write(ChainCameraIn);
         writer.Write(ChainCameraOut);
         writer.Write(Type);
         writer.Write(SkipPointTick);
-        writer.Seek(CutInfo.Pointer + 0x20, SeekOrigin.Begin);
-        CutInfo.Write(writer);
-        writer.Seek(PageConditionQTE.Pointer + 0x20, SeekOrigin.Begin);
-        PageConditionQTE.Write(writer);
-        writer.Seek(DisableFrameInfo.Pointer + 0x20, SeekOrigin.Begin);
-        DisableFrameInfo.Write(writer);
-        writer.Seek(ResourceCutInfo.Pointer + 0x20, SeekOrigin.Begin);
-        ResourceCutInfo.Write(writer);
-        writer.Seek(SoundInfo.Pointer + 0x20, SeekOrigin.Begin);
-        SoundInfo.Write(writer);
-        writer.Seek(NodesPointer + 0x20, SeekOrigin.Begin);
-        Node.Write(writer);
         writer.WriteNulls(4);
+
+        {
+            long cutInfoPointer = writer.Position;
+            writer.Seek(cutInfoPointerPos, SeekOrigin.Begin);
+            writer.Write(cutInfoPointer - 0x20);
+            writer.Seek(cutInfoPointer, SeekOrigin.Begin);
+            CutInfo.Write(writer);
+        }
+
+        {
+            long pageConditionQTEPointer = writer.Position;
+            writer.Seek(pageConditionQTEPointerPos, SeekOrigin.Begin);
+            writer.Write((uint)pageConditionQTEPointer - 0x20);
+            writer.Seek(pageConditionQTEPointer, SeekOrigin.Begin);
+            PageConditionQTE.Write(writer);
+        }
+
+        {
+            long disableFrameInfoPointer = writer.Position;
+            writer.Seek(disableFrameInfoPointerPos, SeekOrigin.Begin);
+            writer.Write((uint)disableFrameInfoPointer - 0x20);
+            writer.Seek(disableFrameInfoPointer, SeekOrigin.Begin);
+            DisableFrameInfo.Write(writer);
+        }
+
+        {
+            long resourceCutInfoPointer = writer.Position;
+            writer.Seek(resourceCutInfoPointerPos, SeekOrigin.Begin);
+            writer.Write((uint)resourceCutInfoPointer - 0x20);
+            writer.Seek(resourceCutInfoPointer, SeekOrigin.Begin);
+            ResourceCutInfo.Write(writer);
+        }
+
+        {
+            long soundInfoPointer = writer.Position;
+            writer.Seek(soundInfoPointerPos, SeekOrigin.Begin);
+            writer.Write((uint)soundInfoPointer - 0x20);
+            writer.Seek(soundInfoPointer, SeekOrigin.Begin);
+            SoundInfo.Write(writer);
+        }
+
+        {
+            long soundInfoPointer = writer.Position;
+            writer.Seek(nodePointerPos, SeekOrigin.Begin);
+            writer.Write((uint)soundInfoPointer - 0x20);
+            writer.Seek(soundInfoPointer, SeekOrigin.Begin);
+            Node.Write(writer);
+        }
     }
 }
 

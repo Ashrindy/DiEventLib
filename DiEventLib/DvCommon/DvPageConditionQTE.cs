@@ -1,6 +1,6 @@
 ﻿using Amicitia.IO.Binary;
 using System.Text;
-using static DiEventLib.DisableFrameInfo;
+using static DiEventLib.DvDisableFrameInfo;
 
 namespace DiEventLib;
 

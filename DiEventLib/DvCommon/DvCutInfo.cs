@@ -3,21 +3,16 @@ using System;
 using System.Collections.Generic;
 namespace DiEventLib;
 
-public class DisableFrameInfo : DvObject, IBinarySerializable
+public class DvCutInfo : DvObject, IBinarySerializable
 {
-    public struct DisableFrameData
-    {
-        public float FrameStart;
-        public float FrameEnd;
-    }
-    public List<DisableFrameData> Frames { get; set; } = new();
+    public List<float> FrameCut { get; set; } = new();
 
     public void Read(BinaryObjectReader reader)
     {
         Count = reader.Read<int>();
         AllocatedSize = reader.Read<int>();
         reader.Skip(8);
-        Frames.AddRange(reader.ReadArray<DisableFrameData>(Count));
+        FrameCut.AddRange(reader.ReadArray<float>(Count));
     }
 
     public void Write(BinaryObjectWriter writer)
@@ -25,6 +20,6 @@ public class DisableFrameInfo : DvObject, IBinarySerializable
         writer.Write(Count);
         writer.Write(AllocatedSize);
         writer.WriteNulls(8);
-        writer.WriteCollection(Frames);
+        writer.WriteCollection(FrameCut);
     }
 }

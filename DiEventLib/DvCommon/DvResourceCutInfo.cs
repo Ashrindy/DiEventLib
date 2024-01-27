@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 namespace DiEventLib;
 
-public class ResourceCutInfo : DvObject, IBinarySerializable
+public class DvResourceCutInfo : DvObject, IBinarySerializable
 {
     public List<float> Frames { get; set; } = new();    // ???
 

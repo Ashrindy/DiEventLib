@@ -3,16 +3,16 @@ using System;
 using System.Collections.Generic;
 namespace DiEventLib;
 
-public class CutInfo : DvObject, IBinarySerializable
+public class DvSoundInfo : DvObject, IBinarySerializable
 {
-    public List<float> FrameCut { get; set; } = new();
+    public List<float> Frames { get; set; } = new();    // ???
 
     public void Read(BinaryObjectReader reader)
     {
         Count = reader.Read<int>();
         AllocatedSize = reader.Read<int>();
         reader.Skip(8);
-        FrameCut.AddRange(reader.ReadArray<float>(Count));
+        Frames.AddRange(reader.ReadArray<float>(Count));
     }
 
     public void Write(BinaryObjectWriter writer)
@@ -20,6 +20,6 @@ public class CutInfo : DvObject, IBinarySerializable
         writer.Write(Count);
         writer.Write(AllocatedSize);
         writer.WriteNulls(8);
-        writer.WriteCollection(FrameCut);
+        writer.WriteCollection(Frames);
     }
 }
