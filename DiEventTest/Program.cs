@@ -55,7 +55,7 @@ namespace DiEventTest
                     mainNode.ChildCount = 0;
                     mainNode.Flags = 0;
                     mainNode.Priority = 0;
-                    mainNode.Name = "NearFarSettingTest";
+                    mainNode.Name = "NearFarSetting";
                     mainNode.NodeObject = element;
 
                     diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, mainNode);
@@ -75,7 +75,7 @@ namespace DiEventTest
                     {
                         if(i.Category == DvNodeCategory.Element)
                         {
-                            if(((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade)
+                            if(((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.OpeningLogo)
                             {
                                 diEvent.Common.Node.ChildNodes.Add(i);
                             }
