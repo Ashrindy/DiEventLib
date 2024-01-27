@@ -24,7 +24,7 @@ A library with simple reading and writing function for the .dvscene file from So
 DvScene dvScene = new("file-path-to-the-dvscene");
 ```
 ### Writing
-*(If the resources are empty, it refuses to write the last 8 bytes)*
+*(Matrixes have trouble writing in real-time cutscenes)*
 ```csharp
 dvScene.Write("file-path-to-your-new-dvscene");
 ```
