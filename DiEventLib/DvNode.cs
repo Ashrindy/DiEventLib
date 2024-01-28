@@ -17,8 +17,6 @@ public class DvNode : IBinarySerializable
 {
     public Guid Guid { get; set; }
     public DvNodeCategory Category { get; set; }
-    public int NodeSize { get; set; }
-    public int ChildCount { get; set; }
     public int Flags { get; set; }
     public int Priority { get; set; }
     public string Name { get; set; }
@@ -29,8 +27,8 @@ public class DvNode : IBinarySerializable
     {
         Guid = reader.Read<Guid>();
         Category = reader.Read<DvNodeCategory>();
-        NodeSize = reader.Read<int>() * 4;
-        ChildCount = reader.Read<int>();
+        var nodeSize = reader.Read<int>() * 4;
+        var childCount = reader.Read<int>();
         Flags = reader.Read<int>();
         Priority = reader.Read<int>();
         reader.Skip(12);
@@ -75,24 +73,25 @@ public class DvNode : IBinarySerializable
                 break;
 
             case DvNodeCategory.Element:
-                NodeObject = new DvNodeElement(reader, NodeSize);
+                NodeObject = new DvNodeElement(reader, nodeSize);
                 break;
 
             default:
-                reader.Skip(NodeSize);
+                reader.Skip(nodeSize);
                 break;
         }
 
-        Console.WriteLine(Name + Category.ToString());
+        Console.WriteLine($"{Name} ({Category})");
 
-        ChildNodes.AddRange(reader.ReadObjectArray<DvNode>(ChildCount));
+        ChildNodes.AddRange(reader.ReadObjectArray<DvNode>(childCount));
     }
 
     public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Guid);
         writer.Write(Category);
-        writer.Write(NodeSize / 4);
+        var nodeSizePos = writer.Position;
+        writer.WriteNulls(4);
         writer.Write(ChildNodes.Count);
         writer.Write(Flags);
         writer.Write(Priority);
@@ -100,7 +99,13 @@ public class DvNode : IBinarySerializable
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, Name, 64);
 
+        long preWritePos = writer.Position;
         NodeObject.Write(writer);
+        long postWritePos = writer.Position;
+
+        writer.Seek(nodeSizePos, SeekOrigin.Begin);
+        writer.Write((int)(postWritePos - preWritePos) / 4);
+        writer.Seek(postWritePos, SeekOrigin.Begin);
 
         writer.WriteObjectCollection(ChildNodes);
     }
