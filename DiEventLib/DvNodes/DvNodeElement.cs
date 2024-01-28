@@ -15,9 +15,13 @@ public class DvNodeElement : DvNodeObject
     public ElementPlayType PlayType { get; set; }
     public ElementUpdateTiming UpdateTiming { get; set; }
     public DvNodeObject Element { get; set; }
+
+    // TODO: Remove when all elements will be researched
     public int NodeSize { get; set; }
 
     public DvNodeElement() { }
+
+    // TODO: Remove contructor with node size when all elements will be researched
     public DvNodeElement(BinaryObjectReader reader, int size)
     {
         NodeSize = size - 32;
@@ -200,14 +204,18 @@ public class DvNodeElement : DvNodeObject
     }
 }
 
+// TODO: Need to find rest
 public enum DvElementID : uint
 {
     // ParameterSpecifiedCamera = 1,
+    // 2
     DrawOff = 3,
+    // 4
     PathAdjustment = 5,
     CameraShake = 6,
     CameraShakeLoop = 7,
     Effect = 8,
+    // 9
     PathInterpolation = 10,
     Culling = 11,
     NearFarSetting = 12,
@@ -216,21 +224,30 @@ public enum DvElementID : uint
     MaterialAnimation = 15,
     CompositeAnimation = 16,
     CameraOffset = 17,
+    // ModelFade = 18,
+    // 19
     ModelFade = 18,
     SonicCamera = 20,
     GameCamera = 21,
+    // 22
+    // 23
+    // 24
+    // 25
     SpotlightModel = 26,
 
     DOF = 1001,
     ColorCorrection = 1002,
     CameraExposure = 1003,
     ShadowResolution = 1004,
+    // 1005
+    // 1006
     AtmosphereHeightFogParam = 1007,
     ChromaticAberration = 1008,
     VignetteParam = 1009,
     Fade = 1010,
     LetterBox = 1011,
     ModelClipping = 1012,
+    // 1023
     BossName = 1014,
     Caption = 1015,
     Sound = 1016,
@@ -239,6 +256,7 @@ public enum DvElementID : uint
     LookAtIK = 1019,
     CameraBlurParam = 1020,
     GeneralTrigger = 1021,
+    // 1022
     DitherParam = 1023,
     QTE = 1024,
     LipAnimation = 1025,
@@ -248,9 +266,15 @@ public enum DvElementID : uint
     CyberSpaceNoise = 1029,
     AuraRoad = 1031,
     MovieView = 1032,
+    // 1033
     Weather = 1034,
+    // 1035
     VariablePointLight = 1036,
     OpeningLogo = 1037,
+    // 1038
+    // 1039
+    // 1040
+    // 1041
     TheEndCableObject = 1042,
     RifleBeastLighting = 1043
 };
