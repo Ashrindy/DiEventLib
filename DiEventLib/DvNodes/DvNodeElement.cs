@@ -224,7 +224,7 @@ public enum DvElementID : uint
     MaterialAnimation = 15,
     CompositeAnimation = 16,
     CameraOffset = 17,
-    // ModelFade = 18,
+    ModelFade = 18,
     // 19
     ModelFade = 18,
     SonicCamera = 20,
