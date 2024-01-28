@@ -71,7 +71,8 @@ public class DvNode : IBinarySerializable
             case DvNodeCategory.ModelNode:
                 NodeObject = new DvNodeModelNode(reader);
                 break;
-
+            
+            // TODO: Remove contructor with node size when all elements will be researched
             case DvNodeCategory.Element:
                 NodeObject = new DvNodeElement(reader, nodeSize);
                 break;
