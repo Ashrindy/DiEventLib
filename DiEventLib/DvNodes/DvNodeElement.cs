@@ -226,7 +226,6 @@ public enum DvElementID : uint
     CameraOffset = 17,
     ModelFade = 18,
     // 19
-    ModelFade = 18,
     SonicCamera = 20,
     GameCamera = 21,
     // 22
