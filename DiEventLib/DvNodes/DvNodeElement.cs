@@ -176,6 +176,9 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.SpotlightModel:
                 Element = new DvElementSpotlightModel(reader);
                 break;
+            case DvElementID.ModelFade:
+                Element = new DvElementModelFade(reader);
+                break;
 
             default:
                 reader.Skip(NodeSize);
@@ -213,7 +216,7 @@ public enum DvElementID : uint
     MaterialAnimation = 15,
     CompositeAnimation = 16,
     CameraOffset = 17,
-    // ModelFade = 18,
+    ModelFade = 18,
     SonicCamera = 20,
     GameCamera = 21,
     SpotlightModel = 26,
