@@ -5,17 +5,20 @@ namespace DiEventLib;
 
 public class DvElementOverrideASM : DvNodeObject
 {
-    public float[] Data { get; set; }
+    public string ASMName1 { get; set; }
+    public string ASMName2 { get; set; }
     public DvElementOverrideASM() { }
     public DvElementOverrideASM(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {
-        Data = reader.ReadArray<float>(28);
+        ASMName1 = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 64);
+        ASMName2 = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 64);
     }
 
     public override void Write(BinaryObjectWriter writer)
     {
-        writer.WriteArray(Data);
+        writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, ASMName1, 64);
+        writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, ASMName2, 64);
     }
 }

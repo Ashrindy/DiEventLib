@@ -186,6 +186,21 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.AdditionRange:
                 Element = new DvElementAdditionRange(reader);
                 break;
+            case DvElementID.Bloom:
+                Element = new DvElementBloom(reader);
+                break;
+            case DvElementID.ShadowMapParam:
+                Element = new DvElementShadowMapParam(reader);
+                break;
+            case DvElementID.VertexAnimation:
+                Element = new DvElementVertexAnimation(reader);
+                break;
+            case DvElementID.LipAnimation:
+                Element = new DvElementLipAnimation(reader);
+                break;
+            case DvElementID.CrossFade:
+                Element = new DvElementCrossFade(reader);
+                break;
 
             default:
                 reader.Skip(NodeSize);
@@ -232,11 +247,12 @@ public enum DvElementID : uint
     SonicCamera = 20,
     GameCamera = 21,
     // 22
-    // 23
+    VertexAnimation = 23,
     Spotlight = 24,
     // 25
     SpotlightModel = 26,
 
+    Bloom = 1000,
     DOF = 1001,
     ColorCorrection = 1002,
     CameraExposure = 1003,
@@ -249,7 +265,7 @@ public enum DvElementID : uint
     Fade = 1010,
     LetterBox = 1011,
     ModelClipping = 1012,
-    // 1023
+    // 1013
     BossName = 1014,
     Caption = 1015,
     Sound = 1016,
@@ -268,9 +284,9 @@ public enum DvElementID : uint
     CyberSpaceNoise = 1029,
     AuraRoad = 1031,
     MovieView = 1032,
-    // 1033
+    CrossFade = 1033,
     Weather = 1034,
-    // 1035
+    ShadowMapParam = 1035,
     VariablePointLight = 1036,
     OpeningLogo = 1037,
     AdditionRange = 1038, // i have no clue what this is
