@@ -106,3 +106,10 @@ public struct RGBA32
     public uint B;
 }
 
+public struct RGB32
+{
+    public uint R;
+    public uint G;
+    public uint B;
+}
+

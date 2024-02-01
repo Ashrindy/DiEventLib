@@ -7,9 +7,8 @@ public class DvElementAura : DvNodeObject
 {
     public AuraNode AuraNode1 { get; set; }
     public AuraNode AuraNode2 { get; set; }
-    public uint Field_28 { get; set; }
-    public uint Field_2c { get; set; }
-    public float[] Unk { get; set; }
+    public uint Field_00 { get; set; }
+    public float[] AnimData { get; set; }
 
     public DvElementAura() { }
     public DvElementAura(BinaryObjectReader reader)
@@ -18,18 +17,16 @@ public class DvElementAura : DvNodeObject
     {
         AuraNode1 = reader.Read<AuraNode>();
         AuraNode2 = reader.Read<AuraNode>();
-        Field_28 = reader.Read<uint>();
-        Field_2c = reader.Read<uint>();
-        Unk = reader.ReadArray<float>(31);
+        Field_00 = reader.Read<uint>();
+        AnimData = reader.ReadArray<float>(32);
     }
 
     public override void Write(BinaryObjectWriter writer)
     {
         writer.Write(AuraNode1);
         writer.Write(AuraNode2);
-        writer.Write(Field_28);
-        writer.Write(Field_2c);
-        writer.WriteArray(Unk);
+        writer.Write(Field_00);
+        writer.WriteArray(AnimData);
     }
 }
 

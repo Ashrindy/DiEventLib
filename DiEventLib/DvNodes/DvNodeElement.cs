@@ -177,11 +177,14 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.UVAnimation:
                 Element = new DvElementUVAnimation(reader);
                 break;
-            case DvElementID.SpotlightModel:
-                Element = new DvElementSpotlightModel(reader);
+            case DvElementID.Spotlight:
+                Element = new DvElementSpotlight(reader);
                 break;
             case DvElementID.ModelFade:
                 Element = new DvElementModelFade(reader);
+                break;
+            case DvElementID.AdditionRange:
+                Element = new DvElementAdditionRange(reader);
                 break;
 
             default:
@@ -230,7 +233,7 @@ public enum DvElementID : uint
     GameCamera = 21,
     // 22
     // 23
-    // 24
+    Spotlight = 24,
     // 25
     SpotlightModel = 26,
 
@@ -270,7 +273,7 @@ public enum DvElementID : uint
     // 1035
     VariablePointLight = 1036,
     OpeningLogo = 1037,
-    // 1038
+    AdditionRange = 1038, // i have no clue what this is
     // 1039
     // 1040
     // 1041

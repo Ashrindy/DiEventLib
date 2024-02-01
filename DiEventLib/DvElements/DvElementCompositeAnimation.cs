@@ -7,17 +7,17 @@ namespace DiEventLib;
 public class DvElementCompositeAnimation : DvNodeObject
 {
     public uint Field_60 { get; set; }
-    public byte[] Data { get; set; }
+    public string StateName { get; set; }
     public uint Field_6c { get; set; }
     public Anim[] Animations { get; set; }
-    public uint Field_03 { get; set; }
+    public uint ActiveAnimCount { get; set; }
     public DvElementCompositeAnimation() { }
     public DvElementCompositeAnimation(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {
         Field_60 = reader.Read<uint>();
-        Data = reader.ReadArray<byte>(8);
+        StateName = reader.ReadString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, 8);
         Field_6c = reader.Read<uint>();
         Animations = new Anim[16];
         for(int i = 0; i < 16; i++)
@@ -26,20 +26,20 @@ public class DvElementCompositeAnimation : DvNodeObject
             Animations[i].AnimType = reader.Read<AnimType>();
             Animations[i].FileName = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 64);
         }
-        Field_03 = reader.Read<uint>();
+        ActiveAnimCount = reader.Read<uint>();
     }
 
     public override void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_60);
-        writer.WriteArray(Data);
+        writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, StateName, 8);
         writer.Write(Field_6c);
         foreach(var anim in Animations)
         {
             writer.Write(anim.AnimType);
             writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, anim.FileName, 64);
         }
-        writer.Write(Field_03);
+        writer.Write(ActiveAnimCount);
     }
 }
 
