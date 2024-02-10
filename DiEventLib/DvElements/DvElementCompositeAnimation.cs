@@ -1,5 +1,4 @@
 ﻿using Amicitia.IO.Binary;
-using System.Reflection.PortableExecutable;
 using System.Text;
 
 namespace DiEventLib;

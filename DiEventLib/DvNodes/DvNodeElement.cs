@@ -1,17 +1,15 @@
 ﻿using Amicitia.IO.Binary;
-using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Reflection.PortableExecutable;
 namespace DiEventLib;
 
 public class DvNodeElement : DvNodeObject
 {
+
     public DvElementID ElementID { get; set; }
     public float Start { get; set; }
     public float End { get; set; }
     public int Version { get; set; }
     public uint Flags { get; set; }
+
     public ElementPlayType PlayType { get; set; }
     public ElementUpdateTiming UpdateTiming { get; set; }
     public DvNodeObject Element { get; set; }

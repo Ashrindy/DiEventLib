@@ -1,6 +1,5 @@
 ﻿using Amicitia.IO.Binary;
 using System.Numerics;
-using System.Text;
 
 namespace DiEventLib;
 

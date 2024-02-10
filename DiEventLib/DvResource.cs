@@ -1,6 +1,5 @@
 ﻿using Amicitia.IO.Binary;
-using System;
-using System.Collections.Generic;
+
 namespace DiEventLib;
 
 public class DvResource : DvObject, IBinarySerializable

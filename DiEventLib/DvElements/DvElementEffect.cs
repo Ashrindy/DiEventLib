@@ -1,14 +1,13 @@
 ﻿using Amicitia.IO.Binary;
 using System.Numerics;
-using System.Text;
 
 namespace DiEventLib;
 
 public class DvElementEffect : DvNodeObject
 {
-    public Vector3 Position;
-    public Vector3 Rotation;
-    public Vector3 Scale;
+    public Vector3 Position { get; set; }
+    public Vector3 Rotation { get; set; }
+    public Vector3 Scale { get; set; }
     public uint Field9C { get; set; }
     public string FileName { get; set; }
     public uint[] FieldDC { get; set; }
@@ -21,8 +20,12 @@ public class DvElementEffect : DvNodeObject
     {
         var mtx = reader.Read<Matrix4x4>();
         Quaternion tempRot;
-        Matrix4x4.Decompose(mtx, out Scale, out tempRot, out Position);
+        Vector3 tempPos;
+        Vector3 tempSca;
+        Matrix4x4.Decompose(mtx, out tempSca, out tempRot, out tempPos);
         Rotation = Utils.ToEulerAngles(tempRot);
+        Position = tempPos;
+        Scale = tempSca;
         Field9C = reader.Read<uint>();
         FileName = reader.ReadString(StringBinaryFormat.FixedLength, 64);
         FieldDC = reader.ReadArray<uint>(8);

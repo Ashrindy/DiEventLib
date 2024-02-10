@@ -1,8 +1,5 @@
 ﻿using Amicitia.IO.Binary;
-using System;
 using System.Text;
-using System.Collections.Generic;
-using System.Reflection.PortableExecutable;
 namespace DiEventLib;
 
 public abstract class DvNodeObject : IBinarySerializable
@@ -12,7 +9,6 @@ public abstract class DvNodeObject : IBinarySerializable
     public abstract void Write(BinaryObjectWriter writer);
 }
 
-
 public class DvNode : IBinarySerializable
 {
     public Guid Guid { get; set; }
@@ -21,7 +17,7 @@ public class DvNode : IBinarySerializable
     public int Priority { get; set; }
     public string Name { get; set; }
     public List<DvNode> ChildNodes { get; set; } = new();
-    public DvNodeObject NodeObject { get; set; } = new DvNodePath();
+    public DvNodeObject NodeObject { get; set; }
 
     public void Read(BinaryObjectReader reader)
     {
