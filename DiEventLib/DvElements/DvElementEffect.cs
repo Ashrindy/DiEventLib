@@ -10,7 +10,7 @@ public class DvElementEffect : DvNodeObject
     public Vector3 Scale { get; set; }
     public uint Field9C { get; set; }
     public string FileName { get; set; }
-    public uint[] FieldDC { get; set; }
+    public uint[] FieldDC { get; set; } // Item 3 could be RGBA in bytes
     public float[] AnimData { get; set; }
 
     public DvElementEffect() { }

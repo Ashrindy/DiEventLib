@@ -114,7 +114,7 @@ namespace DiEventTest
                         DiEvent dvScene = new();
                         dvScene.Common = diEvent.Common;
                         dvScene.Resource = diEvent.Resource;
-                        string jsonString = JsonSerializer.Serialize(dvScene;
+                        string jsonString = JsonSerializer.Serialize(dvScene);
 
                         File.WriteAllText(filepath.Replace(".dvscene", ".dievent.json"), jsonString);
                         break;

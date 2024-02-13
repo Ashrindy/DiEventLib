@@ -5,14 +5,7 @@ namespace DiEventLib;
 public class DvElementDOF : DvNodeObject
 {
     public uint Field_60 {  get; set; }
-    public float Field_64 {  get; set; }
-    public float Field_68 {  get; set; }
-    public float Field_6c {  get; set; }
-    public float Far1 {  get; set; }
-    public float Field_74 {  get; set; }
-    public float Field_78 {  get; set; }
-    public float Field_7c {  get; set; }
-    public float Far2 {  get; set; }
+    public DOFParam[] DOFParams { get; set; }
     public float Field_84 {  get; set; }
     public float Field_88 {  get; set; }
     public uint Field_8c {  get; set; }
@@ -32,14 +25,7 @@ public class DvElementDOF : DvNodeObject
     public override void Read(BinaryObjectReader reader)
     {
         Field_60 = reader.Read<uint>();
-        Field_64 = reader.Read<float>();
-        Field_68 = reader.Read<float>();
-        Field_6c = reader.Read<float>();
-        Far1 = reader.Read<float>();
-        Field_74 = reader.Read<float>();
-        Field_78 = reader.Read<float>();
-        Field_7c = reader.Read<float>();
-        Far2 = reader.Read<float>();
+        DOFParams = reader.ReadArray<DOFParam>(2);
         Field_84 = reader.Read<float>();
         Field_88 = reader.Read<float>();
         Field_8c = reader.Read<uint>();
@@ -57,14 +43,7 @@ public class DvElementDOF : DvNodeObject
     public override void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_60);
-        writer.Write(Field_64);
-        writer.Write(Field_68);
-        writer.Write(Field_6c);
-        writer.Write(Far1);
-        writer.Write(Field_74);
-        writer.Write(Field_78);
-        writer.Write(Field_7c);
-        writer.Write(Far2);
+        writer.WriteArray(DOFParams);
         writer.Write(Field_84);
         writer.Write(Field_88);
         writer.Write(Field_8c);
@@ -78,4 +57,12 @@ public class DvElementDOF : DvNodeObject
         writer.Write(Field_ac);
         writer.WriteArray(AnimData);
     }
+}
+
+public struct DOFParam
+{
+    public float Focus { get; set; }
+    public float FocusRange { get; set; }
+    public float Near { get; set; }
+    public float Far { get; set; }
 }
