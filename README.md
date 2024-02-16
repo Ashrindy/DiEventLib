@@ -16,7 +16,7 @@ A library with simple reading and writing function for the .dvscene file from So
 
 |                      Name                       |   Use   |
 | :---------------------------------------------: | :------:|
-|     [Amiticia.IO]([https://github.com/Radfordhound/HedgeLib/tree/master](https://github.com/tge-was-taken/Amicitia.IO))     | Used for its upgraded and better binary reader and writer |
+|     [Amiticia.IO]([https://github.com/tge-was-taken/Amicitia.IO](https://github.com/tge-was-taken/Amicitia.IO))     | Used for its upgraded and better binary reader and writer |
 
 ## 📝 Documentation 📝
 ### Reading
