@@ -106,10 +106,10 @@ public class DvCommon : IBinarySerializable
         }
 
         {
-            long soundInfoPointer = writer.Position;
+            long nodePointer = writer.Position;
             writer.Seek(nodePointerPos, SeekOrigin.Begin);
-            writer.Write((uint)soundInfoPointer - 0x20);
-            writer.Seek(soundInfoPointer, SeekOrigin.Begin);
+            writer.Write((uint)nodePointer - 0x20);
+            writer.Seek(nodePointer, SeekOrigin.Begin);
             Node.Write(writer);
         }
     }
