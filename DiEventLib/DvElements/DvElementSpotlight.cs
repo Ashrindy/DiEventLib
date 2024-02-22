@@ -8,7 +8,7 @@ public class DvElementSpotlight : DvNodeObject
     public float[] Unk01 { get; set; }
     public RGB32 Color { get; set; }
     public float[] Unk02 { get; set; }
-    public float[] AnimData { get; set; }
+    public float[] AnimData { get; set; } // ev0010_mov contains a string in there? it looks like either the one i found was a newer version, or the compiler the messed the or the i'm just missing something.
     public DvElementSpotlight() { }
     public DvElementSpotlight(BinaryObjectReader reader)
         => Read(reader);

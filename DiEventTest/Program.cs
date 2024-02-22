@@ -40,7 +40,7 @@ namespace DiEventTest
                 //Console.WriteLine("3. To JSON");
 
                 //string option = Console.ReadLine();
-                string option = "3";
+                string option = "2";
 
                 switch (option)
                 {
@@ -100,7 +100,7 @@ namespace DiEventTest
                         {
                             if (i.Category == DvNodeCategory.Element)
                             {
-                                if (((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.OpeningLogo)
+                                if (((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.OpeningLogo || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.GeneralTrigger)
                                 {
                                     diEvent.Common.Node.ChildNodes.Add(i);
                                 }
