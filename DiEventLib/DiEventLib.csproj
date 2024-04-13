@@ -20,13 +20,11 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Runtime.Experimental" Version="6.0.2" />
 		<PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
 	</ItemGroup>
 	
   <ItemGroup>
-    <!--<ProjectReference Include="..\HedgeLib\HedgeLib\HedgeLib.csproj" />-->
 	<ProjectReference Include="..\Amicitia.IO\src\Amicitia.IO\Amicitia.IO.csproj" />
   </ItemGroup>
 

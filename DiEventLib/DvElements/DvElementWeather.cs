@@ -4,7 +4,7 @@ namespace DiEventLib;
 
 public class DvElementWeather : DvNodeObject
 {
-    public uint Field_00 { get; set; }
+    public uint Field_00 { get; set; } // could be an enum of some sort, like "sunny" "cloudy" etc.
     public float[] CurveData { get; set; }
 
     public DvElementWeather() { }
