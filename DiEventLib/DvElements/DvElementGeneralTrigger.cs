@@ -41,6 +41,10 @@ public class DvElementGeneralTrigger : DvNodeObject
             case "damage2":
                 TriggerEnum = Trigger.Damage2;
                 break;
+
+            default:
+                TriggerEnum = Trigger.None;
+                break;
         }
     }
 
