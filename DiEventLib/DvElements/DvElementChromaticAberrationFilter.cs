@@ -3,14 +3,14 @@ using System.Numerics;
 
 namespace DiEventLib;
 
-public class DvElementChromaticAberration : DvNodeObject
+public class DvElementChromaticAberrationFilter : DvNodeObject
 {
     public ChromaticAberration Data1 { get; set; }
     public float Field_08 { get; set; }
     public ChromaticAberration Data2 { get; set; }
     public float[] CurveData { get; set; }
-    public DvElementChromaticAberration() { }
-    public DvElementChromaticAberration(BinaryObjectReader reader)
+    public DvElementChromaticAberrationFilter() { }
+    public DvElementChromaticAberrationFilter(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {

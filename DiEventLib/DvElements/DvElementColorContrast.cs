@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementColorCorrection : DvNodeObject
+public class DvElementColorContrast : DvNodeObject
 {
     public uint Field_00 {  get; set; }
     public float Field_04 {  get; set; }
@@ -13,8 +13,8 @@ public class DvElementColorCorrection : DvNodeObject
     public float Field_2c {  get; set; }
     public uint Field_02 {  get; set; }
     public float[] CurveData {  get; set; }
-    public DvElementColorCorrection() { }
-    public DvElementColorCorrection(BinaryObjectReader reader)
+    public DvElementColorContrast() { }
+    public DvElementColorContrast(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {

@@ -121,11 +121,11 @@ public class DvNodeElement : DvNodeObject
             case DvElementID.QTE:
                 Element = new DvElementQTE(reader);
                 break;
-            case DvElementID.ChromaticAberration:
-                Element = new DvElementChromaticAberration(reader);
+            case DvElementID.ChromaticAberrationFilter:
+                Element = new DvElementChromaticAberrationFilter(reader);
                 break;
-            case DvElementID.ColorCorrection:
-                Element = new DvElementColorCorrection(reader);
+            case DvElementID.ColorContrast:
+                Element = new DvElementColorContrast(reader);
                 break;
             case DvElementID.CompositeAnimation:
                 Element = new DvElementCompositeAnimation(reader);
@@ -252,13 +252,13 @@ public enum DvElementID : uint
 
     Bloom = 1000,
     DOF = 1001,
-    ColorCorrection = 1002,
+    ColorContrast = 1002,
     CameraExposure = 1003,
     ShadowResolution = 1004,
     // 1005
     // 1006
     AtmosphereHeightFogParam = 1007,
-    ChromaticAberration = 1008,
+    ChromaticAberrationFilter = 1008,
     VignetteParam = 1009,
     Fade = 1010,
     LetterBox = 1011,

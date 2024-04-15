@@ -21,7 +21,7 @@ namespace DiEventTest
 
             if(args.Length == 0) 
             {
-                Console.WriteLine("What's the .dvscene/.json?");
+                Console.WriteLine("What's the .dvscene?");
                 filepath = Console.ReadLine();
             } else
             {
@@ -32,15 +32,16 @@ namespace DiEventTest
             {
                 DvScene diEvent = new(filepath);
 
-                Console.Clear();
-                Console.WriteLine("What would you like to do with it?");
-                Console.WriteLine("1. Add in a NearFarSetting");
-                Console.WriteLine("2. Add in subtitles to a real-time version of a cutscene from its prerendered counterpart");
-                Console.WriteLine("3. To JSON");
-                Console.WriteLine("4. Print out GeneralTrigger enums");
+                //Console.Clear();
+                //Console.WriteLine("What would you like to do with it?");
+                //Console.WriteLine("1. Add in a NearFarSetting");
+                //Console.WriteLine("2. Add in subtitles to a real-time version of a cutscene from its prerendered counterpart");
+                //Console.WriteLine("3. To JSON");
+                //Console.WriteLine("4. Print out GeneralTrigger enums");
+                //Console.WriteLine("5. Remove Captions and stuff");
 
-                string option = Console.ReadLine();
-                //string option = "2";
+                //string option = Console.ReadLine();
+                string option = "6";
 
                 switch (option)
                 {
@@ -127,6 +128,77 @@ namespace DiEventTest
                                 Console.WriteLine(((DvElementGeneralTrigger)((DvNodeElement)i.NodeObject).Element).TriggerEnum);
                             }
                         }
+                        break;
+
+                    case "5":
+                        for (int v = 0; v < diEvent.Common.Node.ChildNodes.Count; v++)
+                        {
+                            var i = diEvent.Common.Node.ChildNodes[v];
+                            if (i.Category == DvNodeCategory.Element)
+                            {
+                                if (((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.OpeningLogo || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.GeneralTrigger)
+                                {
+                                    diEvent.Common.Node.ChildNodes.Remove(i);
+                                }
+                            }
+                        }
+
+                        diEvent.Write(filepath);
+                        break;
+
+                    case "6":
+                        DvNode Node = new();
+                        DvNodeElement Element = new();
+                        DvElementGeneralTrigger trigger = new();
+
+                        trigger.Field_00 = 1;
+                        trigger.TriggerEnum = Trigger.PauseBGM;
+
+                        Element.ElementID = DvElementID.GeneralTrigger;
+                        Element.Start = 0;
+                        Element.End = diEvent.Common.End - 1;
+                        Element.Version = 0;
+                        Element.Flags = 0;
+                        Element.PlayType = ElementPlayType.Normal;
+                        Element.UpdateTiming = ElementUpdateTiming.OnUpdatePos;
+                        Element.Element = trigger;
+
+                        Node.Guid = new Guid();
+                        Node.Category = DvNodeCategory.Element;
+                        Node.Flags = 0;
+                        Node.Priority = 0;
+                        Node.Name = "PauseBGM";
+                        Node.NodeObject = Element;
+
+                        diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, Node);
+
+
+                        Node = new();
+                        Element = new();
+                        trigger = new();
+
+                        trigger.Field_00 = 1;
+                        trigger.TriggerEnum = Trigger.PlayBGM;
+
+                        Element.ElementID = DvElementID.GeneralTrigger;
+                        Element.Start = diEvent.Common.End - 1;
+                        Element.End = diEvent.Common.End;
+                        Element.Version = 0;
+                        Element.Flags = 0;
+                        Element.PlayType = ElementPlayType.Normal;
+                        Element.UpdateTiming = ElementUpdateTiming.OnUpdatePos;
+                        Element.Element = trigger;
+
+                        Node.Guid = new Guid();
+                        Node.Category = DvNodeCategory.Element;
+                        Node.Flags = 0;
+                        Node.Priority = 0;
+                        Node.Name = "PlayBGM";
+                        Node.NodeObject = Element;
+
+                        diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, Node);
+
+                        diEvent.Write(filepath);
                         break;
                 }
             }
