@@ -1,5 +1,4 @@
 ﻿using DiEventLib;
-using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
@@ -33,14 +32,15 @@ namespace DiEventTest
             {
                 DvScene diEvent = new(filepath);
 
-                //Console.Clear();
-                //Console.WriteLine("What would you like to do with it?");
-                //Console.WriteLine("1. Add in a NearFarSetting");
-                //Console.WriteLine("2. Add in subtitles to a real-time version of a cutscene from its prerendered counterpart");
-                //Console.WriteLine("3. To JSON");
+                Console.Clear();
+                Console.WriteLine("What would you like to do with it?");
+                Console.WriteLine("1. Add in a NearFarSetting");
+                Console.WriteLine("2. Add in subtitles to a real-time version of a cutscene from its prerendered counterpart");
+                Console.WriteLine("3. To JSON");
+                Console.WriteLine("4. Print out GeneralTrigger enums");
 
-                //string option = Console.ReadLine();
-                string option = "2";
+                string option = Console.ReadLine();
+                //string option = "2";
 
                 switch (option)
                 {
@@ -117,6 +117,16 @@ namespace DiEventTest
                         string jsonString = JsonSerializer.Serialize(dvScene);
 
                         File.WriteAllText(filepath.Replace(".dvscene", ".dievent.json"), jsonString);
+                        break;
+
+                    case "4":
+                        foreach(var i in diEvent.Common.Node.ChildNodes)
+                        {
+                            if(i.Category == DvNodeCategory.Element && ((DvNodeElement)i.NodeObject).ElementID == DvElementID.GeneralTrigger)
+                            {
+                                Console.WriteLine(((DvElementGeneralTrigger)((DvNodeElement)i.NodeObject).Element).TriggerEnum);
+                            }
+                        }
                         break;
                 }
             }
