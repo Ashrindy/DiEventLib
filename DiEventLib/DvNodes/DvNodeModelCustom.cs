@@ -5,7 +5,7 @@ namespace DiEventLib;
 
 public class DvNodeModelCustom : DvNodeObject
 {
-    public uint Flags { get; set; }
+    public bool UseMasterLevel { get; set; }
     public string Name1 { get; set; }
     public string Name2 { get; set; }
     public string Name3 { get; set; }
@@ -16,7 +16,8 @@ public class DvNodeModelCustom : DvNodeObject
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {
-        Flags = reader.Read<uint>();
+        var TempUseMasterLevel = reader.Read<uint>();
+        UseMasterLevel = Utils.ToBool(TempUseMasterLevel);
         Name1 = reader.ReadString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, 64);
         Name2 = reader.ReadString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, 64);
         Name3 = reader.ReadString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, 64);
@@ -25,11 +26,10 @@ public class DvNodeModelCustom : DvNodeObject
 
     public override void Write(BinaryObjectWriter writer)
     {
-        writer.Write(Flags);
+        writer.Write(Utils.FromBool(UseMasterLevel));
         writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, Name1, 64);
         writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, Name2, 64);
         writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, Name3, 64);
         writer.WriteCollection(UnkData);
     }
-
 }

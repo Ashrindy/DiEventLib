@@ -95,6 +95,26 @@ public static class Utils
         };
 
     }
+
+    public static bool ToBool(uint data)
+    {
+        if (data == 0)
+            return false;
+        else if (data == 1)
+            return true;
+        else
+            return false;
+    }
+
+    public static uint FromBool(bool data)
+    {
+        if (data == false)
+            return 0;
+        else if (data == true)
+            return 1;
+        else
+            return 0;
+    }
 }
 
 public struct RGBA32

@@ -41,7 +41,7 @@ namespace DiEventTest
                 //Console.WriteLine("5. Remove Captions and stuff");
 
                 //string option = Console.ReadLine();
-                string option = "6";
+                string option = "7";
 
                 switch (option)
                 {
@@ -199,6 +199,22 @@ namespace DiEventTest
                         diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, Node);
 
                         diEvent.Write(filepath);
+                        break;
+
+                    case "7":
+                        DvScene tempScene = diEvent;
+                        for (var i = 0; i < tempScene.Common.Node.ChildNodes.Count; i++)
+                        {
+                            if(tempScene.Common.Node.ChildNodes[i].Category == DvNodeCategory.Element)
+                            {
+                                if(((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).ElementID == DvElementID.Caption)
+                                {
+                                    ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).Start = ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).Start / 2;
+                                    ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).End = ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).End / 2;
+                                }
+                            }
+                        }
+                        tempScene.Write(filepath);
                         break;
                 }
             }
