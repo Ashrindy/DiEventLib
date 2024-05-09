@@ -50,7 +50,8 @@ public enum AnimationType : uint
 {
     SkeletalAnimation = 1,
     UVAnimation,
-    MaterialAnimation = 4
+    VisibilityAnimation,
+    MaterialAnimation
 }
 
 public struct Animation

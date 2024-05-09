@@ -17,7 +17,7 @@ public class DvCutInfo : DvObject, IBinarySerializable
 
     public void Write(BinaryObjectWriter writer)
     {
-        writer.Write(Count);
+        writer.Write(FrameCut.Count);
         writer.Write(AllocatedSize);
         writer.WriteNulls(8);
         writer.WriteCollection(FrameCut);

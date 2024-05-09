@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,11 +19,6 @@
     <Compile Remove="Resource.cs" />
     <Compile Remove="Writer.cs" />
   </ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="System.Runtime.Experimental" Version="6.0.2" />
-		<PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
-	</ItemGroup>
 	
   <ItemGroup>
 	<ProjectReference Include="..\Amicitia.IO\src\Amicitia.IO\Amicitia.IO.csproj" />

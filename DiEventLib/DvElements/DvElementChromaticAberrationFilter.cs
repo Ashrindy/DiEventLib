@@ -31,7 +31,7 @@ public class DvElementChromaticAberrationFilter : DvNodeObject
 
 public struct ChromaticAberration
 {
-    public RGB32 ColorOffset { get; set; }
+    public Vector3 ColorOffset { get; set; }
     public float SphereCurve { get; set; }
     public Vector2 Scale { get; set; }
     public Vector2 Position { get; set; }

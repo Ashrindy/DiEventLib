@@ -10,21 +10,37 @@ public class DvObject
 
 public class DvCommon : IBinarySerializable
 {
-    public uint Version { get; set; }
-    public uint Flags { get; set; }
-    public float Start { get; set; }
-    public float End { get; set; }
-    public uint NodeDrawNum { get; set; }
+    public uint Version { get; set; } = 0;
+    public uint Flags { get; set; } = 0;
+    public float Start { get; set; } = 0;
+    public float End { get; set; } = 0;
+    public uint NodeDrawNum { get; set; } = 0;
     public DvCutInfo CutInfo { get; set; } = new();
     public DvPageConditionQTE PageConditionQTE { get; set; } = new();
     public DvDisableFrameInfo DisableFrameInfo { get; set; } = new();
     public DvResourceCutInfo ResourceCutInfo { get; set; } = new();
     public DvSoundInfo SoundInfo { get; set; } = new();
     public DvNode Node { get; set; } = new();
-    public float ChainCameraIn { get; set; }
-    public float ChainCameraOut { get; set; }
-    public int Type { get; set; }
-    public int SkipPointTick { get; set; }
+    public float ChainCameraIn { get; set; } = -1;
+    public float ChainCameraOut { get; set; } = -1;
+    public int Type { get; set; } = 0;
+    public int SkipPointTick { get; set; } = 0;
+
+    public DvCommon() 
+    {
+        DvNodePath nodePath = new DvNodePath();
+        nodePath.Position = new(0, 0, 0);
+        nodePath.Rotation = new(0, 0, 0);
+        nodePath.Scale = new(0, 0, 0);
+
+        Node.Name = "Main Node";
+        Node.Priority = 0;
+        Node.Flags = 0;
+        Node.Guid = Guid.NewGuid();
+        Node.Category = DvNodeCategory.Path;
+        Node.NodeObject = nodePath;
+    }
+
     public void Read(BinaryObjectReader reader)
     {
         Version = reader.Read<uint>();
