@@ -27,7 +27,7 @@ public class DvElementCameraBlur : DvNodeObject
         writer.Write(Flags);
         writer.Write(Field_04);
         writer.Write(BlurAmount);
-        writer.Write(Field_0C)
+        writer.Write(Field_0C);
         writer.WriteArray(CurveData);
     }
 }
