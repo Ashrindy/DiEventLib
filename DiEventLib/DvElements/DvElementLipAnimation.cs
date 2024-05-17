@@ -8,6 +8,7 @@ public class DvElementLipAnimation : DvNodeObject
     public uint Field_00 { get; set; }
     public string FileName { get; set; }
     public uint[] Field_04 { get; set; }
+    public float[] Data { get; set; }
     public float[] CurveData { get; set; }
     public DvElementLipAnimation() { }
     public DvElementLipAnimation(BinaryObjectReader reader)
@@ -15,16 +16,18 @@ public class DvElementLipAnimation : DvNodeObject
     public override void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
-        FileName = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 48);
+        FileName = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 64);
         Field_04 = reader.ReadArray<uint>(3);
+        Data = reader.ReadArray<float>(32);
         CurveData = reader.ReadArray<float>(32);
     }
 
     public override void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
-        writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, FileName, 48);
+        writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, FileName, 64);
         writer.WriteArray(Field_04);
+        writer.WriteArray(Data);
         writer.WriteArray(CurveData);
     }
 }

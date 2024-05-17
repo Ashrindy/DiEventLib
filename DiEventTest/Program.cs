@@ -13,6 +13,21 @@ namespace DiEventTest
     }
     internal class Program
     {
+        static void LoopThroughElements(int frameOffset, DvNode parentNode)
+        {
+            foreach(var i in parentNode.ChildNodes)
+            {
+                if(i.Category == DvNodeCategory.Element)
+                {
+                    ((DvNodeElement)i.NodeObject).Start += frameOffset;
+                    ((DvNodeElement)i.NodeObject).End += frameOffset;
+                }
+                if(i.ChildNodes.Count > 0)
+                {
+                    LoopThroughElements(frameOffset, i);
+                }
+            }
+        }
         static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -215,6 +230,14 @@ namespace DiEventTest
                             }
                         }
                         tempScene.Write(filepath);
+                        break;
+
+                    case "8":
+                        Console.WriteLine("The amount of frames all elements should be offseted by:");
+                        int frameOffset = int.Parse(Console.ReadLine());
+
+                        LoopThroughElements(frameOffset, diEvent.Common.Node);
+                        diEvent.Write(filepath);
                         break;
                 }
             }
