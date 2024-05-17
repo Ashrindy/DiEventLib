@@ -19,7 +19,6 @@ namespace DiEventTest
             {
                 if(i.Category == DvNodeCategory.Element)
                 {
-                    Console.WriteLine("test: " + i.Name);
                     ((DvNodeElement)i.NodeObject).Start += frameOffset;
                     ((DvNodeElement)i.NodeObject).End += frameOffset;
                 }

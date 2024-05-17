@@ -13,6 +13,7 @@ public class DvNodeElement : DvNodeObject
     public ElementPlayType PlayType { get; set; }
     public ElementUpdateTiming UpdateTiming { get; set; }
     public DvNodeObject Element { get; set; }
+    private byte[] unkElementData { get; set; }
 
     // TODO: Remove when all elements will be researched
     public int NodeSize { get; set; }
@@ -201,7 +202,7 @@ public class DvNodeElement : DvNodeObject
                 break;
 
             default:
-                reader.Skip(NodeSize);
+                unkElementData = reader.ReadArray<byte>(NodeSize);
                 break;
         }
     }
@@ -216,7 +217,10 @@ public class DvNodeElement : DvNodeObject
         writer.Write(PlayType);
         writer.Write(UpdateTiming);
         writer.WriteNulls(4);
-        Element.Write(writer);
+        if (unkElementData != null)
+            writer.WriteArray(unkElementData);
+        else
+            Element.Write(writer);
     }
 }
 

@@ -78,7 +78,7 @@ public class DvNode : IBinarySerializable
                 break;
         }
 
-        Console.WriteLine($"{Name} ({Category})");
+        //Console.WriteLine($"{Name} ({Category})");
 
         ChildNodes.AddRange(reader.ReadObjectArray<DvNode>(childCount));
     }
