@@ -19,6 +19,7 @@ namespace DiEventTest
             {
                 if(i.Category == DvNodeCategory.Element)
                 {
+                    Console.WriteLine("test: " + i.Name);
                     ((DvNodeElement)i.NodeObject).Start += frameOffset;
                     ((DvNodeElement)i.NodeObject).End += frameOffset;
                 }
@@ -56,7 +57,7 @@ namespace DiEventTest
                 //Console.WriteLine("5. Remove Captions and stuff");
 
                 //string option = Console.ReadLine();
-                string option = "7";
+                string option = "8";
 
                 switch (option)
                 {
@@ -234,7 +235,8 @@ namespace DiEventTest
 
                     case "8":
                         Console.WriteLine("The amount of frames all elements should be offseted by:");
-                        int frameOffset = int.Parse(Console.ReadLine());
+                        string thing = Console.ReadLine();
+                        int frameOffset = int.Parse(thing);
 
                         LoopThroughElements(frameOffset, diEvent.Common.Node);
                         diEvent.Write(filepath);
