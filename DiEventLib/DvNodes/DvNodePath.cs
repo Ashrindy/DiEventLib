@@ -5,10 +5,10 @@ namespace DiEventLib;
 
 public class DvNodePath : DvNodeObject
 {
-    public Vector3 Position { get; set; }
-    public Vector3 Rotation { get; set; }
-    public Vector3 Scale { get; set; }
-    public uint Flags { get; set; }
+    public Vector3 Position { get; set; } = new(0,0,0);
+    public Vector3 Rotation { get; set; } = new(0, 0, 0);
+    public Vector3 Scale { get; set; } = new(0, 0, 0);
+    public uint Flags { get; set; } = 0;
     public DvNodePath() { }
     public DvNodePath(BinaryObjectReader reader)
         => Read(reader);

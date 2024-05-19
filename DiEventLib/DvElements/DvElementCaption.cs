@@ -5,8 +5,8 @@ namespace DiEventLib;
 
 public class DvElementCaption : DvNodeObject
 {
-    public string Name { get; set; }
-    public Language Language { get; set; }
+    public string Name { get; set; } = "";
+    public Language Language { get; set; } = Language.English;
 
     public DvElementCaption() { }
     public DvElementCaption(BinaryObjectReader reader)

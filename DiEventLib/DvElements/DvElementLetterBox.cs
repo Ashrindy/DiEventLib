@@ -6,7 +6,14 @@ public class DvElementLetterBox : DvNodeObject
 {
     public float[] CurveData { get; set; }
 
-    public DvElementLetterBox() { }
+    public DvElementLetterBox() 
+    { 
+        CurveData = new float[32];
+        for(int i = 0; i < 32; i++)
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementLetterBox(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

@@ -4,10 +4,10 @@ namespace DiEventLib;
 
 public class DvNodeCameraMotion : DvNodeObject
 {
-    public uint Flags { get; set; }
-    public uint FrameStart { get; set; }
-    public uint FrameEnd { get; set; }
-    public uint Field0C { get; set; }
+    public uint Flags { get; set; } = 0;
+    public uint FrameStart { get; set; } = 0;
+    public uint FrameEnd { get; set; } = 0;
+    public uint Field0C { get; set; } = 0;
 
     public DvNodeCameraMotion() { }
     public DvNodeCameraMotion(BinaryObjectReader reader)

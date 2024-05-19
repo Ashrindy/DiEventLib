@@ -4,7 +4,7 @@ namespace DiEventLib;
 
 public class DvElementSpotlight : DvNodeObject
 {
-    public uint Flags { get; set; }
+    public uint Flags { get; set; } = 0;
     public float[] Unk01 { get; set; }
     public RGB32 Color { get; set; }
     public float[] Unk02 { get; set; }

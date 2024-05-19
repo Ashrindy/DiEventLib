@@ -5,13 +5,20 @@ namespace DiEventLib;
 
 public class DvNodeModelCustom : DvNodeObject
 {
-    public bool UseMasterLevel { get; set; }
-    public string Name1 { get; set; }
-    public string Name2 { get; set; }
-    public string Name3 { get; set; }
+    public bool UseMasterLevel { get; set; } = false;
+    public string Name1 { get; set; } = "";
+    public string Name2 { get; set; } = "";
+    public string Name3 { get; set; } = "";
     List<byte> UnkData { get; set; } = new();
 
-    public DvNodeModelCustom() { }
+    public DvNodeModelCustom() 
+    {
+        UnkData = new List<byte>();
+        for (int i = 0; i < 76; i++)
+        {
+            UnkData.Add(0);
+        }
+    }
     public DvNodeModelCustom(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

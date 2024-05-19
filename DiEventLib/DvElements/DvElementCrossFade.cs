@@ -4,10 +4,17 @@ namespace DiEventLib;
 
 public class DvElementCrossFade : DvNodeObject
 {
-    public uint Field_00 { get; set; }
-    public uint Field_04 { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public uint Field_04 { get; set; } = 0;
     public float[] CurveData { get; set; }
-    public DvElementCrossFade() { }
+    public DvElementCrossFade() 
+    {
+        CurveData = new float[32];
+        for(int i = 0; i < 32; i++)
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementCrossFade(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

@@ -5,12 +5,12 @@ namespace DiEventLib;
 
 public class DvElementVisibilityAnimation : DvNodeObject
 {
-    public uint Field_00 {  get; set; }
-    public string FileName { get; set; }
-    public uint Field_44 { get; set; }
-    public float Field_48 { get; set; }
-    public uint Field_4c { get; set; }
-    public uint Field_50 { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public string FileName { get; set; } = "";
+    public uint Field_44 { get; set; } = 0;
+    public float Field_48 { get; set; } = 0;
+    public uint Field_4c { get; set; } = 0;
+    public uint Field_50 { get; set; } = 0;
     public DvElementVisibilityAnimation() { }
     public DvElementVisibilityAnimation(BinaryObjectReader reader)
         => Read(reader);

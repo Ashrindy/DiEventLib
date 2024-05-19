@@ -4,10 +4,17 @@ namespace DiEventLib;
 
 public class DvElementWeather : DvNodeObject
 {
-    public uint Field_00 { get; set; } // could be an enum of some sort, like "sunny" "cloudy" etc.
+    public uint Field_00 { get; set; } = 0; // could be an enum of some sort, like "sunny" "cloudy" etc.
     public float[] CurveData { get; set; }
 
-    public DvElementWeather() { }
+    public DvElementWeather() 
+    {
+        CurveData = new float[32];
+        for(int i = 0; i < 32; i++)
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementWeather(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

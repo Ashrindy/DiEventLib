@@ -5,15 +5,27 @@ namespace DiEventLib;
 
 public class DvElementEffect : DvNodeObject
 {
-    public Vector3 Position { get; set; }
-    public Vector3 Rotation { get; set; }
-    public Vector3 Scale { get; set; }
-    public uint Field9C { get; set; }
-    public string FileName { get; set; }
+    public Vector3 Position { get; set; } = new(0, 0, 0);
+    public Vector3 Rotation { get; set; } = new(0, 0, 0);
+    public Vector3 Scale { get; set; } = new(0, 0, 0);
+    public uint Field9C { get; set; } = 0;
+    public string FileName { get; set; } = "";
     public uint[] FieldDC { get; set; } // Item 3 could be RGBA in bytes
     public float[] AnimData { get; set; }
 
-    public DvElementEffect() { }
+    public DvElementEffect() 
+    { 
+        FieldDC = new uint[8];
+        for(int i = 0; i < 8; i++)
+        {
+            FieldDC[i] = 0;
+        }
+        AnimData = new float[128];
+        for(int i = 0; i < 128; i++)
+        {
+            AnimData[i] = 1;
+        }
+    }
     public DvElementEffect(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

@@ -4,8 +4,8 @@ namespace DiEventLib;
 
 public class DvElementShadowResolution : DvNodeObject
 {
-    public uint ShadowRes1 { get; set; }
-    public uint ShadowRes2 { get; set; }
+    public uint ShadowRes1 { get; set; } = 0;
+    public uint ShadowRes2 { get; set; } = 0;    
 
     public DvElementShadowResolution() { }
     public DvElementShadowResolution(BinaryObjectReader reader)

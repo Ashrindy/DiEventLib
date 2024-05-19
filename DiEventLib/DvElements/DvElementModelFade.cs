@@ -6,7 +6,19 @@ public class DvElementModelFade : DvNodeObject
 {
     public uint[] Field_00 { get; set; }
     public float[] CurveData { get; set; }
-    public DvElementModelFade() { }
+    public DvElementModelFade() 
+    { 
+        Field_00 = new uint[8];
+        for(int i = 0; i < 8; i++)
+        {
+            Field_00[i] = 0;
+        }
+        CurveData = new float[128];
+        for (int i = 0; i < 8; i++)
+        {
+            CurveData[i] = 0;
+        }
+    }
     public DvElementModelFade(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

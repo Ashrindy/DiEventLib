@@ -4,18 +4,25 @@ namespace DiEventLib;
 
 public class DvElementTime : DvNodeObject
 {
-    public uint Field_00 { get; set; }
-    public uint Flags { get; set; }
-    public uint Field_08 { get; set; }
-    public uint Field_0c { get; set; }
-    public uint Field_10 { get; set; }
-    public uint Field_14 { get; set; }
-    public uint Field_18 { get; set; }
-    public uint Field_1c { get; set; }
-    public uint Field_20 { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public uint Flags { get; set; } = 0;
+    public uint Field_08 { get; set; } = 0;
+    public uint Field_0c { get; set; } = 0;
+    public uint Field_10 { get; set; } = 0;
+    public uint Field_14 { get; set; } = 0;
+    public uint Field_18 { get; set; } = 0;
+    public uint Field_1c { get; set; } = 0;
+    public uint Field_20 { get; set; } = 0;
     public float[] CurveData { get; set; }
 
-    public DvElementTime() { }
+    public DvElementTime() 
+    {
+        CurveData = new float[32];
+        for (int i = 0; i < 32; i++)
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementTime(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

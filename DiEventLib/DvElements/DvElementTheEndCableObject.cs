@@ -4,10 +4,17 @@ namespace DiEventLib;
 
 public class DvElementTheEndCableObject : DvNodeObject
 {
-    public uint Flags { get; set; }
-    public uint Field_04 { get; set; }
+    public uint Flags { get; set; } = 0;
+    public uint Field_04 { get; set; } = 0;
     public float[] AnimData { get; set; }
-    public DvElementTheEndCableObject() { }
+    public DvElementTheEndCableObject() 
+    {
+        AnimData = new float[1024];
+        for (int i = 0; i < 1024; i++)
+        {
+            AnimData[i] = 1;
+        }
+    }
     public DvElementTheEndCableObject(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

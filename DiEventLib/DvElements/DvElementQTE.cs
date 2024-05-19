@@ -4,23 +4,35 @@ namespace DiEventLib;
 
 public class DvElementQTE : DvNodeObject
 {
-    public QTEType QTEType { get; set;}
-    public QTEButton QTEButton { get; set; }
-    public float RedCircleSize { get; set; }
-    public float RedCircleThickness { get; set; }
-    public float WhiteLineThickness { get; set; }
-    public float WhiteLineSpeed { get; set; }
-    public float Multiplier { get; set; }
-    public float RedCircleOutlineThickness { get; set; }
-    public float WhiteLineOutlineThickness { get; set; }
-    public uint FailCount { get; set; }
-    public uint Field_88 { get; set; }
+    public QTEType QTEType { get; set; } = QTEType.PressPrompt;
+    public QTEButton QTEButton { get; set; } = QTEButton.A;
+    public float RedCircleSize { get; set; } = 0;
+    public float RedCircleThickness { get; set; } = 0;
+    public float WhiteLineThickness { get; set; } = 0;
+    public float WhiteLineSpeed { get; set; } = 0;
+    public float Multiplier { get; set; } = 0;
+    public float RedCircleOutlineThickness { get; set; } = 0;
+    public float WhiteLineOutlineThickness { get; set; } = 0;
+    public uint FailCount { get; set; } = 0;
+    public uint Field_88 { get; set; } = 0;
     public byte[] Field_8c { get; set; }
-    public float Field_cc { get; set; }
-    public float Field_d0 { get; set; }
-    public float Field_d4 { get; set; }
+    public float Field_cc { get; set; } = 0;
+    public float Field_d0 { get; set; } = 0;
+    public float Field_d4 { get; set; } = 0;
     public byte[] Field_d8 { get; set; }
-    public DvElementQTE() { }
+    public DvElementQTE() 
+    {
+        Field_8c = new byte[64];
+        for(int i = 0; i < 64; i++)
+        {
+            Field_8c[i] = 0;
+        }
+        Field_d8 = new byte[264];
+        for (int i = 0; i < 264; i++)
+        {
+            Field_d8[i] = 0;
+        }
+    }
     public DvElementQTE(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

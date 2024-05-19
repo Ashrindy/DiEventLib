@@ -4,11 +4,18 @@ namespace DiEventLib;
 
 public class DvElementNearFarSetting : DvNodeObject
 {
-    public uint Field_00 {  get; set; }
-    public float Near {  get; set; }
-    public float Far { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public float Near { get; set; } = 0;
+    public float Far { get; set; } = 1000;
     public uint[] Field_10 { get; set; }
-    public DvElementNearFarSetting() { }
+    public DvElementNearFarSetting() 
+    {
+        Field_10 = new uint[5];
+        for (int i = 0; i < 8; i++)
+        {
+            Field_10[i] = 0;
+        }
+    }
     public DvElementNearFarSetting(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

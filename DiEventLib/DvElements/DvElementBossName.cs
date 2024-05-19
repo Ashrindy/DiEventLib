@@ -4,8 +4,8 @@ namespace DiEventLib;
 
 public class DvElementBossName : DvNodeObject
 {
-    public uint Field_00 { get; set; }
-    public BossID BossName { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public BossID BossName { get; set; } = BossID.Giganto;
 
     public DvElementBossName() { }
     public DvElementBossName(BinaryObjectReader reader)

@@ -5,13 +5,68 @@ namespace DiEventLib;
 
 public class DvElementVignette : DvNodeObject
 {
-    public uint Field_00 { get; set; }
-    public uint Field_04 { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public uint Field_04 { get; set; } = 0;
     public VignetteParam1 Data1 { get; set; }
     public VignetteParam2 Data2 { get; set; }
     public float[] CurveData { get; set; }
 
-    public DvElementVignette() { }
+    public DvElementVignette() 
+    {
+        Data1 = new VignetteParam1 
+        { 
+            Position = new(0,0),
+            Scale = new(0,0),
+            Size = 0,
+            Rotation = 0,
+            Field_18 = 0,
+            Alpha = 0,
+            Field_1c = 0,
+            Unk1 = 0,
+            Unk2 = 0,
+            Center = new(0,0),
+            Direction = new(0,0),
+            PenumbraScale = 0,
+            MinPenumbraScale = 0,
+            MaxPenumbraScale = 0,
+            BokehScale = 0,
+            MinDOFOpacityScale = 0,
+            MaxDOFOpacityScale = 0,
+            MinOpacityScale = 0,
+            MaxOpacityScale = 0,
+            MinOpacityDist = 0,
+            MaxOpacityDist = 0,
+        };
+        Data2 = new VignetteParam2
+        {
+            Position = new(0, 0),
+            Scale = new(0, 0),
+            Size = 0,
+            Rotation = 0,
+            Field_18 = 0,
+            Alpha = 0,
+            Field_1c = 0,
+            Unk1 = 0,
+            Unk2 = 0,
+            Unk3 = 0,
+            PenumbraScale = 0,
+            Unk4 = 0,
+            MinPenumbraScale = 0,
+            MaxPenumbraScale = 0,
+            BokehScale = 0,
+            MinDOFOpacityScale = 0,
+            MaxDOFOpacityScale = 0,
+            MinOpacityScale = 0,
+            MaxOpacityScale = 0,
+            MinOpacityDist = 0,
+            MaxOpacityDist = 0,
+        };
+        CurveData = new float[32];
+        for (int i = 0; i < 32; i++)
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementVignette(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

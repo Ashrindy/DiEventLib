@@ -5,9 +5,9 @@ namespace DiEventLib;
 
 public class DvElementSound : DvNodeObject
 {
-    public string CueName { get; set; }
-    public uint Field_a0 { get; set; }
-    public uint Field_a4 { get; set; }
+    public string CueName { get; set; } = "";
+    public uint Field_a0 { get; set; } = 0;
+    public uint Field_a4 { get; set; } = 0;
     public DvElementSound() { }
     public DvElementSound(BinaryObjectReader reader)
         => Read(reader);

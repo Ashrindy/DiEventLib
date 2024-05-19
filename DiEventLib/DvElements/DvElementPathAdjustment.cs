@@ -5,12 +5,19 @@ namespace DiEventLib;
 
 public class DvElementPathAdjustment : DvNodeObject
 {
-    public Vector3 Position;
-    public Vector3 Rotation;
-    public Vector3 Scale;
+    public Vector3 Position = new(0,0,0);
+    public Vector3 Rotation = new(0,0,0);
+    public Vector3 Scale = new(0,0,0);
     public uint[] Field_40 { get; set; }
 
-    public DvElementPathAdjustment() { }
+    public DvElementPathAdjustment() 
+    {
+        Field_40 = new uint[4];
+        for (int i = 0; i < 4; i++)
+        {
+            Field_40[i] = 0;
+        }
+    }
     public DvElementPathAdjustment(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

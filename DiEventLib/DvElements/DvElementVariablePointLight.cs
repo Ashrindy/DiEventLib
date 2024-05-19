@@ -7,7 +7,7 @@ public class DvElementVariablePointLight : DvNodeObject
     public float[] Unk1 { get; set; }
     public int[] Unk2 { get; set; }
     public float[] Unk3 { get; set; }
-    public int Unk4 { get; set; }
+    public int Unk4 { get; set; } = 0;
     public int[] Unk5 { get; set; }
     public float[] CurveData { get; set; }
     public DvElementVariablePointLight() { }

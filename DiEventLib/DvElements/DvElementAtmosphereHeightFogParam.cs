@@ -6,7 +6,14 @@ public class DvElementAtmosphereHeightFogParam : DvNodeObject
 {
     public byte[] Data { get; set; }
 
-    public DvElementAtmosphereHeightFogParam() { }
+    public DvElementAtmosphereHeightFogParam() 
+    {
+        Data = new byte[300];
+        for (int i = 0; i < 300; i++)
+        {
+            Data[i] = 0;
+        }
+    }
     public DvElementAtmosphereHeightFogParam(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

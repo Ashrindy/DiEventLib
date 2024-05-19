@@ -5,9 +5,9 @@ namespace DiEventLib;
 
 public class DvElementGeneralTrigger : DvNodeObject
 {
-    public uint Field_00 { get; set; }
-    public string TriggerName { get; set; }
-    public Trigger TriggerEnum { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public string TriggerName { get; set; } = "";
+    public Trigger TriggerEnum { get; set; } = Trigger.None;
 
     public DvElementGeneralTrigger() { }
     public DvElementGeneralTrigger(BinaryObjectReader reader)

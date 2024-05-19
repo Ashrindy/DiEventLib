@@ -4,22 +4,34 @@ namespace DiEventLib;
 
 public class DvElementDOF : DvNodeObject
 {
-    public uint Field_60 {  get; set; }
+    public uint Field_60 { get; set; } = 0;
     public DOFParam[] DOFParams { get; set; }
-    public float Field_84 {  get; set; }
-    public float Field_88 {  get; set; }
-    public uint Field_8c {  get; set; }
-    public uint Field_90 {  get; set; }
-    public float Field_94 {  get; set; }
-    public float Field_98 {  get; set; }
-    public float Field_9c {  get; set; }
-    public float Field_a0 {  get; set; }
-    public float Field_a4 {  get; set; }
-    public float Field_a8 {  get; set; }
-    public float Field_ac {  get; set; }
-    public float[] AnimData {  get; set; }
+    public float Field_84 { get; set; } = 0;
+    public float Field_88 { get; set; } = 0;
+    public uint Field_8c { get; set; } = 0;
+    public uint Field_90 { get; set; } = 0;
+    public float Field_94 { get; set; } = 0;
+    public float Field_98 { get; set; } = 0;
+    public float Field_9c { get; set; } = 0;
+    public float Field_a0 { get; set; } = 0;
+    public float Field_a4 { get; set; } = 0;
+    public float Field_a8 { get; set; } = 0;
+    public float Field_ac { get; set; } = 0;
+    public float[] AnimData { get; set; }
 
-    public DvElementDOF() { }
+    public DvElementDOF()
+    {
+        DOFParams = new DOFParam[2];
+        for (int i = 0; i < 2; i++)
+        {
+            DOFParams[i] = new DOFParam { Focus = 0, FocusRange = 0, Near = 0, Far = 0 };
+        }
+        AnimData = new float[32];
+        for (int i = 0; i < 32; i++)
+        {
+            AnimData[i] = 1;
+        }
+    }
     public DvElementDOF(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

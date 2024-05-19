@@ -6,13 +6,40 @@ public class DvElementShadowMapParam : DvNodeObject
 {
     public uint[] Field_00 { get; set; }
     public float[] Field_04 { get; set; }
-    public uint Field_05 { get; set; }
+    public uint Field_05 { get; set; } = 0;
     public float[] Data { get; set; }
     public uint[] Field_08 { get; set; }
-    public uint ShadowMapRes1 { get; set; }
-    public uint ShadowMapRes2 { get; set; }
+    public uint ShadowMapRes1 { get; set; } = 0;
+    public uint ShadowMapRes2 { get; set; } = 0;
     public float[] Field_10 { get; set; }
-    public DvElementShadowMapParam() { }
+    public DvElementShadowMapParam() 
+    {
+        Field_00 = new uint[5];
+        for (int i = 0; i < 5; i++)
+        {
+            Field_00[i] = 0;
+        }
+        Field_04 = new float[9];
+        for (int i = 0; i < 9; i++)
+        {
+            Field_04[i] = 0;
+        }
+        Data = new float[8];
+        for (int i = 0; i < 8; i++)
+        {
+            Data[i] = 0;
+        }
+        Field_08 = new uint[3];
+        for (int i = 0; i < 3; i++)
+        {
+            Field_08[i] = 0;
+        }
+        Field_10 = new float[5];
+        for (int i = 0; i < 5; i++)
+        {
+            Field_10[i] = 0;
+        }
+    }
     public DvElementShadowMapParam(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

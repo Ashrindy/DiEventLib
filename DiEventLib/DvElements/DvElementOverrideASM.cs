@@ -5,8 +5,8 @@ namespace DiEventLib;
 
 public class DvElementOverrideASM : DvNodeObject
 {
-    public string ASMName1 { get; set; }
-    public string ASMName2 { get; set; }
+    public string ASMName1 { get; set; } = "";
+    public string ASMName2 { get; set; } = "";
     public DvElementOverrideASM() { }
     public DvElementOverrideASM(BinaryObjectReader reader)
         => Read(reader);

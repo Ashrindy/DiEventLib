@@ -5,8 +5,8 @@ namespace DiEventLib;
 
 public class DvNodeModelNode : DvNodeObject
 {
-    public uint Field00 { get; set; }
-    public string NodeName { get; set; }
+    public uint Field00 { get; set; } = 0;
+    public string NodeName { get; set; } = "";
 
     public DvNodeModelNode() { }
     public DvNodeModelNode(BinaryObjectReader reader)

@@ -4,16 +4,23 @@ namespace DiEventLib;
 
 public class DvElementColorContrast : DvNodeObject
 {
-    public uint Field_00 {  get; set; }
-    public float Field_04 {  get; set; }
-    public float Field_08 {  get; set; }
-    public float Field_0c {  get; set; }
-    public float Field_1c {  get; set; }
-    public uint Field_01 {  get; set; }
-    public float Field_2c {  get; set; }
-    public uint Field_02 {  get; set; }
-    public float[] CurveData {  get; set; }
-    public DvElementColorContrast() { }
+    public uint Field_00 { get; set; } = 0;
+    public float Field_04 { get; set; } = 0;
+    public float Field_08 { get; set; } = 0;
+    public float Field_0c { get; set; } = 0;
+    public float Field_1c { get; set; } = 0;
+    public uint Field_01 { get; set; } = 0;
+    public float Field_2c { get; set; } = 0;
+    public uint Field_02 { get; set; } = 0;
+    public float[] CurveData { get; set; }
+    public DvElementColorContrast() 
+    {
+        CurveData = new float[32];
+        for(int i = 0; i < 32; i++)
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementColorContrast(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

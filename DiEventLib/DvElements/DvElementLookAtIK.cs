@@ -4,13 +4,25 @@ namespace DiEventLib;
 
 public class DvElementLookAtIK : DvNodeObject
 {
-    public uint Field_60 { get; set; }
-    public uint Field_64 { get; set; }
-    public Guid GUID { get; set; }
+    public uint Field_60 { get; set; } = 0;
+    public uint Field_64 { get; set; } = 0;
+    public Guid GUID { get; set; } = Guid.NewGuid();
     public uint[] Field_78 { get; set; }
     public float[] Field_80 { get; set; }
 
-    public DvElementLookAtIK() { }
+    public DvElementLookAtIK() 
+    {
+        Field_78 = new uint[11];
+        for(int i = 0; i < 11; i++)
+        {
+            Field_78[i] = 0;
+        }
+        Field_80 = new float[64];
+        for (int i = 0; i < 64; i++)
+        {
+            Field_80[i] = 1;
+        }
+    }
     public DvElementLookAtIK(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

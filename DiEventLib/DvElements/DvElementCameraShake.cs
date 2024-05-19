@@ -4,9 +4,9 @@ namespace DiEventLib;
 
 public class DvElementCameraShake : DvNodeObject
 {
-    public uint Field_00 { get; set; } // Could be in which way the camera shakes? As in, roll, yaw, pitch etc.
-    public float Intensity { get; set; }
-    public float Frequency { get; set; }
+    public uint Field_00 { get; set; } = 0; // Could be in which way the camera shakes? As in, roll, yaw, pitch etc.
+    public float Intensity { get; set; } = 0;
+    public float Frequency { get; set; } = 0;
 
     public DvElementCameraShake() { }
     public DvElementCameraShake(BinaryObjectReader reader)

@@ -5,9 +5,9 @@ namespace DiEventLib;
 
 public class DvElementCompositeAnimation : DvNodeObject
 {
-    public uint Field_60 { get; set; }
-    public string StateName { get; set; }
-    public uint Field_6c { get; set; }
+    public uint Field_60 { get; set; } = 0;
+    public string StateName { get; set; } = "Dst0000";
+    public uint Field_6c { get; set; } = 0;
     public Animation[] Animations { get; set; } = new Animation[16];
     //public uint ActiveAnimCount { get; set; }
     public DvElementCompositeAnimation() { }

@@ -4,13 +4,20 @@ namespace DiEventLib;
 
 public class DvElementCameraBlur : DvNodeObject
 {
-    public uint Flags { get; set; }
-    public uint Field_04 { get; set; }
-    public float BlurAmount { get; set; }
-    public uint Field_0C { get; set; }
+    public uint Flags { get; set; } = 0;
+    public uint Field_04 { get; set; } = 0;
+    public float BlurAmount { get; set; } = 0;
+    public uint Field_0C { get; set; } = 0;
     public float[] CurveData { get; set; }
 
-    public DvElementCameraBlur() { }
+    public DvElementCameraBlur() 
+    {
+        CurveData = new float[32];
+        for (int i = 0; i < 32; i++)
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementCameraBlur(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

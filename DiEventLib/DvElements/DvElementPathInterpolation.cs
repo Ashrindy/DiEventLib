@@ -6,7 +6,14 @@ public class DvElementPathInterpolation : DvNodeObject
 {
     public byte[] Data { get; set; }
 
-    public DvElementPathInterpolation() { }
+    public DvElementPathInterpolation() 
+    {
+        Data = new byte[592];
+        for (int i = 0; i < 592; i++)
+        {
+            Data[i] = 0;
+        }
+    }
     public DvElementPathInterpolation(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

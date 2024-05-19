@@ -4,12 +4,19 @@ namespace DiEventLib;
 
 public class DvElementAura : DvNodeObject
 {
-    public AuraNode AuraNode1 { get; set; }
-    public AuraNode AuraNode2 { get; set; }
-    public uint Field_00 { get; set; }
+    public AuraNode AuraNode1 { get; set; } = new();
+    public AuraNode AuraNode2 { get; set; } = new();
+    public uint Field_00 { get; set; } = 0;
     public float[] AnimData { get; set; }
 
-    public DvElementAura() { }
+    public DvElementAura() 
+    { 
+        AnimData = new float[32];
+        for(int i = 0; i < 32; i++)
+        {
+            AnimData[i] = 1;
+        }
+    }
     public DvElementAura(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

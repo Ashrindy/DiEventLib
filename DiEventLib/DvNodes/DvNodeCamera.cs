@@ -4,10 +4,10 @@ namespace DiEventLib;
 
 public class DvNodeCamera : DvNodeObject
 {
-    public uint Flags { get; set; }
-    public int FrameProgressionCount { get; set; }
-    public int CaptionCount { get; set; }
-    public uint Field0C { get; set; }   // Is caption list ???
+    public uint Flags { get; set; } = 0;
+    public int FrameProgressionCount { get; set; } = 0;
+    public int CaptionCount { get; set; } = 0;
+    public uint Field0C { get; set; } = 0;   // Is caption list ???
     public List<float> FrameProgression { get; set; } = new();
     public List<float> FrameProgressionSpeed { get; set; } = new();
 

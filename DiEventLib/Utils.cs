@@ -119,16 +119,15 @@ public static class Utils
 
 public struct RGBA32
 {
-    public uint A;
-    public uint R;
-    public uint G;
-    public uint B;
+    public uint A { get; set; }
+    public uint R { get; set; }
+    public uint G { get; set; }
+    public uint B { get; set; }
 }
-
 public struct RGB32
 {
-    public uint R;
-    public uint G;
-    public uint B;
+    public uint R { get; set; }
+    public uint G { get; set; }
+    public uint B { get; set; }
 }
 

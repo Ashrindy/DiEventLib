@@ -57,7 +57,7 @@ public class DvPage : IBinarySerializable
         Index = reader.Read<uint>();
         SkipLinkIndexNum = reader.Read<uint>();
         reader.Skip(12);
-        Name = reader.ReadString(Encoding.UTF8,StringBinaryFormat.FixedLength, 64);
+        Name = reader.ReadString(Encoding.UTF8,StringBinaryFormat.FixedLength, 32);
         if (SkipLinkIndexNum != 0)
         {
             Field50 = reader.Read<int>();
@@ -81,7 +81,7 @@ public class DvPage : IBinarySerializable
         writer.Write(Index);
         writer.Write(SkipLinkIndexNum);
         writer.WriteNulls(12);
-        writer.WriteString(Encoding.UTF8, StringBinaryFormat.FixedLength, Name, 64);
+        writer.WriteString(Encoding.UTF8, StringBinaryFormat.FixedLength, Name, 32);
         if (SkipLinkIndexNum != 0)
         {
             writer.Write(Field50); 

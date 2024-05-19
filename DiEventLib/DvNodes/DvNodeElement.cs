@@ -4,14 +4,14 @@ namespace DiEventLib;
 public class DvNodeElement : DvNodeObject
 {
 
-    public DvElementID ElementID { get; set; }
-    public float Start { get; set; }
-    public float End { get; set; }
-    public int Version { get; set; }
-    public uint Flags { get; set; }
+    public DvElementID ElementID { get; set; } = DvElementID.Culling;
+    public float Start { get; set; } = 0f;
+    public float End { get; set; } = 0f;
+    public int Version { get; set; } = 0;
+    public uint Flags { get; set; } = 0;
 
-    public ElementPlayType PlayType { get; set; }
-    public ElementUpdateTiming UpdateTiming { get; set; }
+    public ElementPlayType PlayType { get; set; } = ElementPlayType.Normal;
+    public ElementUpdateTiming UpdateTiming { get; set; } = ElementUpdateTiming.OnExecPath;
     public DvNodeObject Element { get; set; }
     private byte[] unkElementData { get; set; }
 

@@ -4,14 +4,26 @@ namespace DiEventLib;
 
 public class DvElementBloom : DvNodeObject
 {
-    public uint Field_00 { get; set; }
-    public float Field_04 { get; set; }
-    public float Field_08 { get; set; }
-    public uint Field_10 { get; set; }
-    public float Field_14 { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public float Field_04 { get; set; } = 0;
+    public float Field_08 { get; set; } = 0;
+    public uint Field_10 { get; set; } = 0;
+    public float Field_14 { get; set; } = 0;
     public float[] Field_18 { get; set; }
     public float[] CurveData { get; set; }
-    public DvElementBloom() { }
+    public DvElementBloom() 
+    {
+        Field_18 = new float[6];
+        for(int i = 0; i < 6; i++)
+        {
+            Field_18[i] = 0;
+        }
+        CurveData = new float[32];
+        for(int i = 0; i < 32; i++) 
+        {
+            CurveData[i] = 1;
+        }
+    }
     public DvElementBloom(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

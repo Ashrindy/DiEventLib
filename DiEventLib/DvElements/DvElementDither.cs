@@ -4,8 +4,8 @@ namespace DiEventLib;
 
 public class DvElementDither : DvNodeObject
 {
-    public float Alpha {  get; set; }
-    public float Intensity {  get; set; } // not quite sure on this one
+    public float Alpha { get; set; } = 0;
+    public float Intensity { get; set; } = 0; // not quite sure on this one
     public DvElementDither() { }
     public DvElementDither(BinaryObjectReader reader)
         => Read(reader);

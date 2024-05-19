@@ -5,11 +5,23 @@ namespace DiEventLib;
 
 public class DvElementSun : DvNodeObject
 {
-    public uint Field_00 {  get; set; }
-    public Vector3 Rotation { get; set; }
+    public uint Field_00 { get; set; } = 0;
+    public Vector3 Rotation { get; set; } = new(0, 0, 0);
     public uint[] Field_01 { get; set; }
     public uint[] AnimData { get; set; }
-    public DvElementSun() { }
+    public DvElementSun() 
+    {
+        Field_01 = new uint[3];
+        for (int i = 0; i < 3; i++)
+        {
+            Field_01[i] = 0;
+        }
+        AnimData = new uint[32];
+        for (int i = 0; i < 32; i++)
+        {
+            AnimData[i] = 1;
+        }
+    }
     public DvElementSun(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
