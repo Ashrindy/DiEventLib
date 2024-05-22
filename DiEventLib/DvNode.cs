@@ -11,11 +11,11 @@ public abstract class DvNodeObject : IBinarySerializable
 
 public class DvNode : IBinarySerializable
 {
-    public Guid Guid { get; set; }
-    public DvNodeCategory Category { get; set; }
-    public int Flags { get; set; }
-    public int Priority { get; set; }
-    public string Name { get; set; }
+    public Guid Guid { get; set; } = Guid.NewGuid();
+    public DvNodeCategory Category { get; set; } = DvNodeCategory.DummyNode;
+    public int Flags { get; set; } = 0;
+    public int Priority { get; set; } = 0;
+    public string Name { get; set; } = "";
     public List<DvNode> ChildNodes { get; set; } = new();
     public DvNodeObject NodeObject { get; set; }
 
