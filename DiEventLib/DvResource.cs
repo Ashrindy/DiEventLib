@@ -39,12 +39,12 @@ public class ResourceEntry : IBinarySerializable
         Unknown6 = 0x9,
         Model = 0xA
     }
-    public Guid Guid { get; set; }
-    public DvResourceType Type { get; set; }
-    public int Field14 { get; set; }
-    public int Field18 { get; set; }
-    public string Name { get; set; }
-    public byte[] Data { get; set; }
+    public Guid Guid { get; set; } = Guid.NewGuid();
+    public DvResourceType Type { get; set; } = DvResourceType.Unknown1;
+    public int Field14 { get; set; } = 0;
+    public int Field18 { get; set; } = 1;
+    public string Name { get; set; } = "";
+    public byte[] Data { get; set; } = new byte[0x254];
 
     // TODO: Find Start and End like in Yakuza games
     public void Read(BinaryObjectReader reader)
