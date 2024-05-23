@@ -31,7 +31,7 @@ public class DvCommon : IBinarySerializable
         DvNodePath nodePath = new DvNodePath();
         nodePath.Position = new(0, 0, 0);
         nodePath.Rotation = new(0, 0, 0);
-        nodePath.Scale = new(0, 0, 0);
+        nodePath.Scale = new(1, 1, 1);
 
         Node.Name = "Main Node";
         Node.Priority = 0;
