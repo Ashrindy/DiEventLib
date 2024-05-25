@@ -1,7 +1,7 @@
 ﻿using Amicitia.IO.Binary;
 namespace DiEventLib;
 
-public class DvNodeElement : DvNode
+public abstract class DvNodeElement : DvNode
 {
 
     public DvElementID ElementID { get; set; }
@@ -12,7 +12,7 @@ public class DvNodeElement : DvNode
 
     public ElementPlayType PlayType { get; set; } = ElementPlayType.Normal;
     public ElementUpdateTiming UpdateTiming { get; set; } = ElementUpdateTiming.OnExecPath;
-    public DvNodeObject Element { get; set; }
+    //public DvNodeObject Element { get; set; }
     private byte[] unkElementData { get; set; }
 
     // TODO: Remove when all elements will be researched
@@ -26,8 +26,9 @@ public class DvNodeElement : DvNode
         NodeSize = size - 32;
         Read(reader);
     }
-    public override void Read(BinaryObjectReader reader)
+    protected void ElementRead(BinaryObjectReader reader)
     {
+        NodeRead(reader);
         ElementID = reader.Read<DvElementID>();
         Start = reader.Read<float>();
         End = reader.Read<float>();
@@ -48,10 +49,10 @@ public class DvNodeElement : DvNode
         writer.Write(PlayType);
         writer.Write(UpdateTiming);
         writer.WriteNulls(4);
-        if (unkElementData != null)
-            writer.WriteArray(unkElementData);
-        else
-            Element.Write(writer);
+        //if (unkElementData != null)
+        //    writer.WriteArray(unkElementData);
+        //else
+         //   Element.Write(writer);
     }
 }
 

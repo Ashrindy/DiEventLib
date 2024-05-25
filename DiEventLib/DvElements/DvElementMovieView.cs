@@ -9,6 +9,7 @@ public class DvElementMovieView : DvNodeElement
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {
+        ElementRead(reader);
     }
 
     public override void Write(BinaryObjectWriter writer)

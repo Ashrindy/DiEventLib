@@ -13,6 +13,7 @@ public class DvElementCaption : DvNodeElement
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {
+        ElementRead(reader);
         Name = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 16);
         Language = reader.Read<Language>();
         reader.Skip(4);
