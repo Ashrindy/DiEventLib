@@ -2,9 +2,9 @@
 
 namespace DiEventLib;
 
-public class DvElementMovieView : DvNodeObject
+public class DvElementMovieView : DvNodeElement
 {
-    public DvElementMovieView() { }
+    public DvElementMovieView() { ElementID = DvElementID.MovieView; }
     public DvElementMovieView(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

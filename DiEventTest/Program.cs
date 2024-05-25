@@ -1,257 +1,29 @@
 ﻿using DiEventLib;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization.Metadata;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace DiEventTest
 {
-    public class DiEvent
-    {
-        public DvCommon Common { get; set; }
-        public DvResource Resource { get; set; }
-    }
     internal class Program
     {
-        static void LoopThroughElements(int frameOffset, DvNode parentNode)
-        {
-            foreach(var i in parentNode.ChildNodes)
-            {
-                if(i.Category == DvNodeCategory.Element)
-                {
-                    ((DvNodeElement)i.NodeObject).Start += frameOffset;
-                    ((DvNodeElement)i.NodeObject).End += frameOffset;
-                }
-                if(i.ChildNodes.Count > 0)
-                {
-                    LoopThroughElements(frameOffset, i);
-                }
-            }
-        }
         static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Console.OutputEncoding = Encoding.GetEncoding("Shift-JIS");
             string filepath;
 
-            if(args.Length == 0) 
-            {
-                Console.WriteLine("What's the .dvscene?");
-                filepath = Console.ReadLine();
-            } else
-            {
-                filepath = args[0];
-            }
+            Console.WriteLine("What's the .dvscene?");
+            filepath = Console.ReadLine();
 
-            if (filepath.EndsWith(".dvscene"))
-            {
-                DvScene diEvent = new(filepath);
-
-                //Console.Clear();
-                //Console.WriteLine("What would you like to do with it?");
-                //Console.WriteLine("1. Add in a NearFarSetting");
-                //Console.WriteLine("2. Add in subtitles to a real-time version of a cutscene from its prerendered counterpart");
-                //Console.WriteLine("3. To JSON");
-                //Console.WriteLine("4. Print out GeneralTrigger enums");
-                //Console.WriteLine("5. Remove Captions and stuff");
-
-                //string option = Console.ReadLine();
-                string option = "8";
-
-                switch (option)
-                {
-                    case "1":
-                        DvNode mainNode = new();
-                        DvNodeElement element = new();
-                        DvElementCompositeAnimation setting = new();
-                        Animation animation = new();
-                        Animation[] animations = new Animation[16];
-
-                        animation.FileName = "test";
-                        animation.Type = AnimationType.SkeletalAnimation;
-
-                        setting.Field_60 = 0;
-                        setting.StateName = "Test";
-                        setting.Field_6c = 0;
-                        int foreachIndex = 0;
-                        foreach (var i in animations)
-                        {
-                            setting.Animations[foreachIndex].FileName = "";
-                            setting.Animations[foreachIndex].Type = AnimationType.SkeletalAnimation;
-                            foreachIndex++;
-                        }
-                        setting.Animations[0] = animation;
-                        setting.Animations[1] = animation;
-
-                        element.ElementID = DvElementID.CompositeAnimation;
-                        element.Start = 0f;
-                        element.End = diEvent.Common.End;
-                        element.Version = 0;
-                        element.Flags = 0;
-                        element.PlayType = ElementPlayType.Normal;
-                        element.UpdateTiming = ElementUpdateTiming.OnUpdatePos;
-                        element.Element = setting;
-
-                        mainNode.Guid = new Guid();
-                        mainNode.Category = DvNodeCategory.Element;
-                        mainNode.Flags = 0;
-                        mainNode.Priority = 0;
-                        mainNode.Name = "CompositeAnimation";
-                        mainNode.NodeObject = element;
-
-                        diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, mainNode);
-
-                        diEvent.Write(filepath);
-                        break;
-
-                    case "2":
-                        Console.Clear();
-                        Console.WriteLine("What's the prerendered counterpart?");
-
-                        string prerenderedPath = Console.ReadLine();
-
-                        DvScene prerenderedScene = new(prerenderedPath);
-
-                        foreach (var i in prerenderedScene.Common.Node.ChildNodes)
-                        {
-                            if (i.Category == DvNodeCategory.Element)
-                            {
-                                if (((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.OpeningLogo || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.GeneralTrigger)
-                                {
-                                    diEvent.Common.Node.ChildNodes.Add(i);
-                                }
-                            }
-                        }
-
-                        diEvent.Write(filepath);
-                        break;
-
-                    case "3":
-                        DiEvent dvScene = new();
-                        dvScene.Common = diEvent.Common;
-                        dvScene.Resource = diEvent.Resource;
-                        string jsonString = JsonSerializer.Serialize(dvScene);
-
-                        File.WriteAllText(filepath.Replace(".dvscene", ".dievent.json"), jsonString);
-                        break;
-
-                    case "4":
-                        foreach(var i in diEvent.Common.Node.ChildNodes)
-                        {
-                            if(i.Category == DvNodeCategory.Element && ((DvNodeElement)i.NodeObject).ElementID == DvElementID.GeneralTrigger)
-                            {
-                                Console.WriteLine(((DvElementGeneralTrigger)((DvNodeElement)i.NodeObject).Element).TriggerEnum);
-                            }
-                        }
-                        break;
-
-                    case "5":
-                        for (int v = 0; v < diEvent.Common.Node.ChildNodes.Count; v++)
-                        {
-                            var i = diEvent.Common.Node.ChildNodes[v];
-                            if (i.Category == DvNodeCategory.Element)
-                            {
-                                if (((DvNodeElement)i.NodeObject).ElementID == DvElementID.Caption || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.LetterBox || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.Fade || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.OpeningLogo || ((DvNodeElement)i.NodeObject).ElementID == DvElementID.GeneralTrigger)
-                                {
-                                    diEvent.Common.Node.ChildNodes.Remove(i);
-                                }
-                            }
-                        }
-
-                        diEvent.Write(filepath);
-                        break;
-
-                    case "6":
-                        DvNode Node = new();
-                        DvNodeElement Element = new();
-                        DvElementGeneralTrigger trigger = new();
-
-                        trigger.Field_00 = 1;
-                        trigger.TriggerEnum = Trigger.PauseBGM;
-
-                        Element.ElementID = DvElementID.GeneralTrigger;
-                        Element.Start = 0;
-                        Element.End = diEvent.Common.End - 1;
-                        Element.Version = 0;
-                        Element.Flags = 0;
-                        Element.PlayType = ElementPlayType.Normal;
-                        Element.UpdateTiming = ElementUpdateTiming.OnUpdatePos;
-                        Element.Element = trigger;
-
-                        Node.Guid = new Guid();
-                        Node.Category = DvNodeCategory.Element;
-                        Node.Flags = 0;
-                        Node.Priority = 0;
-                        Node.Name = "PauseBGM";
-                        Node.NodeObject = Element;
-
-                        diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, Node);
+            DvScene diEvent = new();
 
 
-                        Node = new();
-                        Element = new();
-                        trigger = new();
 
-                        trigger.Field_00 = 1;
-                        trigger.TriggerEnum = Trigger.PlayBGM;
 
-                        Element.ElementID = DvElementID.GeneralTrigger;
-                        Element.Start = diEvent.Common.End - 1;
-                        Element.End = diEvent.Common.End;
-                        Element.Version = 0;
-                        Element.Flags = 0;
-                        Element.PlayType = ElementPlayType.Normal;
-                        Element.UpdateTiming = ElementUpdateTiming.OnUpdatePos;
-                        Element.Element = trigger;
+            diEvent.Common.Node.Children.Add(new DvElementCaption());
 
-                        Node.Guid = new Guid();
-                        Node.Category = DvNodeCategory.Element;
-                        Node.Flags = 0;
-                        Node.Priority = 0;
-                        Node.Name = "PlayBGM";
-                        Node.NodeObject = Element;
 
-                        diEvent.Common.Node.ChildNodes.Insert(diEvent.Common.Node.ChildNodes.Count - 1, Node);
 
-                        diEvent.Write(filepath);
-                        break;
-
-                    case "7":
-                        DvScene tempScene = diEvent;
-                        for (var i = 0; i < tempScene.Common.Node.ChildNodes.Count; i++)
-                        {
-                            if(tempScene.Common.Node.ChildNodes[i].Category == DvNodeCategory.Element)
-                            {
-                                if(((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).ElementID == DvElementID.Caption)
-                                {
-                                    ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).Start = ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).Start / 2;
-                                    ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).End = ((DvNodeElement)tempScene.Common.Node.ChildNodes[i].NodeObject).End / 2;
-                                }
-                            }
-                        }
-                        tempScene.Write(filepath);
-                        break;
-
-                    case "8":
-                        Console.WriteLine("The amount of frames all elements should be offseted by:");
-                        string thing = Console.ReadLine();
-                        int frameOffset = int.Parse(thing);
-
-                        LoopThroughElements(frameOffset, diEvent.Common.Node);
-                        diEvent.Write(filepath);
-                        break;
-                }
-            }
-
-            else if (filepath.EndsWith(".dievent.json"))
-            {
-                string jsonString = File.ReadAllText(filepath);
-                DiEvent dvEvent = JsonSerializer.Deserialize<DiEvent>(jsonString);
-                DvScene scene = new();
-                scene.Common = dvEvent.Common;
-                scene.Resource = dvEvent.Resource;
-                scene.Write(filepath.Replace(".dievent.json", ".dvscene"));
-            }
+            Console.WriteLine("Loaded");
         }
     }
 }

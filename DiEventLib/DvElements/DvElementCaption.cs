@@ -3,12 +3,12 @@ using System.Text;
 
 namespace DiEventLib;
 
-public class DvElementCaption : DvNodeObject
+public class DvElementCaption : DvNodeElement
 {
     public string Name { get; set; } = "";
     public Language Language { get; set; } = Language.English;
 
-    public DvElementCaption() { }
+    public DvElementCaption() {  ElementID = DvElementID.Caption; }
     public DvElementCaption(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)

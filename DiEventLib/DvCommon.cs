@@ -20,7 +20,7 @@ public class DvCommon : IBinarySerializable
     public DvDisableFrameInfo DisableFrameInfo { get; set; } = new();
     public DvResourceCutInfo ResourceCutInfo { get; set; } = new();
     public DvSoundInfo SoundInfo { get; set; } = new();
-    public DvNode Node { get; set; } = new();
+    public DvNodePath Node { get; set; } = new();
     public float ChainCameraIn { get; set; } = -1;
     public float ChainCameraOut { get; set; } = -1;
     public int Type { get; set; } = 0;
@@ -28,17 +28,6 @@ public class DvCommon : IBinarySerializable
 
     public DvCommon() 
     {
-        DvNodePath nodePath = new DvNodePath();
-        nodePath.Position = new(0, 0, 0);
-        nodePath.Rotation = new(0, 0, 0);
-        nodePath.Scale = new(1, 1, 1);
-
-        Node.Name = "Main Node";
-        Node.Priority = 0;
-        Node.Flags = 0;
-        Node.Guid = Guid.NewGuid();
-        Node.Category = DvNodeCategory.Path;
-        Node.NodeObject = nodePath;
     }
 
     public void Read(BinaryObjectReader reader)
