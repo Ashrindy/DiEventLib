@@ -18,7 +18,7 @@ public class DvNodeElement : DvNode
     // TODO: Remove when all elements will be researched
     public int NodeSize { get; set; }
 
-    public DvNodeElement() { }
+    public DvNodeElement() { Category = DvNodeCategory.Element; }
 
     // TODO: Remove contructor with node size when all elements will be researched
     public DvNodeElement(BinaryObjectReader reader, int size)
