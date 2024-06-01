@@ -39,10 +39,7 @@ public class DvPage : IBinarySerializable
     public uint Index { get; set; }
     public uint SkipLinkIndexNum { get; set; }
     public string Name { get; set; }
-    public int Field50 { get; set; }
-    public int Field54 { get; set; }
-    public int Field58 { get; set; }
-    public int Field5C { get; set; }
+    public uint[] randomData { get; set; }
     public List<Transition> Transitions { get; set; } = new();
 
     public void Read(BinaryObjectReader reader)
@@ -58,13 +55,7 @@ public class DvPage : IBinarySerializable
         SkipLinkIndexNum = reader.Read<uint>();
         reader.Skip(12);
         Name = reader.ReadString(Encoding.UTF8,StringBinaryFormat.FixedLength, 32);
-        if (SkipLinkIndexNum != 0)
-        {
-            Field50 = reader.Read<int>();
-            Field54 = reader.Read<int>();
-            Field58 = reader.Read<int>();
-            Field5C = reader.Read<int>();
-        }
+        randomData = reader.ReadArray<uint>((int)SkipLinkIndexNum);
         Transitions.AddRange(reader.ReadObjectArray<Transition>(TransitionCount));
 
     }
@@ -82,13 +73,7 @@ public class DvPage : IBinarySerializable
         writer.Write(SkipLinkIndexNum);
         writer.WriteNulls(12);
         writer.WriteString(Encoding.UTF8, StringBinaryFormat.FixedLength, Name, 32);
-        if (SkipLinkIndexNum != 0)
-        {
-            writer.Write(Field50); 
-            writer.Write(Field54); 
-            writer.Write(Field58);
-            writer.Write(Field5C);
-        }
+        writer.WriteArray(randomData);
         writer.WriteObjectCollection(Transitions);
     }
 }
@@ -144,4 +129,12 @@ public class Condition : IBinarySerializable
         writer.WriteNulls(8);
         writer.WriteArray(Data);
     }
+}
+
+public enum PageConditionType : uint
+{
+    Decide,
+    Cancel,
+    Forcus,
+    Finish
 }
