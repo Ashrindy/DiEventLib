@@ -4,24 +4,31 @@ namespace DiEventLib;
 
 public class DvElementModelClipping : DvNodeObject
 {
-    public byte[] Data { get; set; }
+    public int unk0 { get; set; } = 0;
+    public int unk1 { get; set; } = 0;
+    public int unk2 { get; set; } = 0;
+    public float unk3 { get; set; } = 0;
+    public int unk4 { get; set; } = 0;
     public DvElementModelClipping() 
     {
-        Data = new byte[20];
-        for(int i = 0; i < 20; i++)
-        {
-            Data[i] = 0;
-        }
     }
     public DvElementModelClipping(BinaryObjectReader reader)
         => Read(reader);
     public override void Read(BinaryObjectReader reader)
     {
-        Data = reader.ReadArray<byte>(20);
+        unk0 = reader.Read<int>();
+        unk1 = reader.Read<int>();
+        unk2 = reader.Read<int>();
+        unk3 = reader.Read<float>();
+        unk4 = reader.Read<int>();
     }
 
     public override void Write(BinaryObjectWriter writer)
     {
-        writer.WriteArray(Data);
+        writer.Write(unk0);
+        writer.Write(unk1);
+        writer.Write(unk2);
+        writer.Write(unk3);
+        writer.Write(unk4);
     }
 }
