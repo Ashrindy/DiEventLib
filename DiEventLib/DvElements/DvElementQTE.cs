@@ -19,18 +19,15 @@ public class DvElementQTE : DvNodeObject
     public float Field_cc { get; set; } = 0;
     public float Field_d0 { get; set; } = 0;
     public float Field_d4 { get; set; } = 0;
-    public byte[] Field_d8 { get; set; }
+    public float Field_d8 { get; set; } = 0;
+    public float Field_e0 { get; set; } = 0;
+    public string unkStr { get; set; } = "";
     public DvElementQTE() 
     {
         Field_8c = new byte[64];
         for(int i = 0; i < 64; i++)
         {
             Field_8c[i] = 0;
-        }
-        Field_d8 = new byte[264];
-        for (int i = 0; i < 264; i++)
-        {
-            Field_d8[i] = 0;
         }
     }
     public DvElementQTE(BinaryObjectReader reader)
@@ -52,7 +49,9 @@ public class DvElementQTE : DvNodeObject
         Field_cc = reader.Read<float>();
         Field_d0 = reader.Read<float>();
         Field_d4 = reader.Read<float>();
-        Field_d8 = reader.ReadArray<byte>(264);
+        Field_d8 = reader.Read<float>();
+        Field_e0 = reader.Read<float>();
+        unkStr = reader.ReadString(StringBinaryFormat.FixedLength, 256);
     }
 
     public override void Write(BinaryObjectWriter writer)
@@ -72,7 +71,9 @@ public class DvElementQTE : DvNodeObject
         writer.Write(Field_cc);
         writer.Write(Field_d0);
         writer.Write(Field_d4);
-        writer.WriteArray(Field_d8);
+        writer.Write(Field_d8);
+        writer.Write(Field_e0);
+        writer.WriteString(StringBinaryFormat.FixedLength, unkStr, 256);
     }
 }
 
