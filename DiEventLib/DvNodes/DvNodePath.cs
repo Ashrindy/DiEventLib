@@ -10,18 +10,30 @@ public class DvNodePath : DvNode
     public Vector3 Rotation { get; set; } = new(0, 0, 0);
     public Vector3 Scale { get; set; } = new(1, 1, 1);
     public uint Flags { get; set; } = 0;
-    public DvNodePath() 
+    public DvNodePath()
     {
-        Name = nameof(DvNodePath);
+        NodeName = nameof(DvNodePath);
         Priority = 0;
         Flags = 0;
         Guid = Guid.NewGuid();
-        Category = DvNodeCategory.Path;
     }
-    public DvNodePath(BinaryObjectReader reader)
-        => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+
+    public DvNodePath(string name) : base(DvNodeCategory.Path, name)
     {
+        //NodeName = name;
+        Priority = 0;
+        Flags = 0;
+        Guid = Guid.NewGuid();
+    }
+
+    public DvNodePath(BinaryObjectReader reader)
+    {
+        Read(reader);
+    }
+
+    public void Read(BinaryObjectReader reader)
+    {
+        //base.Read(reader);
         var mtx = reader.Read<Matrix4x4>();
         Quaternion tempRot;
         Vector3 tempPos;
@@ -34,7 +46,7 @@ public class DvNodePath : DvNode
         reader.Skip(12);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Utils.ComposeMatrix(Position, Scale, Utils.ToQuaternion(Rotation)));
         writer.Write(Flags);

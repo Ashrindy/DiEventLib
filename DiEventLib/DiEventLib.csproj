@@ -36,10 +36,7 @@
     <Compile Remove="DvElements\DvElementDOF.cs" />
     <Compile Remove="DvElements\DvElementDrawOff.cs" />
     <Compile Remove="DvElements\DvElementEffect.cs" />
-    <Compile Remove="DvElements\DvElementFade.cs" />
-    <Compile Remove="DvElements\DvElementGameCamera.cs" />
     <Compile Remove="DvElements\DvElementGeneralTrigger.cs" />
-    <Compile Remove="DvElements\DvElementLetterBox.cs" />
     <Compile Remove="DvElements\DvElementLipAnimation.cs" />
     <Compile Remove="DvElements\DvElementLookAtIK.cs" />
     <Compile Remove="DvElements\DvElementMaterialAnimation.cs" />
@@ -66,8 +63,6 @@
     <Compile Remove="DvElements\DvElementVignette.cs" />
     <Compile Remove="DvElements\DvElementVisibilityAnimation.cs" />
     <Compile Remove="DvElements\DvElementWeather.cs" />
-    <Compile Remove="DvNodes\DvNodeCamera.cs" />
-    <Compile Remove="DvNodes\DvNodeCameraMotion.cs" />
     <Compile Remove="DvNodes\DvNodeCharacter.cs" />
     <Compile Remove="DvNodes\DvNodeCharacterMotion.cs" />
     <Compile Remove="DvNodes\DvNodeModelCustom.cs" />

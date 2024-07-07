@@ -1,5 +1,7 @@
 ﻿using Amicitia.IO.Binary;
+using System.IO;
 using System.Text;
+using System.Xml.Linq;
 namespace DiEventLib;
 
 public abstract class DvNodeObject : IBinarySerializable
@@ -9,36 +11,67 @@ public abstract class DvNodeObject : IBinarySerializable
     public abstract void Write(BinaryObjectWriter writer);
 }
 
-public abstract class DvNode : IBinarySerializable
+public class DvNode : IBinarySerializable
 {
-    public Guid Guid { get; set; } = Guid.NewGuid();
-    public DvNodeCategory Category { get; set; } = DvNodeCategory.DummyNode;
-    public int Count { get; set; } = 0;
-    public int NodeFlags { get; set; } = 0;
-    public int Priority { get; set; } = 0;
-    public string Name { get; set; } = "";
+    public Guid Guid { get; set; }
+    public DvNodeCategory Category { get; set; }
+    public int NodeSize { get; set; }
+    public int ChildCount { get; set; }
+    public int NodeFlags { get; set; }
+    public int Priority { get; set; }
+    public string NodeName { get; set; }
     public List<DvNode> Children { get; set; } = new();
-    //public DvNodeObject NodeObject { get; set; }
 
-    public abstract void Read(BinaryObjectReader reader);
-    public abstract void Write(BinaryObjectWriter writer);
+    public DvNode(BinaryObjectReader reader)
+    {
+        Read(reader);
+        
+    }
+
+    public DvNode()
+    {
+    }
+
+    public DvNode(DvNodeCategory category, string name)
+    {
+        Category = category;
+        NodeName = name;
+    }
+
+    public DvNode(DvNodeCategory category)
+    {
+        Category = category;
+    }
 
 
-    protected void NodeRead(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader) 
     {
         Guid = reader.Read<Guid>();
         Category = reader.Read<DvNodeCategory>();
-        var nodeSize = reader.Read<int>() * 4;
-        Count = reader.Read<int>();
+        NodeSize = reader.Read<int>() * 4;
+        ChildCount = reader.Read<int>();
         NodeFlags = reader.Read<int>();
         Priority = reader.Read<int>();
         reader.Skip(12);
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        Name = reader.ReadString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, 64);
-        //Console.WriteLine($"{Name} ({Category})");
-
-        //ChildNodes.AddRange(reader.ReadObjectArray<DvNode>(childCount));
+        NodeName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
     }
+
+    public T AddChild<T>() where T : DvNode, new()
+    {
+        var node = new T();
+        Children.Add(node);
+        ChildCount = Children.Count;
+        return node;
+    }
+
+    public void AddChild(DvNode node)
+    {
+        Children.Add(node);
+        ChildCount = Children.Count;
+    }
+
+    public void Write(BinaryObjectWriter writer) { }
+  
 
     protected void NodeWrite(BinaryObjectWriter writer)
     {
@@ -50,8 +83,7 @@ public abstract class DvNode : IBinarySerializable
         writer.Write(NodeFlags);
         writer.Write(Priority);
         writer.WriteNulls(12);
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, Name, 64);
+        writer.WriteDvString(NodeName, Utils.StringEncoding.ShiftJIS);
 
         long preWritePos = writer.Position;
         //NodeObject.Write(writer);

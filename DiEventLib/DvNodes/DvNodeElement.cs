@@ -1,34 +1,50 @@
 ﻿using Amicitia.IO.Binary;
 namespace DiEventLib;
 
-public abstract class DvNodeElement : DvNode
+public class DvNodeElement : DvNode
 {
-
+    //public IDvNode dvNode { get; set; }
     public DvElementID ElementID { get; set; }
     public float Start { get; set; } = 0f;
     public float End { get; set; } = 0f;
     public int Version { get; set; } = 0;
     public uint Flags { get; set; } = 0;
-
     public ElementPlayType PlayType { get; set; } = ElementPlayType.Normal;
     public ElementUpdateTiming UpdateTiming { get; set; } = ElementUpdateTiming.OnExecPath;
     //public DvNodeObject Element { get; set; }
-    private byte[] unkElementData { get; set; }
 
-    // TODO: Remove when all elements will be researched
-    public int NodeSize { get; set; }
-
-    public DvNodeElement() { Category = DvNodeCategory.Element; }
-
-    // TODO: Remove contructor with node size when all elements will be researched
-    public DvNodeElement(BinaryObjectReader reader, int size)
+    public DvNodeElement() : base(DvNodeCategory.Element)
     {
-        NodeSize = size - 32;
+        NodeName = nameof(DvNodePath);
+        Priority = 0;
+        Flags = 0;
+        Guid = Guid.NewGuid();
+    }
+
+    public DvNodeElement(DvElementID elementId) : base(DvNodeCategory.Element)
+    {
+        ElementID = elementId;
+        NodeName = nameof(DvNodePath);
+        Priority = 0;
+        Flags = 0;
+        Guid = Guid.NewGuid();
+    }
+
+    public DvNodeElement(string name) : base(DvNodeCategory.Path, name)
+    {
+        NodeName = name;
+        Priority = 0;
+        Flags = 0;
+        Guid = Guid.NewGuid();
+    }
+
+    public DvNodeElement(BinaryObjectReader reader)
+    {
         Read(reader);
     }
-    protected void ElementRead(BinaryObjectReader reader)
+
+    public void Read(BinaryObjectReader reader)
     {
-        NodeRead(reader);
         ElementID = reader.Read<DvElementID>();
         Start = reader.Read<float>();
         End = reader.Read<float>();
@@ -37,9 +53,18 @@ public abstract class DvNodeElement : DvNode
         PlayType = reader.Read<ElementPlayType>();
         UpdateTiming = reader.Read<ElementUpdateTiming>();
         reader.Skip(4);
+        switch (ElementID)
+        {
+            case DvElementID.Caption: new DvElementCaption(reader); break; 
+
+            case DvElementID.Fade: new DvElementFade(reader); break;
+            case DvElementID.GameCamera: new DvElementGameCamera(reader); break;
+            case DvElementID.MovieView: new DvElementMovieView(reader); break;
+            case DvElementID.LetterBox: new DvElementLetterBox(reader); break;
+        }
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(ElementID);
         writer.Write(Start);
@@ -55,6 +80,7 @@ public abstract class DvNodeElement : DvNode
          //   Element.Write(writer);
     }
 }
+
 
 // TODO: Need to find rest
 public enum DvElementID : uint

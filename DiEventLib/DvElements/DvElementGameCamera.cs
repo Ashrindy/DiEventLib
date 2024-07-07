@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementGameCamera : DvNodeObject
+public class DvElementGameCamera : DvNodeElement
 {
     public float[] Field_4c { get; set; }
 
@@ -16,12 +16,12 @@ public class DvElementGameCamera : DvNodeObject
     }
     public DvElementGameCamera(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_4c = reader.ReadArray<float>(26);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.WriteArray(Field_4c);
     }

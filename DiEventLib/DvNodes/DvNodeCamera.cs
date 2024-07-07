@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvNodeCamera : DvNodeObject
+public class DvNodeCamera : DvNode
 {
     public uint Flags { get; set; } = 0;
     public int FrameProgressionCount { get; set; } = 0;
@@ -12,9 +12,19 @@ public class DvNodeCamera : DvNodeObject
     public List<float> FrameProgressionSpeed { get; set; } = new();
 
     public DvNodeCamera() { }
-    public DvNodeCamera(BinaryObjectReader reader)
+    public DvNodeCamera(BinaryObjectReader reader) : base(DvNodeCategory.Camera)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+
+    public DvNodeCamera(BinaryObjectReader reader, DvNode dvNode)
+    {
+        GetClass(dvNode);
+        Read(reader);
+    }
+    public DvNodeCamera GetClass(DvNode dvNode)
+    {
+        return (DvNodeCamera)dvNode;
+    }
+    public void Read(BinaryObjectReader reader)
     {
         Flags = reader.Read<uint>();
         FrameProgressionCount = reader.Read<int>();
@@ -24,7 +34,7 @@ public class DvNodeCamera : DvNodeObject
         FrameProgressionSpeed.AddRange(reader.ReadArray<float>(FrameProgressionCount));
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Flags);
         writer.Write(FrameProgressionCount);

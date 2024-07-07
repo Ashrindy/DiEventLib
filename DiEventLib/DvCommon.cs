@@ -20,7 +20,7 @@ public class DvCommon : IBinarySerializable
     public DvDisableFrameInfo DisableFrameInfo { get; set; } = new();
     public DvResourceCutInfo ResourceCutInfo { get; set; } = new();
     public DvSoundInfo SoundInfo { get; set; } = new();
-    public DvNodePath Node { get; set; } = new();
+    public DvNode Node { get; set; } = new();
     public float ChainCameraIn { get; set; } = -1;
     public float ChainCameraOut { get; set; } = -1;
     public int Type { get; set; } = 0;
@@ -42,7 +42,7 @@ public class DvCommon : IBinarySerializable
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => DisableFrameInfo.Read(reader));
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => ResourceCutInfo.Read(reader));
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => SoundInfo.Read(reader));
-        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => Node.Read(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => Node = DvNodeReader.ReadNode(reader));
         ChainCameraIn = reader.Read<float>();
         ChainCameraOut = reader.Read<float>();
         Type = reader.Read<int>();

@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvNodeCameraMotion : DvNodeObject
+public class DvNodeCameraMotion : DvNode
 {
     public uint Flags { get; set; } = 0;
     public uint FrameStart { get; set; } = 0;
@@ -10,9 +10,10 @@ public class DvNodeCameraMotion : DvNodeObject
     public uint Field0C { get; set; } = 0;
 
     public DvNodeCameraMotion() { }
-    public DvNodeCameraMotion(BinaryObjectReader reader)
+
+    public DvNodeCameraMotion(BinaryObjectReader reader) : base(DvNodeCategory.CameraMotion)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Flags = reader.Read<uint>();
         // DiEvent using ticks for these values (1 frame = 100 ticks)
@@ -21,7 +22,7 @@ public class DvNodeCameraMotion : DvNodeObject
         Field0C = reader.Read<uint>();
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Flags);
         // DiEvent using ticks for these values (1 frame = 100 ticks)

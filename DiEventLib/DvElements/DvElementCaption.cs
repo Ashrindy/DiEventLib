@@ -8,18 +8,18 @@ public class DvElementCaption : DvNodeElement
     public string Name { get; set; } = "";
     public Language Language { get; set; } = Language.English;
 
-    public DvElementCaption() {  ElementID = DvElementID.Caption; }
+    public DvElementCaption() : base(DvElementID.Caption) { }
     public DvElementCaption(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
-        ElementRead(reader);
+        //ElementRead(reader);
         Name = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 16);
         Language = reader.Read<Language>();
         reader.Skip(4);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, Name, 16);
         writer.Write(Language);

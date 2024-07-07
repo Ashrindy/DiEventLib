@@ -1,10 +1,21 @@
 ﻿using Amicitia.IO.Binary;
+using System.Formats.Tar;
 using System.Numerics;
+using System.Reflection.PortableExecutable;
+using System.Text;
+using System.Xml.Linq;
 
 namespace DiEventLib;
 
 public static class Utils
 {
+    public enum StringEncoding
+    { 
+        Default,
+        ShiftJIS,
+        UTF8
+    }
+    
     public static T[] ReadObjectArray<T>(this BinaryObjectReader reader, int count) where T : IBinarySerializable, new()
     {
         var result = new T[count];
@@ -12,6 +23,42 @@ public static class Utils
             result[i] = reader.ReadObject<T>();
 
         return result;
+    }
+
+    public static string ReadDvString(this BinaryObjectReader reader, StringEncoding stringencoding = StringEncoding.ShiftJIS, int length = 64)
+    {
+        var value = "";
+        switch (stringencoding)
+        {
+            case StringEncoding.Default:
+                value = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, length); 
+                break;
+            case StringEncoding.ShiftJIS:
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                value = reader.ReadString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, length); 
+                break;
+            case StringEncoding.UTF8:
+                value = reader.ReadString(Encoding.UTF8, StringBinaryFormat.FixedLength, length);
+                break;
+        }
+        return value;
+    }
+
+    public static void WriteDvString(this BinaryObjectWriter writer, string value, StringEncoding stringEncoding = StringEncoding.ShiftJIS, int length = 64)
+    {
+        switch (stringEncoding)
+        {
+            case StringEncoding.Default:
+                writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, value, length);
+                break;
+            case StringEncoding.ShiftJIS:
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, value, length);
+                break;
+            case StringEncoding.UTF8:
+                writer.WriteString(Encoding.UTF8, StringBinaryFormat.FixedLength, value, length); 
+                break;
+        }
     }
 
     public static void WriteObjectCollection<T>(this BinaryObjectWriter writer, IEnumerable<T> items) where T : IBinarySerializable
@@ -26,6 +73,8 @@ public static class Utils
         Span<byte> nulls = length <= 1024 ? stackalloc byte[length] : new byte[length];
         writer.WriteArray(nulls);
     }
+
+    
 
     // From KnuxLib Helpers
     public static Matrix4x4 ComposeMatrix(Vector3 translation, Vector3 scale, Quaternion rotation)

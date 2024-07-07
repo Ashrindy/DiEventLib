@@ -5,14 +5,13 @@ namespace DiEventLib;
 public class DvElementMovieView : DvNodeElement
 {
     public DvElementMovieView() { ElementID = DvElementID.MovieView; }
-    public DvElementMovieView(BinaryObjectReader reader)
-        => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public DvElementMovieView(BinaryObjectReader reader) : base(DvElementID.MovieView) => Read(reader);
+    public void Read(BinaryObjectReader reader)
     {
-        ElementRead(reader);
+        //ElementRead(reader);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
     }
 }
