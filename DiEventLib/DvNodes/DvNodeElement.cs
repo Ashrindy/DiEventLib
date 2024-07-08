@@ -15,7 +15,7 @@ public class DvNodeElement : DvNode
 
     public DvNodeElement() : base(DvNodeCategory.Element)
     {
-        NodeName = nameof(DvNodePath);
+        NodeName = Category.ToString();
         Priority = 0;
         Flags = 0;
         Guid = Guid.NewGuid();
@@ -24,7 +24,7 @@ public class DvNodeElement : DvNode
     public DvNodeElement(DvElementID elementId) : base(DvNodeCategory.Element)
     {
         ElementID = elementId;
-        NodeName = nameof(DvNodePath);
+        NodeName = elementId.ToString();
         Priority = 0;
         Flags = 0;
         Guid = Guid.NewGuid();

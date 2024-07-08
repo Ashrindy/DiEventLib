@@ -9,6 +9,12 @@ public class DvElementCaption : DvNodeElement
     public Language Language { get; set; } = Language.English;
 
     public DvElementCaption() : base(DvElementID.Caption) { }
+    public DvElementCaption(string name, Language language) : base(DvElementID.Caption)
+    {
+        Name = name;
+        Language = language;
+    }
+
     public DvElementCaption(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
