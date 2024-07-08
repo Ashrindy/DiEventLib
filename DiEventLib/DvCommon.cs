@@ -115,7 +115,7 @@ public class DvCommon : IBinarySerializable
             writer.Seek(nodePointerPos, SeekOrigin.Begin);
             writer.Write((uint)nodePointer - 0x20);
             writer.Seek(nodePointer, SeekOrigin.Begin);
-            Node.Write(writer);
+            Node.WriteNode(writer);
         }
     }
 }

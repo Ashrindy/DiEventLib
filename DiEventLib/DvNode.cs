@@ -11,7 +11,7 @@ public abstract class DvNodeObject : IBinarySerializable
     public abstract void Write(BinaryObjectWriter writer);
 }
 
-public class DvNode : IBinarySerializable
+public class DvNode
 {
     public Guid Guid { get; set; }
     public DvNodeCategory Category { get; set; }
@@ -24,8 +24,6 @@ public class DvNode : IBinarySerializable
 
     public DvNode(BinaryObjectReader reader)
     {
-        Read(reader);
-        
     }
 
     public DvNode()
@@ -44,18 +42,6 @@ public class DvNode : IBinarySerializable
     }
 
 
-    public void Read(BinaryObjectReader reader) 
-    {
-        Guid = reader.Read<Guid>();
-        Category = reader.Read<DvNodeCategory>();
-        NodeSize = reader.Read<int>() * 4;
-        ChildCount = reader.Read<int>();
-        NodeFlags = reader.Read<int>();
-        Priority = reader.Read<int>();
-        reader.Skip(12);
-        NodeName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
-    }
-
     public T AddChild<T>() where T : DvNode, new()
     {
         var node = new T();
@@ -69,33 +55,6 @@ public class DvNode : IBinarySerializable
         Children.Add(node);
         ChildCount = Children.Count;
     }
-
-    public void Write(BinaryObjectWriter writer) { }
-  
-
-    protected void NodeWrite(BinaryObjectWriter writer)
-    {
-        writer.Write(Guid);
-        writer.Write(Category);
-        var nodeSizePos = writer.Position;
-        writer.WriteNulls(4);
-        writer.Write(Children.Count);
-        writer.Write(NodeFlags);
-        writer.Write(Priority);
-        writer.WriteNulls(12);
-        writer.WriteDvString(NodeName, Utils.StringEncoding.ShiftJIS);
-
-        long preWritePos = writer.Position;
-        //NodeObject.Write(writer);
-        long postWritePos = writer.Position;
-
-        writer.Seek(nodeSizePos, SeekOrigin.Begin);
-        writer.Write((int)(postWritePos - preWritePos) / 4);
-        writer.Seek(postWritePos, SeekOrigin.Begin);
-
-        writer.WriteObjectCollection(Children);
-    }
-
 }
 
 public enum DvNodeCategory : uint
