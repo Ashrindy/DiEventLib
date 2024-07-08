@@ -59,8 +59,9 @@ public class DvNode
 
 public enum DvNodeCategory : uint
 {
+    // TODO: figure out 0 value
     DummyNode = 0,
-    RootPath = 0,
+    //RootPath = 0,
     Path = 1,
     PathMotion,
     Camera,

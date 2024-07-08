@@ -2,16 +2,16 @@
 
 namespace DiEventLib;
 
-public class DvElementOpeningLogo : DvNodeObject
+public class DvElementOpeningLogo : DvNodeElement
 {
-    public DvElementOpeningLogo() { }
+    public DvElementOpeningLogo() : base(DvElementID.OpeningLogo) { }
     public DvElementOpeningLogo(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
     }
 }
