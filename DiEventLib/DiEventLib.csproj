@@ -43,7 +43,6 @@
     <Compile Remove="DvElements\DvElementModelClipping.cs" />
     <Compile Remove="DvElements\DvElementModelFade.cs" />
     <Compile Remove="DvElements\DvElementNearFarSetting.cs" />
-    <Compile Remove="DvElements\DvElementOpeningLogo.cs" />
     <Compile Remove="DvElements\DvElementOverrideASM.cs" />
     <Compile Remove="DvElements\DvElementPathAdjustment.cs" />
     <Compile Remove="DvElements\DvElementPathInterpolation.cs" />

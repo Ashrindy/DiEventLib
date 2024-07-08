@@ -10,7 +10,7 @@ public static class DvNodeWriter
         writer.Write(node.Category);
         var nodeSizePos = writer.Position;
         writer.WriteNulls(4);
-        writer.Write(node.Children.Count);
+        writer.Write(node.ChildNodes.Count);
         writer.Write(node.NodeFlags);
         writer.Write(node.Priority);
         writer.WriteNulls(12);
@@ -106,7 +106,10 @@ public static class DvNodeWriter
                     //case DvElementID.ChangeTimeScale: break;
                     //case DvElementID.CyberSpaceNoise: break;
                     //case DvElementID.AuraRoad: break;
-                    //case DvElementID.MovieView: break;
+                    case DvElementID.MovieView:
+                        var movieView = element as DvElementMovieView;
+                        movieView.Write(writer);
+                        break;
                     //case DvElementID.CrossFade: break;
                     //case DvElementID.Weather: break;
                     //case DvElementID.ShadowMapParam: break;
@@ -137,7 +140,7 @@ public static class DvNodeWriter
         writer.Write((int)(postWritePos - preWritePos) / 4);
         writer.Seek(postWritePos, SeekOrigin.Begin);
 
-        foreach (var child in node.Children)
+        foreach (var child in node.ChildNodes)
         {
             child.WriteNode(writer);
         }

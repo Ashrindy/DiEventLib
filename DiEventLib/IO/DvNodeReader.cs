@@ -148,7 +148,6 @@ public static class DvNodeReader
         node.Guid = guid;
         node.Category = category;
         node.NodeSize = nodeSize;
-        node.ChildCount = childCount;
         node.NodeFlags = nodeFlags;
         node.Priority = priority;
         node.NodeName = nodeName;
@@ -156,7 +155,7 @@ public static class DvNodeReader
         for (int i = 0; i < childCount; i++)
         {
             var childNode = ReadNode(reader);
-            node.Children.Add(childNode);
+            node.ChildNodes.Add(childNode);
         }
 
         return node;

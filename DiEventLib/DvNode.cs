@@ -4,23 +4,15 @@ using System.Text;
 using System.Xml.Linq;
 namespace DiEventLib;
 
-public abstract class DvNodeObject : IBinarySerializable
-{
-    public abstract void Read(BinaryObjectReader reader);
-
-    public abstract void Write(BinaryObjectWriter writer);
-}
-
 public class DvNode
 {
     public Guid Guid { get; set; }
     public DvNodeCategory Category { get; set; }
     public int NodeSize { get; set; }
-    public int ChildCount { get; set; }
     public int NodeFlags { get; set; }
     public int Priority { get; set; }
     public string NodeName { get; set; }
-    public List<DvNode> Children { get; set; } = new();
+    public List<DvNode> ChildNodes { get; set; } = new();
 
     public DvNode(BinaryObjectReader reader)
     {
@@ -45,15 +37,13 @@ public class DvNode
     public T AddChild<T>() where T : DvNode, new()
     {
         var node = new T();
-        Children.Add(node);
-        ChildCount = Children.Count;
+        ChildNodes.Add(node);
         return node;
     }
 
     public void AddChild(DvNode node)
     {
-        Children.Add(node);
-        ChildCount = Children.Count;
+        ChildNodes.Add(node);
     }
 }
 
