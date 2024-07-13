@@ -121,7 +121,7 @@ public enum DvElementID : uint
     // 1006
     AtmosphereHeightFogParam = 1007,
     ChromaticAberrationFilter = 1008,
-    VignetteParam = 1009,
+    Vignette = 1009,
     Fade = 1010,
     LetterBox = 1011,
     ModelClipping = 1012,
@@ -132,10 +132,10 @@ public enum DvElementID : uint
     Time = 1017,
     Sun = 1018,
     LookAtIK = 1019,
-    CameraBlurParam = 1020,
+    CameraBlur = 1020,
     GeneralTrigger = 1021,
     // 1022
-    DitherParam = 1023,
+    Dither = 1023,
     QTE = 1024,
     LipAnimation = 1025,
     OverrideASM = 1026,

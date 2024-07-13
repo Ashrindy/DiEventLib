@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementVariablePointLight : DvNodeObject
+public class DvElementVariablePointLight : DvNodeElement
 {
     public float[] Unk1 { get; set; }
     public int[] Unk2 { get; set; }
@@ -13,7 +13,7 @@ public class DvElementVariablePointLight : DvNodeObject
     public DvElementVariablePointLight() { }
     public DvElementVariablePointLight(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Unk1 = reader.ReadArray<float>(7);
         Unk2 = reader.ReadArray<int>(6);
@@ -23,7 +23,7 @@ public class DvElementVariablePointLight : DvNodeObject
         CurveData = reader.ReadArray<float>(128);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.WriteArray(Unk1);
         writer.WriteArray(Unk2);

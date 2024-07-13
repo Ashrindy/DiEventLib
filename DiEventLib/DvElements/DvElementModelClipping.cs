@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementModelClipping : DvNodeObject
+public class DvElementModelClipping : DvNodeElement
 {
     public byte[] Data { get; set; }
     public DvElementModelClipping() 
@@ -15,12 +15,12 @@ public class DvElementModelClipping : DvNodeObject
     }
     public DvElementModelClipping(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Data = reader.ReadArray<byte>(20);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.WriteArray(Data);
     }

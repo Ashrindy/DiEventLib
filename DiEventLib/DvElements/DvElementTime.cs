@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementTime : DvNodeObject
+public class DvElementTime : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public uint Flags { get; set; } = 0;
@@ -25,7 +25,7 @@ public class DvElementTime : DvNodeObject
     }
     public DvElementTime(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         Flags = reader.Read<uint>();
@@ -39,7 +39,7 @@ public class DvElementTime : DvNodeObject
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(Flags);

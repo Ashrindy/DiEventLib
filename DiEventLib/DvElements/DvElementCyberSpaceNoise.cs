@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementCyberSpaceNoise : DvNodeObject
+public class DvElementCyberSpaceNoise : DvNodeElement
 {
     public uint Flags { get; set; } = 0;
     public float[] CurveData { get; set; }
@@ -16,13 +16,13 @@ public class DvElementCyberSpaceNoise : DvNodeObject
     }
     public DvElementCyberSpaceNoise(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Flags = reader.Read<uint>();
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Flags);
         writer.WriteArray(CurveData);

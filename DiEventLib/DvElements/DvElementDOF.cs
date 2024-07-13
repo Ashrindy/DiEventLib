@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementDOF : DvNodeObject
+public class DvElementDOF : DvNodeElement
 {
     public uint Field_60 { get; set; } = 0;
     public DOFParam[] DOFParams { get; set; }
@@ -34,7 +34,7 @@ public class DvElementDOF : DvNodeObject
     }
     public DvElementDOF(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_60 = reader.Read<uint>();
         DOFParams = reader.ReadArray<DOFParam>(2);
@@ -52,7 +52,7 @@ public class DvElementDOF : DvNodeObject
         AnimData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_60);
         writer.WriteArray(DOFParams);

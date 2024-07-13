@@ -2,20 +2,20 @@
 
 namespace DiEventLib;
 
-public class DvElementDither : DvNodeObject
+public class DvElementDither : DvNodeElement
 {
     public float Alpha { get; set; } = 0;
     public float Intensity { get; set; } = 0; // not quite sure on this one
     public DvElementDither() { }
     public DvElementDither(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Alpha = reader.Read<float>();
         Intensity = reader.Read<float>();
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Alpha);
         writer.Write(Intensity);

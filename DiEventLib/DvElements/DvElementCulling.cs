@@ -2,16 +2,16 @@
 
 namespace DiEventLib;
 
-public class DvElementCulling : DvNodeObject
+public class DvElementCulling : DvNodeElement
 {
     public DvElementCulling() { }
     public DvElementCulling(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
     }
 }

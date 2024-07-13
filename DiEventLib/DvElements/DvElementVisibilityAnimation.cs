@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DiEventLib;
 
-public class DvElementVisibilityAnimation : DvNodeObject
+public class DvElementVisibilityAnimation : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public string FileName { get; set; } = "";
@@ -14,20 +14,20 @@ public class DvElementVisibilityAnimation : DvNodeObject
     public DvElementVisibilityAnimation() { }
     public DvElementVisibilityAnimation(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
-        FileName = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 64);
+        FileName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
         Field_44 = reader.Read<uint>();
         Field_48 = reader.Read<float>();
         Field_4c = reader.Read<uint>();
         Field_50 = reader.Read<uint>();
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
-        writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, FileName, 64);
+        writer.WriteDvString(FileName, Utils.StringEncoding.ShiftJIS);
         writer.Write(Field_44);
         writer.Write(Field_48);
         writer.Write(Field_4c);

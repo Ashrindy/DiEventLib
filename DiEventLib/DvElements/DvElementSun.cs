@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace DiEventLib;
 
-public class DvElementSun : DvNodeObject
+public class DvElementSun : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public Vector3 Rotation { get; set; } = new(0, 0, 0);
@@ -24,7 +24,7 @@ public class DvElementSun : DvNodeObject
     }
     public DvElementSun(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         Rotation = reader.Read<Vector3>();
@@ -32,7 +32,7 @@ public class DvElementSun : DvNodeObject
         AnimData = reader.ReadArray<uint>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(Rotation);

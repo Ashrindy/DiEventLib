@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementCameraExposure : DvNodeObject
+public class DvElementCameraExposure : DvNodeElement
 {
     public int unk1 { get; set; } = 0;
     public float[] Field_48 { get; set; }
@@ -23,14 +23,14 @@ public class DvElementCameraExposure : DvNodeObject
     }
     public DvElementCameraExposure(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         unk1 = reader.Read<int>();
         Field_48 = reader.ReadArray<float>(7);
         Field_80 = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(unk1);
         writer.WriteArray(Field_48);

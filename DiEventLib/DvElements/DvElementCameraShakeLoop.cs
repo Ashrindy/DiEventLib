@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementCameraShakeLoop : DvNodeObject
+public class DvElementCameraShakeLoop : DvNodeElement
 {
     public uint Field_60 { get; set; } = 0;
     public uint Field_64 { get; set; } = 0;
@@ -24,7 +24,7 @@ public class DvElementCameraShakeLoop : DvNodeObject
     }
     public DvElementCameraShakeLoop(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_60 = reader.Read<uint>();
         Field_64 = reader.Read<uint>();
@@ -32,7 +32,7 @@ public class DvElementCameraShakeLoop : DvNodeObject
         CurveData = reader.ReadArray<float>(64);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_60);
         writer.Write(Field_64);

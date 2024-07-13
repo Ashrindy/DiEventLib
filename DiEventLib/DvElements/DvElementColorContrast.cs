@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementColorContrast : DvNodeObject
+public class DvElementColorContrast : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public float Field_04 { get; set; } = 0;
@@ -23,7 +23,7 @@ public class DvElementColorContrast : DvNodeObject
     }
     public DvElementColorContrast(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         Field_04 = reader.Read<float>();
@@ -36,7 +36,7 @@ public class DvElementColorContrast : DvNodeObject
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(Field_04);

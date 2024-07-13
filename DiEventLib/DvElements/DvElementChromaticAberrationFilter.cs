@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace DiEventLib;
 
-public class DvElementChromaticAberrationFilter : DvNodeObject
+public class DvElementChromaticAberrationFilter : DvNodeElement
 {
     public ChromaticAberration Data1 { get; set; }
     public float Field_08 { get; set; } = 0;
@@ -33,7 +33,7 @@ public class DvElementChromaticAberrationFilter : DvNodeObject
     }
     public DvElementChromaticAberrationFilter(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Data1 = reader.Read<ChromaticAberration>();
         Field_08 = reader.Read<float>();
@@ -41,7 +41,7 @@ public class DvElementChromaticAberrationFilter : DvNodeObject
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Data1);
         writer.Write(Field_08);

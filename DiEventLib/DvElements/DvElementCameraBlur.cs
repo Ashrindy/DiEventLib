@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementCameraBlur : DvNodeObject
+public class DvElementCameraBlur : DvNodeElement
 {
     public uint Flags { get; set; } = 0;
     public uint Field_04 { get; set; } = 0;
@@ -20,7 +20,7 @@ public class DvElementCameraBlur : DvNodeObject
     }
     public DvElementCameraBlur(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Flags = reader.Read<uint>();
         Field_04 = reader.Read<uint>();
@@ -29,7 +29,7 @@ public class DvElementCameraBlur : DvNodeObject
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Flags);
         writer.Write(Field_04);

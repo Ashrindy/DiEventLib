@@ -3,17 +3,17 @@ using System.Numerics;
 
 namespace DiEventLib;
 
-public class DvElementVignette : DvNodeObject
+public class DvElementVignette : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public uint Field_04 { get; set; } = 0;
-    public VignetteParam1 Data1 { get; set; }
-    public VignetteParam2 Data2 { get; set; }
+    public VignetteParam1 VignetteBefore { get; set; }
+    public VignetteParam2 VignetteAfter { get; set; }
     public float[] CurveData { get; set; }
 
     public DvElementVignette() 
     {
-        Data1 = new VignetteParam1 
+        VignetteBefore = new VignetteParam1 
         { 
             Position = new(0,0),
             Scale = new(0,0),
@@ -37,7 +37,7 @@ public class DvElementVignette : DvNodeObject
             MinOpacityDist = 0,
             MaxOpacityDist = 0,
         };
-        Data2 = new VignetteParam2
+        VignetteAfter = new VignetteParam2
         {
             Position = new(0, 0),
             Scale = new(0, 0),
@@ -69,21 +69,21 @@ public class DvElementVignette : DvNodeObject
     }
     public DvElementVignette(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         Field_04 = reader.Read<uint>();
-        Data1 = reader.Read<VignetteParam1>();
-        Data2 = reader.Read<VignetteParam2>();
+        VignetteBefore = reader.Read<VignetteParam1>();
+        VignetteAfter = reader.Read<VignetteParam2>();
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(Field_04);
-        writer.Write(Data1);
-        writer.Write(Data2);
+        writer.Write(VignetteBefore);
+        writer.Write(VignetteAfter);
         writer.WriteArray(CurveData);
     }
 }

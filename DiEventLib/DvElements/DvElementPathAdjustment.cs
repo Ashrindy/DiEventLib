@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace DiEventLib;
 
-public class DvElementPathAdjustment : DvNodeObject
+public class DvElementPathAdjustment : DvNodeElement
 {
     public Vector3 Position = new(0,0,0);
     public Vector3 Rotation = new(0,0,0);
@@ -20,7 +20,7 @@ public class DvElementPathAdjustment : DvNodeObject
     }
     public DvElementPathAdjustment(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         var mtx = reader.Read<Matrix4x4>();
         Quaternion tempRot;
@@ -29,7 +29,7 @@ public class DvElementPathAdjustment : DvNodeObject
         Field_40 = reader.ReadArray<uint>(4);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Utils.ComposeMatrix(Position, Scale, Utils.ToQuaternion(Rotation)));
         writer.WriteArray(Field_40);

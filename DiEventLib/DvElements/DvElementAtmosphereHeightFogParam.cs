@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementAtmosphereHeightFogParam : DvNodeObject
+public class DvElementAtmosphereHeightFogParam : DvNodeElement
 {
     public byte[] Data { get; set; }
 
@@ -16,12 +16,12 @@ public class DvElementAtmosphereHeightFogParam : DvNodeObject
     }
     public DvElementAtmosphereHeightFogParam(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Data = reader.ReadArray<byte>(300);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.WriteArray(Data);
     }

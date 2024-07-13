@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementDrawOff : DvNodeObject
+public class DvElementDrawOff : DvNodeElement
 {
     public uint[] Field_00 {  get; set; }
 
@@ -16,12 +16,12 @@ public class DvElementDrawOff : DvNodeObject
     }
     public DvElementDrawOff(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.ReadArray<uint>(4);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.WriteArray(Field_00);
     }

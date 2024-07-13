@@ -36,7 +36,10 @@ public static class DvNodeWriter
                 var cameraMotion = node as DvNodeCameraMotion;
                 cameraMotion.Write(writer);
                 break;
-            //case DvNodeCategory.Character: break;
+            case DvNodeCategory.Character:
+                var character = node as DvNodeCharacter;
+                character.Write(writer);
+                break;
             //case DvNodeCategory.CharacterMotion: break;
             //case DvNodeCategory.CharacterBehavior: break;
             //case DvNodeCategory.ModelCustom: break;

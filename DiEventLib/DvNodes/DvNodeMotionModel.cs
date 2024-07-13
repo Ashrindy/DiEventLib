@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DiEventLib;
 
-public class DvNodeMotionModel : DvNodeObject
+public class DvNodeMotionModel : DvNode
 {
     public uint Flags { get; set; } = 0;
     public uint FrameStart { get; set; } = 0;
@@ -20,7 +20,7 @@ public class DvNodeMotionModel : DvNodeObject
     public DvNodeMotionModel() { }
     public DvNodeMotionModel(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Flags = reader.Read<uint>();
         // DiEvent using ticks for these values (1 frame = 100 ticks)
@@ -28,7 +28,7 @@ public class DvNodeMotionModel : DvNodeObject
         FrameEnd = reader.Read<uint>() / 100;
         Field0C = reader.Read<uint>();
         // Mostly is Dst0000 
-        StateName = reader.ReadString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, 8);
+        StateName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS, 8);
         Field14 = reader.Read<float>();
         Field18 = reader.Read<uint>();
         Field1C = reader.Read<uint>();
@@ -37,13 +37,13 @@ public class DvNodeMotionModel : DvNodeObject
         Field28 = reader.Read<uint>();
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Flags);
         writer.Write(FrameStart * 100);
         writer.Write(FrameEnd * 100);
         writer.Write(Field0C);
-        writer.WriteString(Encoding.GetEncoding("Shift-JIS"), StringBinaryFormat.FixedLength, StateName, 8);
+        writer.WriteDvString(StateName, Utils.StringEncoding.ShiftJIS, 8);
         writer.Write(Field14);
         writer.Write(Field18);
         writer.Write(Field1C);
