@@ -2,10 +2,10 @@
 
 namespace DiEventLib;
 
-public class DvElementAura : DvNodeObject
+public class DvElementAura : DvNodeElement
 {
-    public AuraNode AuraNode1 { get; set; } = new();
-    public AuraNode AuraNode2 { get; set; } = new();
+    public AuraNode AuraBefore { get; set; } = new();
+    public AuraNode AuraAfter { get; set; } = new();
     public uint Field_00 { get; set; } = 0;
     public float[] AnimData { get; set; }
 
@@ -19,18 +19,18 @@ public class DvElementAura : DvNodeObject
     }
     public DvElementAura(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
-        AuraNode1 = reader.Read<AuraNode>();
-        AuraNode2 = reader.Read<AuraNode>();
+        AuraBefore = reader.Read<AuraNode>();
+        AuraAfter = reader.Read<AuraNode>();
         Field_00 = reader.Read<uint>();
         AnimData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
-        writer.Write(AuraNode1);
-        writer.Write(AuraNode2);
+        writer.Write(AuraBefore);
+        writer.Write(AuraAfter);
         writer.Write(Field_00);
         writer.WriteArray(AnimData);
     }

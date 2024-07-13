@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementNearFarSetting : DvNodeObject
+public class DvElementNearFarSetting : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public float Near { get; set; } = 0;
@@ -18,7 +18,7 @@ public class DvElementNearFarSetting : DvNodeObject
     }
     public DvElementNearFarSetting(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         Near = reader.Read<float>();
@@ -26,7 +26,7 @@ public class DvElementNearFarSetting : DvNodeObject
         Field_10 = reader.ReadArray<uint>(5);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(Near);

@@ -150,7 +150,7 @@ public enum DvElementID : uint
     VariablePointLight = 1036,
     OpeningLogo = 1037,
     AdditionRange = 1038, // i have no clue what this is
-    // 1039
+    FxColUpdate = 1039,
     // 1040
     // 1041
     TheEndCableObject = 1042,

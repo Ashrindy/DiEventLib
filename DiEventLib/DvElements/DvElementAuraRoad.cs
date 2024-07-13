@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementAuraRoad : DvNodeObject
+public class DvElementAuraRoad : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public float[] AnimData { get; set; }
@@ -17,13 +17,13 @@ public class DvElementAuraRoad : DvNodeObject
     }
     public DvElementAuraRoad(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         AnimData = reader.ReadArray<float>(64);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.WriteArray(AnimData);

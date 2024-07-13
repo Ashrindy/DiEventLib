@@ -78,11 +78,15 @@ public static class DvNodeReader
                     case DvElementID.Effect:
                         element = new DvElementEffect(reader);
                         break;
-                    //case DvElementID.PathInterpolation: break;
+                    case DvElementID.PathInterpolation:
+                        element = new DvElementPathInterpolation(reader);
+                        break;
                     case DvElementID.Culling:
                         element = new DvElementCulling(reader);
                         break;
-                    //case DvElementID.NearFarSetting: break;
+                    case DvElementID.NearFarSetting:
+                        element = new DvElementNearFarSetting(reader);
+                        break;
                     case DvElementID.UVAnimation:
                         element = new DvElementUVAnimation(reader);
                         break;
@@ -103,12 +107,9 @@ public static class DvNodeReader
                         break;
                     //case DvElementID.VertexAnimation: break;
                     //case DvElementID.Spotlight: break;
-                    case DvElementID.SpotlightModel:
-
-                        Console.WriteLine($"Not implemented element: {elementID.ToString()} (Name: {nodeName}, GUID: {guid}). SKIPPING");
-                        reader.Skip(nodeSize-32);
+                    //case DvElementID.SpotlightModel:
                         //element = new DvElementSpotlightModel(reader);
-                        break;
+                    //    break;
                     //case DvElementID.Bloom: break;
                     case DvElementID.DOF:
                         element = new DvElementDOF(reader);
@@ -140,11 +141,15 @@ public static class DvNodeReader
                     case DvElementID.ModelClipping:
                         element = new DvElementModelClipping(reader);
                         break;
-                    //case DvElementID.BossName: break;
+                    case DvElementID.BossName:
+                        element = new DvElementBossName(reader);
+                        break;
                     case DvElementID.Caption:
                         element = new DvElementCaption(reader);
                         break;
-                    //case DvElementID.Sound: break;
+                    case DvElementID.Sound:
+                        element = new DvElementSound(reader);
+                        break;
                     case DvElementID.Time:
                         element = new DvElementTime(reader);
                         break;
@@ -162,12 +167,16 @@ public static class DvNodeReader
                     //case DvElementID.QTE: break;
                     //case DvElementID.LipAnimation: break;
                     //case DvElementID.OverrideASM: break;
-                    //case DvElementID.Aura: break;
+                    case DvElementID.Aura:
+                        element = new DvElementAura(reader);
+                        break;
                     //case DvElementID.ChangeTimeScale: break;
                     case DvElementID.CyberSpaceNoise:
                         element = new DvElementCyberSpaceNoise(reader);
                         break;
-                    //case DvElementID.AuraRoad: break;
+                    case DvElementID.AuraRoad:
+                        element = new DvElementAuraRoad(reader);
+                        break;
                     case DvElementID.MovieView:
                         element = new DvElementMovieView(reader);
                         break;
@@ -179,12 +188,17 @@ public static class DvNodeReader
                     case DvElementID.VariablePointLight:
                         element = new DvElementVariablePointLight(reader);
                         break;
-                    //case DvElementID.OpeningLogo: break;
+                    case DvElementID.OpeningLogo:
+                        element = new DvElementOpeningLogo(reader);
+                        break;
                     //case DvElementID.AdditionRange: break;
+                    //case DvElementID.FxColUpdate: break;
                     //case DvElementID.TheEndCableObject: break;
                     //case DvElementID.RifleBeastLighting: break;
                     default:
-                        throw new NotSupportedException($"Not implemented element: {elementID.ToString()} (Name: {nodeName}, GUID: {guid})");
+                        Console.WriteLine($"Not implemented element: {elementID.ToString()} (Name: {nodeName}, GUID: {guid}). SKIPPING");
+                        reader.Skip(nodeSize - 32);
+                        break;
                 }
                 element.ElementID = elementID;
                 element.Start = start;
@@ -205,7 +219,9 @@ public static class DvNodeReader
             //case DvNodeCategory.CharacterBehaviorSimpleTalk: break;
             //case DvNodeCategory.InvalidNode: break;
             default:
-                throw new NotSupportedException($"Not implemented category: {category.ToString()} (Name: {nodeName}, GUID: {guid})");
+                Console.WriteLine($"Not implemented category: {category.ToString()} (Name: {nodeName}, GUID: {guid})");
+                reader.Skip(nodeSize - 32);
+                break;
         }
         node.Guid = guid;
         node.Category = category;

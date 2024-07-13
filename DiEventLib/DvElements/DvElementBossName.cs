@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementBossName : DvNodeObject
+public class DvElementBossName : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public BossID BossName { get; set; } = BossID.Giganto;
@@ -10,13 +10,13 @@ public class DvElementBossName : DvNodeObject
     public DvElementBossName() { }
     public DvElementBossName(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         BossName = reader.Read<BossID>();
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(BossName);

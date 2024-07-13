@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementPathInterpolation : DvNodeObject
+public class DvElementPathInterpolation : DvNodeElement
 {
     public byte[] Data { get; set; }
 
@@ -16,12 +16,12 @@ public class DvElementPathInterpolation : DvNodeObject
     }
     public DvElementPathInterpolation(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Data = reader.ReadArray<byte>(592);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.WriteArray(Data);
     }

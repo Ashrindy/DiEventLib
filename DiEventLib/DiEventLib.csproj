@@ -15,10 +15,7 @@
 
   <ItemGroup>
     <Compile Remove="DvElements\DvElementAdditionRange.cs" />
-    <Compile Remove="DvElements\DvElementAura.cs" />
-    <Compile Remove="DvElements\DvElementAuraRoad.cs" />
     <Compile Remove="DvElements\DvElementBloom.cs" />
-    <Compile Remove="DvElements\DvElementBossName.cs" />
     <Compile Remove="DvElements\DvElementCameraShake.cs" />
     <Compile Remove="DvElements\DvElementChangeTimeScale.cs" />
     <Compile Remove="DvElements\DvElementCompositeAnimation.cs" />
@@ -27,14 +24,11 @@
     <Compile Remove="DvElements\DvElementLipAnimation.cs" />
     <Compile Remove="DvElements\DvElementLookAtIK.cs" />
     <Compile Remove="DvElements\DvElementModelFade.cs" />
-    <Compile Remove="DvElements\DvElementNearFarSetting.cs" />
     <Compile Remove="DvElements\DvElementOverrideASM.cs" />
-    <Compile Remove="DvElements\DvElementPathInterpolation.cs" />
     <Compile Remove="DvElements\DvElementQTE.cs" />
     <Compile Remove="DvElements\DvElementRifleBeastLighting.cs" />
     <Compile Remove="DvElements\DvElementShadowMapParam.cs" />
     <Compile Remove="DvElements\DvElementSonicCamera.cs" />
-    <Compile Remove="DvElements\DvElementSound.cs" />
     <Compile Remove="DvElements\DvElementSpotlight.cs" />
     <Compile Remove="DvElements\DvElementTheEndCableObject.cs" />
     <Compile Remove="DvElements\DvElementVertexAnimation.cs" />
