@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementCameraShake : DvNodeObject
+public class DvElementCameraShake : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0; // Could be in which way the camera shakes? As in, roll, yaw, pitch etc.
     public float Intensity { get; set; } = 0;
@@ -11,7 +11,7 @@ public class DvElementCameraShake : DvNodeObject
     public DvElementCameraShake() { }
     public DvElementCameraShake(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         reader.Skip(4);
         Field_00 = reader.Read<uint>();
@@ -20,7 +20,7 @@ public class DvElementCameraShake : DvNodeObject
         reader.Skip(16);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Skip(4);
         writer.Write(Field_00);

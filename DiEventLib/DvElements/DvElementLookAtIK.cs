@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementLookAtIK : DvNodeObject
+public class DvElementLookAtIK : DvNodeElement
 {
     public uint Field_60 { get; set; } = 0;
     public uint Field_64 { get; set; } = 0;
@@ -25,7 +25,7 @@ public class DvElementLookAtIK : DvNodeObject
     }
     public DvElementLookAtIK(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_60 = reader.Read<uint>();
         Field_64 = reader.Read<uint>();
@@ -34,7 +34,7 @@ public class DvElementLookAtIK : DvNodeObject
         Field_80 = reader.ReadArray<float>(64);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_60);
         writer.Write(Field_64);

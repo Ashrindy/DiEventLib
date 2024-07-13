@@ -71,7 +71,9 @@ public static class DvNodeReader
                     case DvElementID.PathAdjustment:
                         element = new DvElementPathAdjustment(reader);
                         break;
-                    //case DvElementID.CameraShake: break;
+                    case DvElementID.CameraShake:
+                        element = new DvElementCameraShake(reader);
+                        break;
                     case DvElementID.CameraShakeLoop:
                         element = new DvElementCameraShakeLoop(reader);
                         break;
@@ -96,19 +98,23 @@ public static class DvNodeReader
                     case DvElementID.MaterialAnimation:
                         element = new DvElementMaterialAnimation(reader);
                         break;
-                    //case DvElementID.CompositeAnimation: break;
+                    case DvElementID.CompositeAnimation:
+                        element = new DvElementCompositeAnimation(reader);
+                        break;
                     case DvElementID.CameraOffset:
                         element = new DvElementCameraOffset(reader);
                         break;
                     //case DvElementID.ModelFade: break;
-                    //case DvElementID.SonicCamera: break;
+                    case DvElementID.SonicCamera:
+                        element = new DvElementSonicCamera(reader);
+                        break;
                     case DvElementID.GameCamera:
                         element = new DvElementGameCamera(reader);
                         break;
-                    //case DvElementID.VertexAnimation: break;
+                    //case DvElementID.VAT: break;
                     //case DvElementID.Spotlight: break;
                     //case DvElementID.SpotlightModel:
-                        //element = new DvElementSpotlightModel(reader);
+                    //    element = new DvElementSpotlightModel(reader);
                     //    break;
                     //case DvElementID.Bloom: break;
                     case DvElementID.DOF:
@@ -156,11 +162,15 @@ public static class DvNodeReader
                     case DvElementID.Sun:
                         element = new DvElementSun(reader);
                         break;
-                    //case DvElementID.LookAtIK: break;
+                    case DvElementID.LookAtIK:
+                        element = new DvElementLookAtIK(reader);
+                        break;
                     case DvElementID.CameraBlur:
                         element = new DvElementCameraBlur(reader);
                         break;
-                    //case DvElementID.GeneralTrigger: break;
+                    case DvElementID.GeneralTrigger:
+                        element = new DvElementGeneralTrigger(reader);
+                        break;
                     case DvElementID.Dither:
                         element = new DvElementDither(reader);
                         break;
@@ -193,7 +203,9 @@ public static class DvNodeReader
                         break;
                     //case DvElementID.AdditionRange: break;
                     //case DvElementID.FxColUpdate: break;
-                    //case DvElementID.TheEndCableObject: break;
+                    case DvElementID.TheEndCableObject:
+                        element = new DvElementTheEndCableObject(reader);
+                        break;
                     //case DvElementID.RifleBeastLighting: break;
                     default:
                         Console.WriteLine($"Not implemented element: {elementID.ToString()} (Name: {nodeName}, GUID: {guid}). SKIPPING");

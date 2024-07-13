@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementSonicCamera : DvNodeObject
+public class DvElementSonicCamera : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public uint[] Field_01 { get; set; }
@@ -29,7 +29,7 @@ public class DvElementSonicCamera : DvNodeObject
     }
     public DvElementSonicCamera(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         Field_01 = reader.ReadArray<uint>(3);
@@ -37,7 +37,7 @@ public class DvElementSonicCamera : DvNodeObject
         Data = reader.ReadArray<byte>(128);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.WriteArray(Field_01);

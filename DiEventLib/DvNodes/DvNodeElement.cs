@@ -107,7 +107,7 @@ public enum DvElementID : uint
     SonicCamera = 20,
     GameCamera = 21,
     // 22
-    VertexAnimation = 23,
+    VAT = 23,
     Spotlight = 24,
     // 25
     SpotlightModel = 26,
@@ -134,14 +134,15 @@ public enum DvElementID : uint
     LookAtIK = 1019,
     CameraBlur = 1020,
     GeneralTrigger = 1021,
-    // 1022
+    FootIK = 1022,
     Dither = 1023,
     QTE = 1024,
-    LipAnimation = 1025,
+    FacialAnimation = 1025,
     OverrideASM = 1026,
     Aura = 1027,
     ChangeTimeScale = 1028,
     CyberSpaceNoise = 1029,
+    LipAnimation = 1030,
     AuraRoad = 1031,
     MovieView = 1032,
     CrossFade = 1033,
@@ -152,7 +153,7 @@ public enum DvElementID : uint
     AdditionRange = 1038, // i have no clue what this is
     FxColUpdate = 1039,
     // 1040
-    // 1041
+    QTEAccel = 1041,
     TheEndCableObject = 1042,
     RifleBeastLighting = 1043
 };

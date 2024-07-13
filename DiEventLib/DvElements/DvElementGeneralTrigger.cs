@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DiEventLib;
 
-public class DvElementGeneralTrigger : DvNodeObject
+public class DvElementGeneralTrigger : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public string TriggerName { get; set; } = "";
@@ -12,7 +12,7 @@ public class DvElementGeneralTrigger : DvNodeObject
     public DvElementGeneralTrigger() { }
     public DvElementGeneralTrigger(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         TriggerName = reader.ReadString(Encoding.UTF8, StringBinaryFormat.FixedLength, 64);
@@ -48,7 +48,7 @@ public class DvElementGeneralTrigger : DvNodeObject
         }
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         switch (TriggerEnum)
