@@ -9,7 +9,7 @@ public class DvElementSonicCamera : DvNodeElement
     public float[] Field_4c { get; set; }
     public byte[] Data { get; set; }
 
-    public DvElementSonicCamera() 
+    public DvElementSonicCamera() : base(DvElementID.SonicCamera)
     {
         Field_01 = new uint[3];
         for(int i = 0; i < 3; i++)

@@ -7,7 +7,7 @@ public class DvElementFade : DvNodeElement
     public RGBA32 Color { get; set; }
     public float[] CurveData { get; set; }
 
-    public DvElementFade() 
+    public DvElementFade() : base(DvElementID.Fade)
     {
         Color = new RGBA32
         {

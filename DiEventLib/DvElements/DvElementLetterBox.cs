@@ -6,7 +6,7 @@ public class DvElementLetterBox : DvNodeElement
 {
     public float[] CurveData { get; set; }
 
-    public DvElementLetterBox() 
+    public DvElementLetterBox() : base(DvElementID.LetterBox)
     { 
         CurveData = new float[32];
         for(int i = 0; i < 32; i++)

@@ -19,7 +19,7 @@ public class DvElementDOF : DvNodeElement
     public float Field_ac { get; set; } = 0;
     public float[] AnimData { get; set; }
 
-    public DvElementDOF()
+    public DvElementDOF() : base(DvElementID.DOF)
     {
         DOFParams = new DOFParam[2];
         for (int i = 0; i < 2; i++)

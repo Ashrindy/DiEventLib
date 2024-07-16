@@ -8,7 +8,8 @@ public class DvElementCameraShake : DvNodeElement
     public float Intensity { get; set; } = 0;
     public float Frequency { get; set; } = 0;
 
-    public DvElementCameraShake() { }
+    public DvElementCameraShake() : base(DvElementID.CameraShake)
+    { }
     public DvElementCameraShake(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

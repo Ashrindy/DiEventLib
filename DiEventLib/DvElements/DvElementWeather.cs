@@ -7,7 +7,7 @@ public class DvElementWeather : DvNodeElement
     public uint Field_00 { get; set; } = 0; // could be an enum of some sort, like "sunny" "cloudy" etc.
     public float[] CurveData { get; set; }
 
-    public DvElementWeather() 
+    public DvElementWeather() : base(DvElementID.Weather)
     {
         CurveData = new float[32];
         for(int i = 0; i < 32; i++)

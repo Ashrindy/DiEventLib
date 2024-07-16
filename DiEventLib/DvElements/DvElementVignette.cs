@@ -11,7 +11,7 @@ public class DvElementVignette : DvNodeElement
     public VignetteParam2 VignetteAfter { get; set; }
     public float[] CurveData { get; set; }
 
-    public DvElementVignette() 
+    public DvElementVignette() : base(DvElementID.Vignette)
     {
         VignetteBefore = new VignetteParam1 
         { 

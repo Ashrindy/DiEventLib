@@ -10,7 +10,7 @@ public class DvElementCameraBlur : DvNodeElement
     public uint Field_0C { get; set; } = 0;
     public float[] CurveData { get; set; }
 
-    public DvElementCameraBlur() 
+    public DvElementCameraBlur() : base(DvElementID.CameraBlur)
     {
         CurveData = new float[32];
         for (int i = 0; i < 32; i++)

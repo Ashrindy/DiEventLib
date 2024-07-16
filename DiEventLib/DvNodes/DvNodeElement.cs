@@ -30,7 +30,7 @@ public class DvNodeElement : DvNode
         Guid = Guid.NewGuid();
     }
 
-    public DvNodeElement(string name) : base(DvNodeCategory.Path, name)
+    public DvNodeElement(string name) : base(DvNodeCategory.Element, name)
     {
         NodeName = name;
         Priority = 0;

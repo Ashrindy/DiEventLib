@@ -11,19 +11,9 @@ public class DvNodeCamera : DvNode
     public List<float> FrameProgression { get; set; } = new();
     public List<float> FrameProgressionSpeed { get; set; } = new();
 
-    public DvNodeCamera() { }
-    public DvNodeCamera(BinaryObjectReader reader) : base(DvNodeCategory.Camera)
+    public DvNodeCamera() : base(DvNodeCategory.Camera) { }
+    public DvNodeCamera(BinaryObjectReader reader) 
         => Read(reader);
-
-    public DvNodeCamera(BinaryObjectReader reader, DvNode dvNode)
-    {
-        GetClass(dvNode);
-        Read(reader);
-    }
-    public DvNodeCamera GetClass(DvNode dvNode)
-    {
-        return (DvNodeCamera)dvNode;
-    }
     public void Read(BinaryObjectReader reader)
     {
         Flags = reader.Read<uint>();

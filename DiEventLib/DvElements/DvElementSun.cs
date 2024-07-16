@@ -9,7 +9,7 @@ public class DvElementSun : DvNodeElement
     public Vector3 Rotation { get; set; } = new(0, 0, 0);
     public uint[] Field_01 { get; set; }
     public uint[] AnimData { get; set; }
-    public DvElementSun() 
+    public DvElementSun() : base(DvElementID.Sun)
     {
         Field_01 = new uint[3];
         for (int i = 0; i < 3; i++)

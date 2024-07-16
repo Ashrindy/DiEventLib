@@ -6,7 +6,7 @@ public class DvElementDrawOff : DvNodeElement
 {
     public uint[] Field_00 {  get; set; }
 
-    public DvElementDrawOff() 
+    public DvElementDrawOff() : base(DvElementID.DrawOff)
     { 
         Field_00 = new uint[4];
         for(int i = 0; i < 4; i++)

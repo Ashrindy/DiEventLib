@@ -6,7 +6,7 @@ public class DvElementGameCamera : DvNodeElement
 {
     public float[] Field_4c { get; set; }
 
-    public DvElementGameCamera() 
+    public DvElementGameCamera() : base(DvElementID.GameCamera)
     { 
         Field_4c = new float[26];
         for(int i = 0; i < 26; i++)

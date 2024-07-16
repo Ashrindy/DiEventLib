@@ -13,7 +13,7 @@ public class DvElementColorContrast : DvNodeElement
     public float Field_2c { get; set; } = 0;
     public uint Field_02 { get; set; } = 0;
     public float[] CurveData { get; set; }
-    public DvElementColorContrast() 
+    public DvElementColorContrast() : base(DvElementID.ColorContrast)
     {
         CurveData = new float[32];
         for(int i = 0; i < 32; i++)

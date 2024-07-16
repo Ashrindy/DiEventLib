@@ -11,7 +11,7 @@ public class DvElementMaterialAnimation : DvNodeElement
     public float Field_48 { get; set; } = 0;
     public uint Field_4c { get; set; } = 0;
     public uint Field_50 { get; set; } = 0;
-    public DvElementMaterialAnimation() { }
+    public DvElementMaterialAnimation() : base(DvElementID.MaterialAnimation) { }
     public DvElementMaterialAnimation(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

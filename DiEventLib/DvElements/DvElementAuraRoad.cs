@@ -7,7 +7,7 @@ public class DvElementAuraRoad : DvNodeElement
     public uint Field_00 { get; set; } = 0;
     public float[] AnimData { get; set; }
 
-    public DvElementAuraRoad() 
+    public DvElementAuraRoad() : base(DvElementID.AuraRoad)
     { 
         AnimData = new float[64];
         for(int i = 0; i < 64; i++)

@@ -10,7 +10,7 @@ public class DvElementLookAtIK : DvNodeElement
     public uint[] Field_78 { get; set; }
     public float[] Field_80 { get; set; }
 
-    public DvElementLookAtIK() 
+    public DvElementLookAtIK() : base(DvElementID.LookAtIK)
     {
         Field_78 = new uint[11];
         for(int i = 0; i < 11; i++)

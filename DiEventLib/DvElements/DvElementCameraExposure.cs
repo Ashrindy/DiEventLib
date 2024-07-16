@@ -8,7 +8,7 @@ public class DvElementCameraExposure : DvNodeElement
     public float[] Field_48 { get; set; }
     public float[] Field_80 { get; set; }
 
-    public DvElementCameraExposure() 
+    public DvElementCameraExposure() : base(DvElementID.CameraExposure)
     {
         Field_48 = new float[7];
         for (int i = 0; i < 7; i++)

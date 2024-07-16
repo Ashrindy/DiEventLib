@@ -6,7 +6,7 @@ public class DvElementPathInterpolation : DvNodeElement
 {
     public byte[] Data { get; set; }
 
-    public DvElementPathInterpolation() 
+    public DvElementPathInterpolation() : base(DvElementID.PathInterpolation)
     {
         Data = new byte[592];
         for (int i = 0; i < 592; i++)

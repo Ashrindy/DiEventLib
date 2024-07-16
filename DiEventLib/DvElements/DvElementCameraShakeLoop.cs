@@ -9,7 +9,7 @@ public class DvElementCameraShakeLoop : DvNodeElement
     public float[] Field_68 { get; set; }
     public float[] CurveData { get; set; }
 
-    public DvElementCameraShakeLoop() 
+    public DvElementCameraShakeLoop() : base(DvElementID.CameraShakeLoop)
     {
         Field_68 = new float[6];
         for(int i = 0; i < 6; i++)

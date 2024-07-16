@@ -10,7 +10,8 @@ public class DvElementCompositeAnimation : DvNodeElement
     public uint Field_6c { get; set; } = 0;
     public Animation[] Animations { get; set; } = new Animation[16];
     //public uint ActiveAnimCount { get; set; }
-    public DvElementCompositeAnimation() { }
+    public DvElementCompositeAnimation() : base(DvElementID.CompositeAnimation)
+    { }
     public DvElementCompositeAnimation(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

@@ -10,7 +10,7 @@ public class DvElementVariablePointLight : DvNodeElement
     public int Unk4 { get; set; } = 0;
     public int[] Unk5 { get; set; }
     public float[] CurveData { get; set; }
-    public DvElementVariablePointLight() { }
+    public DvElementVariablePointLight() : base(DvElementID.VariablePointLight) { }
     public DvElementVariablePointLight(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

@@ -13,7 +13,7 @@ public class DvElementEffect : DvNodeElement
     public uint[] FieldDC { get; set; } // Item 3 could be RGBA in bytes
     public float[] AnimData { get; set; }
 
-    public DvElementEffect() 
+    public DvElementEffect() : base(DvElementID.Effect)
     { 
         FieldDC = new uint[8];
         for(int i = 0; i < 8; i++)

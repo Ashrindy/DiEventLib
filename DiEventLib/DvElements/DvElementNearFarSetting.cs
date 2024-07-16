@@ -8,7 +8,7 @@ public class DvElementNearFarSetting : DvNodeElement
     public float Near { get; set; } = 0;
     public float Far { get; set; } = 1000;
     public uint[] Field_10 { get; set; }
-    public DvElementNearFarSetting() 
+    public DvElementNearFarSetting() : base(DvElementID.NearFarSetting)
     {
         Field_10 = new uint[5];
         for (int i = 0; i < 8; i++)

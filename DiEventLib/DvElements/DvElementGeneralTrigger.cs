@@ -9,7 +9,7 @@ public class DvElementGeneralTrigger : DvNodeElement
     public string TriggerName { get; set; } = "";
     public Trigger TriggerEnum { get; set; } = Trigger.None;
 
-    public DvElementGeneralTrigger() { }
+    public DvElementGeneralTrigger() : base(DvElementID.GeneralTrigger) { }
     public DvElementGeneralTrigger(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

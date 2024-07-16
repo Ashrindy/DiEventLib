@@ -8,7 +8,7 @@ public class DvElementCameraOffset : DvNodeElement
     public float[] Data { get; set; } // Data 1-3 has some values most of the times, could be some kind of a matrix or a list of vectors
     public float[] AnimData { get; set; }
 
-    public DvElementCameraOffset() 
+    public DvElementCameraOffset() : base(DvElementID.CameraOffset)
     { 
         Data = new float[11];
         for(int i = 0; i < 11; i++)

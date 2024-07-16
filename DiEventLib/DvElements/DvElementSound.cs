@@ -8,7 +8,7 @@ public class DvElementSound : DvNodeElement
     public string CueName { get; set; } = "";
     public uint Field_a0 { get; set; } = 0;
     public uint Field_a4 { get; set; } = 0;
-    public DvElementSound() { }
+    public DvElementSound() : base(DvElementID.Sound) { }
     public DvElementSound(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

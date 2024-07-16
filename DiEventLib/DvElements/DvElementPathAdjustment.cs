@@ -10,7 +10,7 @@ public class DvElementPathAdjustment : DvNodeElement
     public Vector3 Scale = new(0,0,0);
     public uint[] Field_40 { get; set; }
 
-    public DvElementPathAdjustment() 
+    public DvElementPathAdjustment() : base(DvElementID.PathAdjustment)
     {
         Field_40 = new uint[4];
         for (int i = 0; i < 4; i++)

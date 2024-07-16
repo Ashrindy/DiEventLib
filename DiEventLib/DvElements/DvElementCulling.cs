@@ -4,7 +4,7 @@ namespace DiEventLib;
 
 public class DvElementCulling : DvNodeElement
 {
-    public DvElementCulling() { }
+    public DvElementCulling() : base(DvElementID.Culling) { }
     public DvElementCulling(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

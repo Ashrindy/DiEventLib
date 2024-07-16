@@ -5,20 +5,20 @@ namespace DiEventLib;
 
 public class DvElementChromaticAberrationFilter : DvNodeElement
 {
-    public ChromaticAberration Data1 { get; set; }
+    public ChromaticAberration ChromaticAberrationBefore { get; set; }
     public float Field_08 { get; set; } = 0;
-    public ChromaticAberration Data2 { get; set; }
+    public ChromaticAberration ChromaticAberrationAfter { get; set; }
     public float[] CurveData { get; set; }
-    public DvElementChromaticAberrationFilter() 
+    public DvElementChromaticAberrationFilter() : base(DvElementID.ChromaticAberrationFilter)
     {
-        Data1 = new ChromaticAberration
+        ChromaticAberrationBefore = new ChromaticAberration
         {
             ColorOffset = new(0, 0, 0),
             SphereCurve = 0,
             Scale = new(0, 0),
             Position = new(0, 0)
         };
-        Data2 = new ChromaticAberration
+        ChromaticAberrationAfter = new ChromaticAberration
         {
             ColorOffset = new(0, 0, 0),
             SphereCurve = 0,
@@ -35,17 +35,17 @@ public class DvElementChromaticAberrationFilter : DvNodeElement
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        Data1 = reader.Read<ChromaticAberration>();
+        ChromaticAberrationBefore = reader.Read<ChromaticAberration>();
         Field_08 = reader.Read<float>();
-        Data2 = reader.Read<ChromaticAberration>();
+        ChromaticAberrationAfter = reader.Read<ChromaticAberration>();
         CurveData = reader.ReadArray<float>(32);
     }
 
     public void Write(BinaryObjectWriter writer)
     {
-        writer.Write(Data1);
+        writer.Write(ChromaticAberrationBefore);
         writer.Write(Field_08);
-        writer.Write(Data2);
+        writer.Write(ChromaticAberrationAfter);
         writer.WriteArray(CurveData);
     }
 }

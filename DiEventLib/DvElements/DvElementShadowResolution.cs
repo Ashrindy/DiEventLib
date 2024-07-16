@@ -7,7 +7,11 @@ public class DvElementShadowResolution : DvNodeElement
     public uint ShadowRes1 { get; set; } = 0;
     public uint ShadowRes2 { get; set; } = 0;    
 
-    public DvElementShadowResolution() { }
+    public DvElementShadowResolution() : base(DvElementID.ShadowResolution) 
+    { 
+        ShadowRes1 = 2048;
+        ShadowRes2 = 2048;
+    }
     public DvElementShadowResolution(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)

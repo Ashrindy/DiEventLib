@@ -6,7 +6,7 @@ public class DvElementAtmosphereHeightFogParam : DvNodeElement
 {
     public byte[] Data { get; set; }
 
-    public DvElementAtmosphereHeightFogParam() 
+    public DvElementAtmosphereHeightFogParam() : base(DvElementID.AtmosphereHeightFogParam)
     {
         Data = new byte[300];
         for (int i = 0; i < 300; i++)

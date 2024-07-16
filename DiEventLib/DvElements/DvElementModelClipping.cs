@@ -5,7 +5,7 @@ namespace DiEventLib;
 public class DvElementModelClipping : DvNodeElement
 {
     public byte[] Data { get; set; }
-    public DvElementModelClipping() 
+    public DvElementModelClipping() : base(DvElementID.ModelClipping)
     {
         Data = new byte[20];
         for(int i = 0; i < 20; i++)

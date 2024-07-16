@@ -11,7 +11,7 @@ public class DvElementUVAnimation : DvNodeElement
     public float Field_48 { get; set; } = 0;
     public uint Field_4c { get; set; } = 0;
     public uint Field_50 { get; set; } = 0;
-    public DvElementUVAnimation() { }
+    public DvElementUVAnimation() : base(DvElementID.UVAnimation) { }
     public DvElementUVAnimation(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
