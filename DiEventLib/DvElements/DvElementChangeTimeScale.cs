@@ -2,7 +2,7 @@
 
 namespace DiEventLib;
 
-public class DvElementChangeTimeScale : DvNodeObject
+public class DvElementChangeTimeScale : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public float TimeScale { get; set; } = 1;
@@ -17,14 +17,14 @@ public class DvElementChangeTimeScale : DvNodeObject
     }
     public DvElementChangeTimeScale(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         TimeScale = reader.Read<float>();
         Field_08 = reader.ReadArray<uint>(2);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(TimeScale);

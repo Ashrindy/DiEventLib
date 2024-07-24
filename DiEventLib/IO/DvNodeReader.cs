@@ -1,6 +1,7 @@
 ﻿using Amicitia.IO.Binary;
 using System.IO;
 using System.Text;
+using System.Xml.Linq;
 
 namespace DiEventLib;
 
@@ -111,7 +112,9 @@ public static class DvNodeReader
                     case DvElementID.GameCamera:
                         element = new DvElementGameCamera(reader);
                         break;
-                    //case DvElementID.VAT: break;
+                    case DvElementID.VAT:
+                        element = new DvElementVAT(reader);
+                        break;
                     //case DvElementID.Spotlight: break;
                     //case DvElementID.SpotlightModel:
                     //    element = new DvElementSpotlightModel(reader);
@@ -174,13 +177,19 @@ public static class DvNodeReader
                     case DvElementID.Dither:
                         element = new DvElementDither(reader);
                         break;
-                    //case DvElementID.QTE: break;
-                    //case DvElementID.LipAnimation: break;
+                    case DvElementID.QTE:
+                        element = new DvElementQTE(reader);
+                        break;
+                    case DvElementID.FacialAnimation:
+                        element = new DvElementFacialAnimation(reader);
+                        break;
                     //case DvElementID.OverrideASM: break;
                     case DvElementID.Aura:
                         element = new DvElementAura(reader);
                         break;
-                    //case DvElementID.ChangeTimeScale: break;
+                    case DvElementID.ChangeTimeScale:
+                        element = new DvElementChangeTimeScale(reader);
+                        break;
                     case DvElementID.CyberSpaceNoise:
                         element = new DvElementCyberSpaceNoise(reader);
                         break;
@@ -201,14 +210,18 @@ public static class DvNodeReader
                     case DvElementID.OpeningLogo:
                         element = new DvElementOpeningLogo(reader);
                         break;
-                    //case DvElementID.AdditionRange: break;
+                    case DvElementID.AdditionRange:
+                        element = new DvElementAdditionRange(reader);
+                        break;
                     //case DvElementID.FxColUpdate: break;
                     case DvElementID.TheEndCableObject:
                         element = new DvElementTheEndCableObject(reader);
                         break;
-                    //case DvElementID.RifleBeastLighting: break;
+                    case DvElementID.RifleBeastLighting:
+                        element = new DvElementRifleBeastLighting(reader);
+                        break;
                     default:
-                        Console.WriteLine($"Not implemented element: {elementID.ToString()} (Name: {nodeName}, GUID: {guid}). SKIPPING");
+                        Console.WriteLine($"Not implemented element: {elementID.ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize - 32}). SKIPPING");
                         reader.Skip(nodeSize - 32);
                         break;
                 }
@@ -231,7 +244,7 @@ public static class DvNodeReader
             //case DvNodeCategory.CharacterBehaviorSimpleTalk: break;
             //case DvNodeCategory.InvalidNode: break;
             default:
-                Console.WriteLine($"Not implemented category: {category.ToString()} (Name: {nodeName}, GUID: {guid})");
+                Console.WriteLine($"Not implemented category: {category.ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize - 32})");
                 reader.Skip(nodeSize - 32);
                 break;
         }

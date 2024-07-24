@@ -131,6 +131,7 @@ public class Condition : IBinarySerializable
     public void Read(BinaryObjectReader reader)
     {
         ConditionType = reader.Read<int>();
+        //Console.WriteLine($"ConditionType: {ConditionType}");
         ParameterSize = reader.Read<int>();
         reader.Skip(8);
         Data = reader.ReadArray<byte>(ParameterSize);

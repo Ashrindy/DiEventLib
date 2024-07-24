@@ -1,8 +1,9 @@
 ﻿using Amicitia.IO.Binary;
+using System;
 
 namespace DiEventLib;
 
-public class DvElementAdditionRange : DvNodeObject
+public class DvElementAdditionRange : DvNodeElement
 {
     public uint Field_00 { get; set; } = 0;
     public float[] Unk01 { get; set; }
@@ -16,13 +17,13 @@ public class DvElementAdditionRange : DvNodeObject
     }
     public DvElementAdditionRange(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
         Field_00 = reader.Read<uint>();
         Unk01 = reader.ReadArray<float>(7);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.WriteArray(Unk01);

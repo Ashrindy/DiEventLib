@@ -5,6 +5,20 @@ namespace DiEventLib;
 
 public class DvElementCompositeAnimation : DvNodeElement
 {
+    public enum AnimationType : uint
+    {
+        SkeletalAnimation = 1,
+        UVAnimation,
+        VisibilityAnimation,
+        MaterialAnimation
+    }
+
+    public struct Animation
+    {
+        public AnimationType Type;
+        public string FileName;
+    }
+
     public uint Field_60 { get; set; } = 0;
     public string StateName { get; set; } = "Dst0000";
     public uint Field_6c { get; set; } = 0;
@@ -47,16 +61,4 @@ public class DvElementCompositeAnimation : DvNodeElement
     }
 }
 
-public enum AnimationType : uint
-{
-    SkeletalAnimation = 1,
-    UVAnimation,
-    VisibilityAnimation,
-    MaterialAnimation
-}
 
-public struct Animation
-{
-    public AnimationType Type;
-    public string FileName;
-}
