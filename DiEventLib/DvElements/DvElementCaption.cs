@@ -1,12 +1,17 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Text;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Caption", "Displays captions in cutscene")]
 public class DvElementCaption : DvNodeElement
 {
-    public string Name { get; set; } = "";
-    public Language Language { get; set; } = Language.English;
+    [DvValue("Caption Name", DvValueType.String,16)]
+    public string Name { get; set; }
+    [DvValue("Language", DvValueType.Enum)]
+    public Language Language { get; set; }
 
     public DvElementCaption() : base(DvElementID.Caption) { }
     public DvElementCaption(string name, Language language) : base(DvElementID.Caption)
