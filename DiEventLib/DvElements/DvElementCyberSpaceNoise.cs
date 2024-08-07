@@ -1,11 +1,14 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("CyberSpace Noise", "A glitchy cyberspace type overlay")]
 public class DvElementCyberSpaceNoise : DvNodeElement
 {
-    public uint Flags { get; set; } = 0;
-    public float[] CurveData { get; set; }
+    public uint Flags = 0;
+    public float[] CurveData;
     public DvElementCyberSpaceNoise() : base(DvElementID.CyberSpaceNoise)
     { 
         CurveData = new float[32];

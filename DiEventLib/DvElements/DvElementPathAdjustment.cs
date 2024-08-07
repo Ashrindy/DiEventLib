@@ -1,14 +1,17 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Numerics;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Path Adjustment", "Adjusts a paths position, rotation and scale")]
 public class DvElementPathAdjustment : DvNodeElement
 {
     public Vector3 Position = new(0,0,0);
     public Vector3 Rotation = new(0,0,0);
     public Vector3 Scale = new(0,0,0);
-    public uint[] Field_40 { get; set; }
+    public uint[] Field_40;
 
     public DvElementPathAdjustment() : base(DvElementID.PathAdjustment)
     {

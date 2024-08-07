@@ -1,13 +1,16 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Sonic Camera", "")]
 public class DvElementSonicCamera : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public uint[] Field_01 { get; set; }
-    public float[] Field_4c { get; set; }
-    public byte[] Data { get; set; }
+    public uint Field_00 = 0;
+    public uint[] Field_01;
+    public float[] Field_4c;
+    public byte[] Data;
 
     public DvElementSonicCamera() : base(DvElementID.SonicCamera)
     {

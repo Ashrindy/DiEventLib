@@ -1,11 +1,14 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Boss Name", "Displays the bosses name")]
 public class DvElementBossName : DvNodeElement
 {
-    public uint Field_00 { get; set; }
-    public BossID BossName { get; set; } 
+    public uint Field_00;
+    public BossID BossName;
 
     public DvElementBossName() : base(DvElementID.BossName)
     {

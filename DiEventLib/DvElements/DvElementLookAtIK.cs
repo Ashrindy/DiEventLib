@@ -1,14 +1,17 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Look At IK", "Makes the parent node look at a specific node")]
 public class DvElementLookAtIK : DvNodeElement
 {
-    public uint Field_60 { get; set; } = 0;
-    public uint Field_64 { get; set; } = 0;
-    public Guid GUID { get; set; } = Guid.NewGuid();
-    public uint[] Field_78 { get; set; }
-    public float[] Field_80 { get; set; }
+    public uint Field_60 = 0;
+    public uint Field_64 = 0;
+    public Guid GUID  = Guid.NewGuid();
+    public uint[] Field_78;
+    public float[] Field_80;
 
     public DvElementLookAtIK() : base(DvElementID.LookAtIK)
     {

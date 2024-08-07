@@ -1,8 +1,11 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Text;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Composite Animation", "Can add any type of animation in one singular element")]
 public class DvElementCompositeAnimation : DvNodeElement
 {
     public enum AnimationType : uint
@@ -19,10 +22,10 @@ public class DvElementCompositeAnimation : DvNodeElement
         public string FileName;
     }
 
-    public uint Field_60 { get; set; } = 0;
-    public string StateName { get; set; } = "Dst0000";
-    public uint Field_6c { get; set; } = 0;
-    public Animation[] Animations { get; set; } = new Animation[16];
+    public uint Field_60 = 0;
+    public string StateName = "Dst0000";
+    public uint Field_6c = 0;
+    public Animation[] Animations = new Animation[16];
     //public uint ActiveAnimCount { get; set; }
     public DvElementCompositeAnimation() : base(DvElementID.CompositeAnimation)
     { }

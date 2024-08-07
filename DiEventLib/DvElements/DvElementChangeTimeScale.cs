@@ -1,12 +1,15 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Change Time Scale", "Speeds up the game time")]
 public class DvElementChangeTimeScale : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public float TimeScale { get; set; } = 1;
-    public uint[] Field_08 { get; set; }
+    public uint Field_00 = 0;
+    public float TimeScale = 1;
+    public uint[] Field_08;
     public DvElementChangeTimeScale() 
     {
         Field_08 = new uint[2];

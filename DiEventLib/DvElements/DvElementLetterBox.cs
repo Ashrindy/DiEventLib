@@ -1,10 +1,13 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Letter Box", "Makes the cutscene use a fake 21:9 aspect ratio")]
 public class DvElementLetterBox : DvNodeElement
 {
-    public float[] CurveData { get; set; }
+    public float[] CurveData;
 
     public DvElementLetterBox() : base(DvElementID.LetterBox)
     { 

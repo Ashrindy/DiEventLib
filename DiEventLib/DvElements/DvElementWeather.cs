@@ -1,11 +1,14 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Weather", "Changes the weather")]
 public class DvElementWeather : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0; // could be an enum of some sort, like "sunny" "cloudy" etc.
-    public float[] CurveData { get; set; }
+    public uint Field_00 = 0; // could be an enum of some sort, like "sunny" "cloudy" etc.
+    public float[] CurveData;
 
     public DvElementWeather() : base(DvElementID.Weather)
     {

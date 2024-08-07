@@ -4,12 +4,12 @@ namespace DiEventLib;
 
 public class DvNodeCamera : DvNode
 {
-    public uint Flags { get; set; } = 0;
-    public int FrameProgressionCount { get; set; } = 0;
-    public int CaptionCount { get; set; } = 0;
-    public uint Field0C { get; set; } = 0;   // Is caption list ???
-    public List<float> FrameProgression { get; set; } = new();
-    public List<float> FrameProgressionSpeed { get; set; } = new();
+    public uint Flags = 0;
+    public int FrameProgressionCount = 0;
+    public int CaptionCount = 0;
+    public uint Field0C = 0;   // Is caption list ???
+    public List<float> FrameProgression = new();
+    public List<float> FrameProgressionSpeed = new();
 
     public DvNodeCamera() : base(DvNodeCategory.Camera) { }
     public DvNodeCamera(BinaryObjectReader reader) 

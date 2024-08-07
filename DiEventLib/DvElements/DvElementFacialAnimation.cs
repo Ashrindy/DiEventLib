@@ -1,7 +1,10 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Facial Animation", "3 sets of any animation type")]
 public class DvElementFacialAnimation : DvNodeElement
 {
     public enum AnimationType : uint
@@ -17,8 +20,8 @@ public class DvElementFacialAnimation : DvNodeElement
         public AnimationType Type;
         public string FileName;
     }
-    public Animation[] Animations { get; set; } = new Animation[3];
-    public float[] AnimData { get; set; }
+    public Animation[] Animations = new Animation[3];
+    public float[] AnimData;
     //public uint ActiveAnimCount { get; set; }
     public DvElementFacialAnimation() : base(DvElementID.FacialAnimation)
     { }

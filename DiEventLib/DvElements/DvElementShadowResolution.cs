@@ -1,11 +1,14 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Shadow Resolution", "Changes the resolution of shadows")]
 public class DvElementShadowResolution : DvNodeElement
 {
-    public uint ShadowRes1 { get; set; } = 0;
-    public uint ShadowRes2 { get; set; } = 0;    
+    public uint ShadowRes1 = 0;
+    public uint ShadowRes2 = 0;    
 
     public DvElementShadowResolution() : base(DvElementID.ShadowResolution) 
     { 

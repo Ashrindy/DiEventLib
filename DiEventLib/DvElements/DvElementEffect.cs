@@ -1,17 +1,20 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Numerics;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Effect", "Adds a particle effect a specific position, rotation and scale")]
 public class DvElementEffect : DvNodeElement
 {
-    public Vector3 Position { get; set; } = new(0, 0, 0);
-    public Vector3 Rotation { get; set; } = new(0, 0, 0);
-    public Vector3 Scale { get; set; } = new(0, 0, 0);
-    public uint Field9C { get; set; } = 0;
-    public string FileName { get; set; } = "";
-    public uint[] FieldDC { get; set; } // Item 3 could be RGBA in bytes
-    public float[] AnimData { get; set; }
+    public Vector3 Position = new(0, 0, 0);
+    public Vector3 Rotation = new(0, 0, 0);
+    public Vector3 Scale = new(0, 0, 0);
+    public uint Field9C = 0;
+    public string FileName = "";
+    public uint[] FieldDC; // Item 3 could be RGBA in bytes
+    public float[] AnimData;
 
     public DvElementEffect() : base(DvElementID.Effect)
     { 

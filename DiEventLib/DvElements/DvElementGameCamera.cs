@@ -1,10 +1,13 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Game Camera", "")]
 public class DvElementGameCamera : DvNodeElement
 {
-    public float[] Field_4c { get; set; }
+    public float[] Field_4c;
 
     public DvElementGameCamera() : base(DvElementID.GameCamera)
     { 

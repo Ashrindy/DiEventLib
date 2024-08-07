@@ -1,13 +1,16 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Text;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Sound", "Plays a sound")]
 public class DvElementSound : DvNodeElement
 {
-    public string CueName { get; set; } = "";
-    public uint Field_a0 { get; set; } = 0;
-    public uint Field_a4 { get; set; } = 0;
+    public string CueName = "";
+    public uint Field_a0 = 0;
+    public uint Field_a4 = 0;
     public DvElementSound() : base(DvElementID.Sound) { }
     public DvElementSound(BinaryObjectReader reader)
         => Read(reader);

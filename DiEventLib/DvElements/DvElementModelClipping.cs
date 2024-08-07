@@ -1,10 +1,13 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Model Clipping", "")]
 public class DvElementModelClipping : DvNodeElement
 {
-    public byte[] Data { get; set; }
+    public byte[] Data;
     public DvElementModelClipping() : base(DvElementID.ModelClipping)
     {
         Data = new byte[20];

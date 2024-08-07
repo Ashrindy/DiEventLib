@@ -1,10 +1,13 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Path Interpolation", "Interpolates between path adjustments")]
 public class DvElementPathInterpolation : DvNodeElement
 {
-    public byte[] Data { get; set; }
+    public byte[] Data;
 
     public DvElementPathInterpolation() : base(DvElementID.PathInterpolation)
     {

@@ -1,7 +1,10 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Culling", "Fixes the culling of a model")]
 public class DvElementCulling : DvNodeElement
 {
     public DvElementCulling() : base(DvElementID.Culling) { }

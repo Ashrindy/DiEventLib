@@ -1,13 +1,16 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Near Far Setting", "Modifies the NearZ and FarZ")]
 public class DvElementNearFarSetting : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public float Near { get; set; } = 0;
-    public float Far { get; set; } = 1000;
-    public uint[] Field_10 { get; set; }
+    public uint Field_00 = 0;
+    public float Near = 0;
+    public float Far = 1000;
+    public uint[] Field_10;
     public DvElementNearFarSetting() : base(DvElementID.NearFarSetting)
     {
         Field_10 = new uint[5];

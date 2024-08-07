@@ -1,12 +1,15 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("The End Cable Object", "Adds the Supreme/The End cable")]
 public class DvElementTheEndCableObject : DvNodeElement
 {
-    public uint Flags { get; set; } = 0;
-    public uint Field_04 { get; set; } = 0;
-    public float[] AnimData { get; set; }
+    public uint Flags = 0;
+    public uint Field_04 = 0;
+    public float[] AnimData;
     public DvElementTheEndCableObject() : base(DvElementID.TheEndCableObject)
     {
         AnimData = new float[1024];

@@ -5,17 +5,17 @@ namespace DiEventLib;
 
 public class DvNodeMotionModel : DvNode
 {
-    public uint Flags { get; set; } = 0;
-    public uint FrameStart { get; set; } = 0;
-    public uint FrameEnd { get; set; } = 0;
-    public uint Field0C { get; set; } = 0;
-    public string StateName { get; set; } = "Dst0000";
-    public float Field14 { get; set; } = 1f;  // Is speed ???
-    public uint Field18 { get; set; } = 0;
-    public uint Field1C { get; set; } = 0;
-    public uint Field20 { get; set; } = 0;
-    public uint Field24 { get; set; } = 0;
-    public uint Field28 { get; set; } = 0;
+    public uint Flags = 0;
+    public uint FrameStart = 0;
+    public uint FrameEnd = 0;
+    public uint Field0C = 0;
+    public string StateName = "Dst0000";
+    public float Field14 = 1f;  // Is speed ???
+    public uint Field18 = 0;
+    public uint Field1C = 0;
+    public uint Field20 = 0;
+    public uint Field24 = 0;
+    public uint Field28 = 0;
 
     public DvNodeMotionModel() { }
     public DvNodeMotionModel(BinaryObjectReader reader)

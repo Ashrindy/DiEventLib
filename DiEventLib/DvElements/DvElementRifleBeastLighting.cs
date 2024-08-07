@@ -1,7 +1,10 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Rifle Beast Lighting", "Adds the lighting from the Supreme/The End boss fight")]
 public class DvElementRifleBeastLighting : DvNodeElement
 {
     public DvElementRifleBeastLighting() { }

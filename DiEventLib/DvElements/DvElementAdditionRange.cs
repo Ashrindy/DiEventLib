@@ -1,12 +1,16 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Addition Range", "")]
 public class DvElementAdditionRange : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public float[] Unk01 { get; set; }
+    public uint Field_00 = 0;
+    public float[] Unk01;
+
     public DvElementAdditionRange() 
     { 
         Unk01 = new float[7];

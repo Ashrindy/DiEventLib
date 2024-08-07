@@ -1,7 +1,10 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Opening Logo", "Shows the Frontiers Logo")]
 public class DvElementOpeningLogo : DvNodeElement
 {
     public DvElementOpeningLogo() : base(DvElementID.OpeningLogo) { }

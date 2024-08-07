@@ -1,13 +1,16 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Camera Shake Loop", "Shakes the camera indefinitely")]
 public class DvElementCameraShakeLoop : DvNodeElement
 {
-    public uint Field_60 { get; set; } = 0;
-    public uint Field_64 { get; set; } = 0;
-    public float[] Field_68 { get; set; }
-    public float[] CurveData { get; set; }
+    public uint Field_60 = 0;
+    public uint Field_64 = 0;
+    public float[] Field_68;
+    public float[] CurveData;
 
     public DvElementCameraShakeLoop() : base(DvElementID.CameraShakeLoop)
     {

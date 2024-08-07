@@ -1,11 +1,14 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Fade", "Overlays the screen with a specific color that can be faded in and out")]
 public class DvElementFade : DvNodeElement
 {
-    public RGBA32 Color { get; set; }
-    public float[] CurveData { get; set; }
+    public RGBA32 Color;
+    public float[] CurveData;
 
     public DvElementFade() : base(DvElementID.Fade)
     {

@@ -1,15 +1,18 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Numerics;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Vignette", "Adds a smooth black border around the screen")]
 public class DvElementVignette : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public uint Field_04 { get; set; } = 0;
-    public VignetteParam1 VignetteBefore { get; set; }
-    public VignetteParam2 VignetteAfter { get; set; }
-    public float[] CurveData { get; set; }
+    public uint Field_00 = 0;
+    public uint Field_04 = 0;
+    public VignetteParam1 VignetteBefore;
+    public VignetteParam2 VignetteAfter;
+    public float[] CurveData;
 
     public DvElementVignette() : base(DvElementID.Vignette)
     {
@@ -90,50 +93,50 @@ public class DvElementVignette : DvNodeElement
 
 public struct VignetteParam1
 {
-    public Vector2 Position { get; set; }
-    public Vector2 Scale { get; set; }
-    public float Size { get; set; }
-    public float Rotation { get; set; }
-    public float Field_18 { get; set; }
-    public uint Alpha { get; set; }
-    public float Field_1c { get; set; }
-    public float Unk1 { get; set; }
-    public float Unk2 { get; set; }
-    public Vector2 Center { get; set; }
-    public Vector2 Direction { get; set; }
-    public float PenumbraScale { get; set; }
-    public float MinPenumbraScale { get; set; }
-    public float MaxPenumbraScale { get; set; }
-    public float BokehScale { get; set; }
-    public float MinDOFOpacityScale { get; set; }
-    public float MaxDOFOpacityScale { get; set; }
-    public float MinOpacityScale { get; set; }
-    public float MaxOpacityScale { get; set; }
-    public float MinOpacityDist { get; set; }
-    public float MaxOpacityDist { get; set; }
+    public Vector2 Position;
+    public Vector2 Scale;
+    public float Size;
+    public float Rotation;
+    public float Field_18;
+    public uint Alpha;
+    public float Field_1c;
+    public float Unk1;
+    public float Unk2;
+    public Vector2 Center;
+    public Vector2 Direction;
+    public float PenumbraScale;
+    public float MinPenumbraScale;
+    public float MaxPenumbraScale;
+    public float BokehScale;
+    public float MinDOFOpacityScale;
+    public float MaxDOFOpacityScale;
+    public float MinOpacityScale;
+    public float MaxOpacityScale;
+    public float MinOpacityDist;
+    public float MaxOpacityDist;
 }
 
 public struct VignetteParam2
 {
-    public Vector2 Position { get; set; }
-    public Vector2 Scale { get; set; }
-    public float Size { get; set; }
-    public float Rotation { get; set; }
-    public float Field_18 { get; set; }
-    public uint Alpha { get; set; }
-    public float Field_1c { get; set; }
-    public float Unk1 { get; set; }
-    public float Unk2 { get; set; }
-    public float Unk3 { get; set; }
-    public float PenumbraScale { get; set; }
-    public float Unk4 { get; set; }
-    public float MinPenumbraScale { get; set; }
-    public float MaxPenumbraScale { get; set; }
-    public float BokehScale { get; set; }
-    public float MinDOFOpacityScale { get; set; }
-    public float MaxDOFOpacityScale { get; set; }
-    public float MinOpacityScale { get; set; }
-    public float MaxOpacityScale { get; set; }
-    public float MinOpacityDist { get; set; }
-    public float MaxOpacityDist { get; set; }
+    public Vector2 Position;
+    public Vector2 Scale;
+    public float Size;
+    public float Rotation;
+    public float Field_18;
+    public uint Alpha;
+    public float Field_1c;
+    public float Unk1;
+    public float Unk2;
+    public float Unk3;
+    public float PenumbraScale;
+    public float Unk4;
+    public float MinPenumbraScale;
+    public float MaxPenumbraScale;
+    public float BokehScale;
+    public float MinDOFOpacityScale;
+    public float MaxDOFOpacityScale;
+    public float MinOpacityScale;
+    public float MaxOpacityScale;
+    public float MinOpacityDist;
+    public float MaxOpacityDist;
 }

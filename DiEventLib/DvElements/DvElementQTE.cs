@@ -1,7 +1,10 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Depth of Field", "Adds depth of field")]
 public class DvElementQTE : DvNodeElement
 {
     public QTEType QTEType { get; set; }

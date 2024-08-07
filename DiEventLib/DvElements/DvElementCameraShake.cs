@@ -1,12 +1,15 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Camera Shake", "Shakes the camera for a certain amount of time")]
 public class DvElementCameraShake : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0; // Could be in which way the camera shakes? As in, roll, yaw, pitch etc.
-    public float Intensity { get; set; } = 0;
-    public float Frequency { get; set; } = 0;
+    public uint Field_00 = 0; // Could be in which way the camera shakes? As in, roll, yaw, pitch etc.
+    public float Intensity = 0;
+    public float Frequency = 0;
 
     public DvElementCameraShake() : base(DvElementID.CameraShake)
     { }

@@ -6,10 +6,10 @@ namespace DiEventLib;
 
 public class DvNodePath : DvNode
 {
-    public Vector3 Position { get; set; } = new(0, 0, 0);
-    public Vector3 Rotation { get; set; } = new(0, 0, 0);
-    public Vector3 Scale { get; set; } = new(1, 1, 1);
-    public uint Flags { get; set; } = 0;
+    public Vector3 Position = new(0, 0, 0);
+    public Vector3 Rotation = new(0, 0, 0);
+    public Vector3 Scale = new(1, 1, 1);
+    public uint Flags = 0;
     public DvNodePath()
     {
         NodeName = nameof(DvNodePath);

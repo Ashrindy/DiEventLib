@@ -4,10 +4,10 @@ namespace DiEventLib;
 
 public class DvNodeCameraMotion : DvNode
 {
-    public uint Flags { get; set; } = 0;
-    public uint FrameStart { get; set; } = 0;
-    public uint FrameEnd { get; set; } = 0;
-    public uint Field0C { get; set; } = 0;
+    public uint Flags = 0;
+    public uint FrameStart = 0;
+    public uint FrameEnd = 0;
+    public uint Field0C = 0;
 
     public DvNodeCameraMotion() { }
 

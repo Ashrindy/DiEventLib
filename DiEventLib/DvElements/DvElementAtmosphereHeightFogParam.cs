@@ -1,10 +1,13 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Atmospheric Height Fog", "Modifies the fog")]
 public class DvElementAtmosphereHeightFogParam : DvNodeElement
 {
-    public byte[] Data { get; set; }
+    public byte[] Data;
 
     public DvElementAtmosphereHeightFogParam() : base(DvElementID.AtmosphereHeightFogParam)
     {

@@ -1,13 +1,16 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Text;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("General Trigger", "Triggers pre-defined events")]
 public class DvElementGeneralTrigger : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public string TriggerName { get; set; } = "";
-    public Trigger TriggerEnum { get; set; } = Trigger.None;
+    public uint Field_00 = 0;
+    public string TriggerName = "";
+    public Trigger TriggerEnum = Trigger.None;
 
     public DvElementGeneralTrigger() : base(DvElementID.GeneralTrigger) { }
     public DvElementGeneralTrigger(BinaryObjectReader reader)

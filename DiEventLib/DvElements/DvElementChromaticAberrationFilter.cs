@@ -1,14 +1,17 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Numerics;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Chromatic Aberration Filter", "Adds chromatic aberration to the cutscene")]
 public class DvElementChromaticAberrationFilter : DvNodeElement
 {
-    public ChromaticAberration ChromaticAberrationBefore { get; set; }
-    public float Field_08 { get; set; } = 0;
-    public ChromaticAberration ChromaticAberrationAfter { get; set; }
-    public float[] CurveData { get; set; }
+    public ChromaticAberration ChromaticAberrationBefore;
+    public float Field_08 = 0;
+    public ChromaticAberration ChromaticAberrationAfter;
+    public float[] CurveData;
     public DvElementChromaticAberrationFilter() : base(DvElementID.ChromaticAberrationFilter)
     {
         ChromaticAberrationBefore = new ChromaticAberration

@@ -1,10 +1,13 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Draw Off", "Turns off the drawing of a model")]
 public class DvElementDrawOff : DvNodeElement
 {
-    public uint[] Field_00 {  get; set; }
+    public uint[] Field_00;
 
     public DvElementDrawOff() : base(DvElementID.DrawOff)
     { 

@@ -5,11 +5,11 @@ namespace DiEventLib;
 
 public class DvNodeCharacter : DvNode
 {
-    public bool UseMasterLevel { get; set; } = false;
-    public string Name1 { get; set; } = "";
-    public string Name2 { get; set; } = "";
-    public string Name3 { get; set; } = "";
-    List<byte> UnkData { get; set; } = new();
+    public bool UseMasterLevel = false;
+    public string Name1 = "";
+    public string Name2 = "";
+    public string Name3 = "";
+    List<byte> UnkData = new();
 
     public DvNodeCharacter() 
     { 

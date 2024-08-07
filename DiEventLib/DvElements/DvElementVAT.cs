@@ -1,16 +1,19 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Text;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Vertex Animation", "Animates the vertices with .vat-anim")]
 public class DvElementVAT : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public string FileName { get; set; } = "";
-    public uint Field_44 { get; set; } = 0;
-    public float Field_48 { get; set; } = 0;
-    public uint Field_4c { get; set; } = 0;
-    public uint Field_50 { get; set; } = 0;
+    public uint Field_00 = 0;
+    public string FileName = "";
+    public uint Field_44 = 0;
+    public float Field_48 = 0;
+    public uint Field_4c = 0;
+    public uint Field_50 = 0;
     public DvElementVAT() : base(DvElementID.VAT) { }
     public DvElementVAT(BinaryObjectReader reader)
         => Read(reader);

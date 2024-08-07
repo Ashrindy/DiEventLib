@@ -1,12 +1,15 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Camera Exposure", "Changes the camera exposure")]
 public class DvElementCameraExposure : DvNodeElement
 {
-    public int unk1 { get; set; } = 0;
-    public float[] Field_48 { get; set; }
-    public float[] Field_80 { get; set; }
+    public int unk1 = 0;
+    public float[] Field_48;
+    public float[] Field_80;
 
     public DvElementCameraExposure() : base(DvElementID.CameraExposure)
     {

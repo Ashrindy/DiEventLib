@@ -1,13 +1,16 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Aura", "Changes the aura nodes for stuff like Super Sonic")]
 public class DvElementAura : DvNodeElement
 {
-    public AuraNode AuraBefore { get; set; } = new();
-    public AuraNode AuraAfter { get; set; } = new();
-    public uint Field_00 { get; set; } = 0;
-    public float[] AnimData { get; set; }
+    public AuraNode AuraBefore = new();
+    public AuraNode AuraAfter = new();
+    public uint Field_00 = 0;
+    public float[] AnimData;
 
     public DvElementAura() : base(DvElementID.Aura)
     { 
@@ -38,10 +41,10 @@ public class DvElementAura : DvNodeElement
 
 public struct AuraNode // Variable names are going off by appgfx.rfl
 {
-    public RGBA32 Color { get; set; }
-    public float Distance { get; set; }
-    public float NoiseTextureScrollSpeed { get; set; }
-    public float BlurScale { get; set; }
-    public float ColorGain { get; set; }
-    public float NoiseGain { get; set; }
+    public RGBA32 Color;
+    public float Distance;
+    public float NoiseTextureScrollSpeed;
+    public float BlurScale;
+    public float ColorGain;
+    public float NoiseGain;
 }

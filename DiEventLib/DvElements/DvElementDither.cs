@@ -1,11 +1,14 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Dither", "Adds dither to the cutscene")]
 public class DvElementDither : DvNodeElement
 {
-    public float Alpha { get; set; } = 0;
-    public float Intensity { get; set; } = 0; // not quite sure on this one
+    public float Alpha = 0;
+    public float Intensity = 0; // not quite sure on this one
     public DvElementDither() : base(DvElementID.Dither) { }
     public DvElementDither(BinaryObjectReader reader)
         => Read(reader);

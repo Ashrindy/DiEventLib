@@ -1,23 +1,26 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Depth of Field", "Adds depth of field")]
 public class DvElementDOF : DvNodeElement
 {
-    public uint Field_60 { get; set; } = 0;
-    public DOFParam[] DOFParams { get; set; }
-    public float Field_84 { get; set; } = 0;
-    public float Field_88 { get; set; } = 0;
-    public uint Field_8c { get; set; } = 0;
-    public uint Field_90 { get; set; } = 0;
-    public float Field_94 { get; set; } = 0;
-    public float Field_98 { get; set; } = 0;
-    public float Field_9c { get; set; } = 0;
-    public float Field_a0 { get; set; } = 0;
-    public float Field_a4 { get; set; } = 0;
-    public float Field_a8 { get; set; } = 0;
-    public float Field_ac { get; set; } = 0;
-    public float[] AnimData { get; set; }
+    public uint Field_60 = 0;
+    public DOFParam[] DOFParams;
+    public float Field_84 = 0;
+    public float Field_88 = 0;
+    public uint Field_8c = 0;
+    public uint Field_90 = 0;
+    public float Field_94 = 0;
+    public float Field_98 = 0;
+    public float Field_9c = 0;
+    public float Field_a0 = 0;
+    public float Field_a4 = 0;
+    public float Field_a8 = 0;
+    public float Field_ac = 0;
+    public float[] AnimData;
 
     public DvElementDOF() : base(DvElementID.DOF)
     {

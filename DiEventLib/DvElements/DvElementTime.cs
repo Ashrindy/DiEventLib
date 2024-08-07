@@ -1,19 +1,22 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Time", "Changes the time of day/night")]
 public class DvElementTime : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public uint Flags { get; set; } = 0;
-    public uint Field_08 { get; set; } = 0;
-    public uint Field_0c { get; set; } = 0;
-    public uint Field_10 { get; set; } = 0;
-    public uint Field_14 { get; set; } = 0;
-    public uint Field_18 { get; set; } = 0;
-    public uint Field_1c { get; set; } = 0;
-    public uint Field_20 { get; set; } = 0;
-    public float[] CurveData { get; set; }
+    public uint Field_00 = 0;
+    public uint Flags = 0;
+    public uint Field_08 = 0;
+    public uint Field_0c = 0;
+    public uint Field_10 = 0;
+    public uint Field_14 = 0;
+    public uint Field_18 = 0;
+    public uint Field_1c = 0;
+    public uint Field_20 = 0;
+    public float[] CurveData;
 
     public DvElementTime() : base(DvElementID.Time)
     {

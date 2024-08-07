@@ -1,14 +1,17 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 using System.Numerics;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Sun", "Modifies the sun data like rotation")]
 public class DvElementSun : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public Vector3 Rotation { get; set; } = new(0, 0, 0);
-    public uint[] Field_01 { get; set; }
-    public uint[] AnimData { get; set; }
+    public uint Field_00 = 0;
+    public Vector3 Rotation = new(0, 0, 0);
+    public uint[] Field_01;
+    public uint[] AnimData;
     public DvElementSun() : base(DvElementID.Sun)
     {
         Field_01 = new uint[3];

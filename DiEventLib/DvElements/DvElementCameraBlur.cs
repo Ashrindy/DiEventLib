@@ -1,14 +1,17 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Camera Blur", "Makes the camera view blurry")]
 public class DvElementCameraBlur : DvNodeElement
 {
-    public uint Flags { get; set; } = 0;
-    public uint Field_04 { get; set; } = 0;
-    public float BlurAmount { get; set; } = 0;
-    public uint Field_0C { get; set; } = 0;
-    public float[] CurveData { get; set; }
+    public uint Flags = 0;
+    public uint Field_04 = 0;
+    public float BlurAmount = 0;
+    public uint Field_0C = 0;
+    public float[] CurveData;
 
     public DvElementCameraBlur() : base(DvElementID.CameraBlur)
     {

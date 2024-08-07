@@ -1,11 +1,14 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Aura Road", "Wyvern's aura road")]
 public class DvElementAuraRoad : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public float[] AnimData { get; set; }
+    public uint Field_00 = 0;
+    public float[] AnimData;
 
     public DvElementAuraRoad() : base(DvElementID.AuraRoad)
     { 

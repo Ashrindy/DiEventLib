@@ -1,18 +1,21 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.Misc;
 
 namespace DiEventLib;
 
+[DvNodeCategory("Element")]
+[DvNodeDescription("Color Contrast", "Changes the colors of the cutscene")]
 public class DvElementColorContrast : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public float Field_04 { get; set; } = 0;
-    public float Field_08 { get; set; } = 0;
-    public float Field_0c { get; set; } = 0;
-    public float Field_1c { get; set; } = 0;
-    public uint Field_01 { get; set; } = 0;
-    public float Field_2c { get; set; } = 0;
-    public uint Field_02 { get; set; } = 0;
-    public float[] CurveData { get; set; }
+    public uint Field_00 = 0;
+    public float Field_04 = 0;
+    public float Field_08 = 0;
+    public float Field_0c = 0;
+    public float Field_1c = 0;
+    public uint Field_01 = 0;
+    public float Field_2c = 0;
+    public uint Field_02 = 0;
+    public float[] CurveData;
     public DvElementColorContrast() : base(DvElementID.ColorContrast)
     {
         CurveData = new float[32];
