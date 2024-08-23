@@ -8,22 +8,23 @@ public class DvScene
 {
     public DvScene() { }
 
-    public DvScene(string filename) => Read(filename);
+    public DvScene(string filename) => Open(filename);
 
     public DvCommon Common = new DvCommon();
     public DvResource Resource = new DvResource();
 
-    public void Read(string filename)
+    public void Open(string filename) => Read(new(filename, Endianness.Little, Encoding.UTF8));
+    public void Save(string filename) => Write(new(filename, Endianness.Little, Encoding.UTF8));
+
+    public void Read(BinaryObjectReader reader)
     {
-        BinaryObjectReader reader = new(filename, Endianness.Little, Encoding.UTF8);
         reader.OffsetBinaryFormat = OffsetBinaryFormat.U32;
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => Common.Read(reader));
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => Resource.Read(reader));
         reader.Skip(0x18);
     }
-    public void Write(string filename)
+    public void Write(BinaryObjectWriter writer)
     {
-        BinaryObjectWriter writer = new(filename, Endianness.Little, Encoding.UTF8);
         writer.OffsetBinaryFormat = OffsetBinaryFormat.U32;
         long commonPointerPos = writer.Position;
         long resourcePointerPos = writer.Position+4;

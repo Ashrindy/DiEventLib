@@ -14,14 +14,7 @@ namespace DiEventTest
             Console.WriteLine("What's the .dvscene?");
             filepath = Console.ReadLine();
 
-            DvScene diEvent = new();
-
-
-
-
-            diEvent.Common.Node.Children.Add(new DvElementCaption());
-
-
+            DvScene diEvent = new(filepath);
 
             Console.WriteLine("Loaded");
         }
