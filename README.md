@@ -24,7 +24,6 @@ A library with simple reading and writing function for the .dvscene file from So
 DvScene dvScene = new("file-path-to-the-dvscene");
 ```
 ### Writing
-*(Everything works fine, writes fine, but the matrixes aren't 1:1. Though they still work fine)*
 ```csharp
-dvScene.Write("file-path-to-your-new-dvscene");
+dvScene.Save("file-path-to-your-new-dvscene");
 ```
