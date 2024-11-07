@@ -1,4 +1,5 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.IO.Template;
 
 namespace DiEventLib;
 
@@ -8,7 +9,7 @@ public class DvObject
     public int AllocatedSize;
 }
 
-public class DvCommon : IBinarySerializable
+public class DvCommon
 {
     public uint Version { get; set; } = 0;
     public uint Flags { get; set; } = 0;
@@ -30,7 +31,7 @@ public class DvCommon : IBinarySerializable
     {
     }
 
-    public void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader, DiEventDataBase db = null)
     {
         Version = reader.Read<uint>();
         Flags = reader.Read<uint>();
@@ -42,7 +43,7 @@ public class DvCommon : IBinarySerializable
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => DisableFrameInfo.Read(reader));
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => ResourceCutInfo.Read(reader));
         reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => SoundInfo.Read(reader));
-        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => Node = DvNodeReader.ReadNode(reader));
+        reader.ReadAtOffset(reader.Read<uint>() + 0x20, () => { if (db != null) Node = DvNodeReader.ReadNode(reader, db); else Node = DvNodeReader.ReadNode(reader); });
         ChainCameraIn = reader.Read<float>();
         ChainCameraOut = reader.Read<float>();
         Type = reader.Read<int>();
@@ -50,7 +51,7 @@ public class DvCommon : IBinarySerializable
         reader.Skip(4);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    public void Write(BinaryObjectWriter writer, DiEventDataBase db = null)
     {
         writer.Write(Version);
         writer.Write(Flags);
@@ -115,7 +116,10 @@ public class DvCommon : IBinarySerializable
             writer.Seek(nodePointerPos, SeekOrigin.Begin);
             writer.Write((uint)nodePointer - 0x20);
             writer.Seek(nodePointer, SeekOrigin.Begin);
-            Node.WriteNode(writer);
+            if (db != null)
+                ((DvNodeTemplate)Node).WriteNode(writer, db);
+            else
+                Node.WriteNode(writer);
         }
     }
 }

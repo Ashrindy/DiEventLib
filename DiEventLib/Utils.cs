@@ -1,14 +1,26 @@
 ﻿using Amicitia.IO.Binary;
-using System.Formats.Tar;
 using System.Numerics;
-using System.Reflection.PortableExecutable;
 using System.Text;
-using System.Xml.Linq;
 
 namespace DiEventLib;
 
 public static class Utils
 {
+    public static string ReadStringTableEntry(this BinaryObjectReader reader)
+    {
+        long ptr = reader.Read<long>();
+        if (ptr > 0)
+        {
+            long prePos = reader.Position;
+            reader.Seek(ptr, SeekOrigin.Begin);
+            string value = reader.ReadString(StringBinaryFormat.NullTerminated);
+            reader.Seek(prePos, SeekOrigin.Begin);
+            return value;
+        }
+        else
+            return "";
+    }
+
     public enum StringEncoding
     { 
         Default,
@@ -180,3 +192,9 @@ public struct RGB32
     public uint B { get; set; }
 }
 
+public struct RGB32F
+{
+    public float R { get; set; }
+    public float G { get; set; }
+    public float B { get; set; }
+}

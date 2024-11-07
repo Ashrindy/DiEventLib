@@ -1,4 +1,5 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.IO.Template;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
@@ -258,6 +259,63 @@ public static class DvNodeReader
         for (int i = 0; i < childCount; i++)
         {
             var childNode = ReadNode(reader);
+            node.ChildNodes.Add(childNode);
+        }
+
+        return node;
+    }
+
+    public static DvNode ReadNode(BinaryObjectReader reader, DiEventDataBase db)
+    {
+        var guid = reader.Read<Guid>();
+        var category = reader.Read<int>();
+        var nodeSize = reader.Read<int>() * 4;
+        var childCount = reader.Read<int>();
+        var nodeFlags = reader.Read<int>();
+        var priority = reader.Read<int>();
+        reader.Skip(12);
+        var nodeName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
+        var node = new DvNodeTemplate();
+
+        DiEventDataBase.Node dbNode = db.Nodes.Find(x => x.NodeCategory == (int)category);
+        if(dbNode == null)
+        {
+            Console.WriteLine($"Not implemented category: {category.ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize})");
+            reader.Skip(nodeSize);
+        }
+        else
+        {
+            node.Category = dbNode.FullName;
+            if (dbNode.Name == "Element")
+            {
+                node = new DvElementTemplate();
+                node.Category = dbNode.FullName;
+                node.Read(reader, dbNode);
+                DiEventDataBase.Node dbElem = db.Elements.Find(x => x.NodeCategory == (int)node.Fields["Element ID"].Value);
+                if (dbElem == null)
+                {
+                    Console.WriteLine($"Not implemented element: {((int)node.Fields["Element ID"].Value).ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize - 32}). SKIPPING");
+                    reader.Skip(nodeSize - 32);
+                }
+                else
+                {
+                    ((DvElementTemplate)node).ElementName = dbElem.FullName;
+                    ((DvElementTemplate)node).ReadElement(reader, dbElem);
+                }
+            }
+            else
+                node.Read(reader, dbNode);
+        }
+
+        node.Guid = guid;
+        node.NodeSize = nodeSize;
+        node.NodeFlags = nodeFlags;
+        node.Priority = priority;
+        node.NodeName = nodeName;
+
+        for (int i = 0; i < childCount; i++)
+        {
+            var childNode = ReadNode(reader, db);
             node.ChildNodes.Add(childNode);
         }
 
