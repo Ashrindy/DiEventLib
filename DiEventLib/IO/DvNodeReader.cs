@@ -113,7 +113,7 @@ public static class DvNodeReader
                     case DvElementID.CameraInGame:
                         element = new DvElementCameraInGame(reader);
                         break;
-                    case DvElementID.VAT:
+                    case DvElementID.VertexAnimationTexture:
                         element = new DvElementVertexAnimationTexture(reader);
                         break;
                     //case DvElementID.Spotlight: break;
