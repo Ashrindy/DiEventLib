@@ -12,12 +12,14 @@ namespace DiEventTest
             Console.OutputEncoding = Encoding.GetEncoding("Shift-JIS");
             string filepath;
 
+            DiEventDataBase dievtdb = new();
+            dievtdb.Open("miller.json");
+            dievtdb.SaveBinary("miller.dievtdb");
+            dievtdb.Open("miller.dievtdb");
+
             Console.WriteLine("What's the .dvscene?");
             filepath = Console.ReadLine();
 
-            DiEventDataBase dievtdb = new();
-            dievtdb.Open("rangers.json");
-            dievtdb.SaveBinary("rangers.dievtdb");
             DvScene scene = new();
             scene.Open(filepath, dievtdb);
             scene.Save(filepath + ".dvscene", dievtdb);

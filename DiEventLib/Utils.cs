@@ -1,4 +1,5 @@
 ﻿using Amicitia.IO.Binary;
+using DiEventLib.IO.Template;
 using System.Numerics;
 using System.Text;
 
@@ -8,13 +9,15 @@ public static class Utils
 {
     public static string ReadStringTableEntry(this BinaryObjectReader reader)
     {
-        long ptr = reader.Read<long>();
+        long ptr = DataBaseBinaryHandler.Bit ? reader.Read<long>() : reader.Read<int>();
         if (ptr > 0)
         {
-            long prePos = reader.Position;
-            reader.Seek(ptr, SeekOrigin.Begin);
-            string value = reader.ReadString(StringBinaryFormat.NullTerminated);
-            reader.Seek(prePos, SeekOrigin.Begin);
+            string value = "";
+            var test = ptr - StringTableHandler.StringTableOffset;
+            if (DataBaseBinaryHandler.CompressedStringTable)
+                StringTableHandler.StringTableReader.ReadAtOffset(ptr - StringTableHandler.StringTableOffset, () => value = StringTableHandler.StringTableReader.ReadString(StringBinaryFormat.NullTerminated));
+            else
+                reader.ReadAtOffset(ptr, () => value = reader.ReadString(StringBinaryFormat.NullTerminated));
             return value;
         }
         else
@@ -176,6 +179,16 @@ public static class Utils
         else
             return 0;
     }
+}
+
+public struct RGBA8
+{
+    public byte R { get; set; }
+    public byte G { get; set; }
+    public byte B { get; set; }
+    public byte A { get; set; }
+
+    public override string ToString() => $"#{R:X2}{G:X2}{B:X2}{A:X2}";
 }
 
 public struct RGBA32

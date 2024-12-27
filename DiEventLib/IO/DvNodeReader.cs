@@ -306,8 +306,16 @@ public static class DvNodeReader
                     }
                     else
                     {
-                        ((DvElementTemplate)node).ElementName = dbElem.FullName;
-                        ((DvElementTemplate)node).ReadElement(reader, dbElem);
+                        if (dbElem.Descriptions.ContainsKey("Unknown"))
+                        {
+                            Console.WriteLine($"Not implemented element: {((int)node.Fields["Element ID"].Value).ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize - 32}). SKIPPING");
+                            reader.Skip(nodeSize - 32);
+                        }
+                        else
+                        {
+                            ((DvElementTemplate)node).ElementName = dbElem.FullName;
+                            ((DvElementTemplate)node).ReadElement(reader, dbElem);
+                        }
                     }
                 }
                 else

@@ -153,7 +153,7 @@ public class DvNodeTemplate : DvNode
                 break;
 
             case DiEventDataBase.Field.DataType.rgba8:
-                field = new() { Value = reader.Read<RGBA32>(), Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
+                field = new() { Value = reader.Read<RGBA8>(), Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
                 break;
 
             case DiEventDataBase.Field.DataType.rgb32:
@@ -308,7 +308,7 @@ public class DvNodeTemplate : DvNode
                 break;
 
             case DiEventDataBase.Field.DataType.rgba8:
-                writer.Write((RGBA32)field.Value);
+                writer.Write((RGBA8)field.Value);
                 break;
 
             case DiEventDataBase.Field.DataType.rgb32:
