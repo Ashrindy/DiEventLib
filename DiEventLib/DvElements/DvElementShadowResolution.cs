@@ -7,25 +7,25 @@ namespace DiEventLib;
 [DvNodeDescription("Shadow Resolution", "Changes the resolution of shadows")]
 public class DvElementShadowResolution : DvNodeElement
 {
-    public uint ShadowRes1 = 0;
-    public uint ShadowRes2 = 0;    
+    public uint Width = 0;
+    public uint Height = 0;    
 
     public DvElementShadowResolution() : base(DvElementID.ShadowResolution) 
     { 
-        ShadowRes1 = 2048;
-        ShadowRes2 = 2048;
+        Width = 2048;
+        Height = 2048;
     }
     public DvElementShadowResolution(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        ShadowRes1 = reader.Read<uint>();
-        ShadowRes2 = reader.Read<uint>();
+        Width = reader.Read<uint>();
+        Height = reader.Read<uint>();
     }
 
     public void Write(BinaryObjectWriter writer)
     {
-        writer.Write(ShadowRes1);
-        writer.Write(ShadowRes2);
+        writer.Write(Width);
+        writer.Write(Height);
     }
 }

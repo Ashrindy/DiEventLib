@@ -77,7 +77,7 @@ public class DiEventDataBaseBinary
     {
         public enum DataType : byte
         {
-            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, array, arraysize, boolean, rgba8, rgb32, padding
+            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, guid, array, arraysize, boolean, rgba8, rgb32, rgba32, padding
         };
 
         public DataType Type = DataType.none;

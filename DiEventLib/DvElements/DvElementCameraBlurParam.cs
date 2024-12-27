@@ -5,7 +5,7 @@ namespace DiEventLib;
 
 [DvNodeCategory("Element")]
 [DvNodeDescription("Camera Blur", "Makes the camera view blurry")]
-public class DvElementCameraBlur : DvNodeElement
+public class DvElementCameraBlurParam : DvNodeElement
 {
     public uint Flags = 0;
     public uint Field_04 = 0;
@@ -13,7 +13,7 @@ public class DvElementCameraBlur : DvNodeElement
     public uint Field_0C = 0;
     public float[] CurveData;
 
-    public DvElementCameraBlur() : base(DvElementID.CameraBlur)
+    public DvElementCameraBlurParam() : base(DvElementID.CameraBlurParam)
     {
         CurveData = new float[32];
         for (int i = 0; i < 32; i++)
@@ -21,7 +21,7 @@ public class DvElementCameraBlur : DvNodeElement
             CurveData[i] = 1;
         }
     }
-    public DvElementCameraBlur(BinaryObjectReader reader)
+    public DvElementCameraBlurParam(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

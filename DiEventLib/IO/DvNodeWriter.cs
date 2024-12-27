@@ -69,8 +69,8 @@ public static class DvNodeWriter
                     //case DvElementID.CameraOffset: break;
                     //case DvElementID.ModelFade: break;
                     //case DvElementID.SonicCamera: break;
-                    case DvElementID.GameCamera:
-                        var gameCamera = element as DvElementGameCamera;
+                    case DvElementID.CameraInGame:
+                        var gameCamera = element as DvElementCameraInGame;
                         gameCamera.Write(writer);
                         break;
                     //case DvElementID.VertexAnimation: break;
@@ -174,22 +174,27 @@ public static class DvNodeWriter
         }
         else
         {
-            node.Category = dbNode.FullName;
-            if (dbNode.Name == "Element")
-            {
-                node = (DvElementTemplate)node;
-                node.Write(writer, dbNode);
-                DiEventDataBase.Node dbElem = db.Elements.Find(x => x.NodeCategory == (int)node.Fields["Element ID"].Value);
-                if (dbElem == null)
-                    Console.WriteLine($"Not implemented element: {((int)node.Fields["Element ID"].Value).ToString()} (Name: {node.NodeName}, GUID: {node.Guid}). SKIPPING");
-                else
-                {
-                    ((DvElementTemplate)node).ElementName = dbElem.FullName;
-                    ((DvElementTemplate)node).WriteElement(writer, dbElem);
-                }
-            }
+            if (dbNode.Descriptions.ContainsKey("Unknown"))
+                Console.WriteLine($"Not implemented category: {node.Category} (Name: {node.NodeName}, GUID: {node.Guid})");
             else
-                node.Write(writer, dbNode);
+            {
+                node.Category = dbNode.FullName;
+                if (dbNode.Name == "Element")
+                {
+                    node = (DvElementTemplate)node;
+                    node.Write(writer, dbNode);
+                    DiEventDataBase.Node dbElem = db.Elements.Find(x => x.NodeCategory == (int)node.Fields["Element ID"].Value);
+                    if (dbElem == null)
+                        Console.WriteLine($"Not implemented element: {((int)node.Fields["Element ID"].Value).ToString()} (Name: {node.NodeName}, GUID: {node.Guid}). SKIPPING");
+                    else
+                    {
+                        ((DvElementTemplate)node).ElementName = dbElem.FullName;
+                        ((DvElementTemplate)node).WriteElement(writer, dbElem);
+                    }
+                }
+                else
+                    node.Write(writer, dbNode);
+            }
         }
 
         long postWritePos = writer.Position;
@@ -199,8 +204,6 @@ public static class DvNodeWriter
         writer.Seek(postWritePos, SeekOrigin.Begin);
 
         foreach (var child in node.ChildNodes)
-        {
             ((DvNodeTemplate)child).WriteNode(writer, db);
-        }
     }
 }

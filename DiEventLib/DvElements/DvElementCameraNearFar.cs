@@ -5,13 +5,13 @@ namespace DiEventLib;
 
 [DvNodeCategory("Element")]
 [DvNodeDescription("Near Far Setting", "Modifies the NearZ and FarZ")]
-public class DvElementNearFarSetting : DvNodeElement
+public class DvElementCameraNearFar : DvNodeElement
 {
     public uint Field_00 = 0;
     public float Near = 0;
     public float Far = 1000;
     public uint[] Field_10;
-    public DvElementNearFarSetting() : base(DvElementID.NearFarSetting)
+    public DvElementCameraNearFar() : base(DvElementID.CameraNearFar)
     {
         Field_10 = new uint[5];
         for (int i = 0; i < 8; i++)
@@ -19,7 +19,7 @@ public class DvElementNearFarSetting : DvNodeElement
             Field_10[i] = 0;
         }
     }
-    public DvElementNearFarSetting(BinaryObjectReader reader)
+    public DvElementCameraNearFar(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

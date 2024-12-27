@@ -4,15 +4,15 @@ using DiEventLib.Misc;
 namespace DiEventLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Sonic Camera", "")]
-public class DvElementSonicCamera : DvNodeElement
+[DvNodeDescription("Camera Hedgehog", "")]
+public class DvElementCameraHedgehog : DvNodeElement
 {
     public uint Field_00 = 0;
     public uint[] Field_01;
     public float[] Field_4c;
     public byte[] Data;
 
-    public DvElementSonicCamera() : base(DvElementID.SonicCamera)
+    public DvElementCameraHedgehog() : base(DvElementID.CameraHedgehog)
     {
         Field_01 = new uint[3];
         for(int i = 0; i < 3; i++)
@@ -30,7 +30,7 @@ public class DvElementSonicCamera : DvNodeElement
             Data[i] = 0;
         }
     }
-    public DvElementSonicCamera(BinaryObjectReader reader)
+    public DvElementCameraHedgehog(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

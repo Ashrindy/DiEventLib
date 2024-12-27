@@ -5,7 +5,7 @@ namespace DiEventLib;
 
 [DvNodeCategory("Element")]
 [DvNodeDescription("Depth of Field", "Adds depth of field")]
-public class DvElementDOF : DvNodeElement
+public class DvElementDOFParam : DvNodeElement
 {
     public uint Field_60 = 0;
     public DOFParam[] DOFParams;
@@ -22,7 +22,7 @@ public class DvElementDOF : DvNodeElement
     public float Field_ac = 0;
     public float[] AnimData;
 
-    public DvElementDOF() : base(DvElementID.DOF)
+    public DvElementDOFParam() : base(DvElementID.DOFParam)
     {
         DOFParams = new DOFParam[2];
         for (int i = 0; i < 2; i++)
@@ -35,7 +35,7 @@ public class DvElementDOF : DvNodeElement
             AnimData[i] = 1;
         }
     }
-    public DvElementDOF(BinaryObjectReader reader)
+    public DvElementDOFParam(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

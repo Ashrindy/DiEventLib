@@ -10,7 +10,7 @@ public class DvElementChangeTimeScale : DvNodeElement
     public uint Field_00 = 0;
     public float TimeScale = 1;
     public uint[] Field_08;
-    public DvElementChangeTimeScale() 
+    public DvElementChangeTimeScale() : base(DvElementID.ChangeTimeScale)
     {
         Field_08 = new uint[2];
         for(int i = 0; i < 2; i++)

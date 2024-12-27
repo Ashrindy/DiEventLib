@@ -4,12 +4,12 @@ using DiEventLib.Misc;
 namespace DiEventLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Game Camera", "")]
-public class DvElementGameCamera : DvNodeElement
+[DvNodeDescription("Camera InGame", "")]
+public class DvElementCameraInGame : DvNodeElement
 {
     public float[] Field_4c;
 
-    public DvElementGameCamera() : base(DvElementID.GameCamera)
+    public DvElementCameraInGame() : base(DvElementID.CameraInGame)
     { 
         Field_4c = new float[26];
         for(int i = 0; i < 26; i++)
@@ -17,7 +17,7 @@ public class DvElementGameCamera : DvNodeElement
             Field_4c[i] = 0;
         }
     }
-    public DvElementGameCamera(BinaryObjectReader reader)
+    public DvElementCameraInGame(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

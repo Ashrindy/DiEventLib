@@ -6,7 +6,7 @@ namespace DiEventLib;
 
 [DvNodeCategory("Element")]
 [DvNodeDescription("Vignette", "Adds a smooth black border around the screen")]
-public class DvElementVignette : DvNodeElement
+public class DvElementVignetteParam : DvNodeElement
 {
     public uint Field_00 = 0;
     public uint Field_04 = 0;
@@ -14,7 +14,7 @@ public class DvElementVignette : DvNodeElement
     public VignetteParam2 VignetteAfter;
     public float[] CurveData;
 
-    public DvElementVignette() : base(DvElementID.Vignette)
+    public DvElementVignetteParam() : base(DvElementID.VignetteParam)
     {
         VignetteBefore = new VignetteParam1 
         { 
@@ -70,7 +70,7 @@ public class DvElementVignette : DvNodeElement
             CurveData[i] = 1;
         }
     }
-    public DvElementVignette(BinaryObjectReader reader)
+    public DvElementVignetteParam(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

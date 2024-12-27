@@ -6,7 +6,7 @@ namespace DiEventLib;
 
 [DvNodeCategory("Element")]
 [DvNodeDescription("Visibility Animation", "Adds .vis-anim to the cutscene")]
-public class DvElementVisibilityAnimation : DvNodeElement
+public class DvElementVisibilityAnim : DvNodeElement
 {
     public uint Field_00 = 0;
     public string FileName = "";
@@ -14,8 +14,8 @@ public class DvElementVisibilityAnimation : DvNodeElement
     public float Field_48 = 0;
     public uint Field_4c = 0;
     public uint Field_50 = 0;
-    public DvElementVisibilityAnimation() : base(DvElementID.VisibilityAnimation) { }
-    public DvElementVisibilityAnimation(BinaryObjectReader reader)
+    public DvElementVisibilityAnim() : base(DvElementID.VisibilityAnim) { }
+    public DvElementVisibilityAnim(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

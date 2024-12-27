@@ -70,8 +70,8 @@ public static class DvNodeReader
                     case DvElementID.DrawOff:
                         element = new DvElementDrawOff(reader);
                         break;
-                    case DvElementID.PathAdjustment:
-                        element = new DvElementPathAdjustment(reader);
+                    case DvElementID.PathOffset:
+                        element = new DvElementPathOffset(reader);
                         break;
                     case DvElementID.CameraShake:
                         element = new DvElementCameraShake(reader);
@@ -85,50 +85,50 @@ public static class DvNodeReader
                     case DvElementID.PathInterpolation:
                         element = new DvElementPathInterpolation(reader);
                         break;
-                    case DvElementID.Culling:
-                        element = new DvElementCulling(reader);
+                    case DvElementID.CullingDisable:
+                        element = new DvElementCullingDisable(reader);
                         break;
-                    case DvElementID.NearFarSetting:
-                        element = new DvElementNearFarSetting(reader);
+                    case DvElementID.CameraNearFar:
+                        element = new DvElementCameraNearFar(reader);
                         break;
-                    case DvElementID.UVAnimation:
-                        element = new DvElementUVAnimation(reader);
+                    case DvElementID.UVAnim:
+                        element = new DvElementUVAnim(reader);
                         break;
-                    case DvElementID.VisibilityAnimation:
-                        element = new DvElementVisibilityAnimation(reader);
+                    case DvElementID.VisibilityAnim:
+                        element = new DvElementVisibilityAnim(reader);
                         break;
-                    case DvElementID.MaterialAnimation:
-                        element = new DvElementMaterialAnimation(reader);
+                    case DvElementID.MaterialAnim:
+                        element = new DvElementMaterialAnim(reader);
                         break;
-                    case DvElementID.CompositeAnimation:
-                        element = new DvElementCompositeAnimation(reader);
+                    case DvElementID.MultipleAnim:
+                        element = new DvElementMultipleAnim(reader);
                         break;
                     case DvElementID.CameraOffset:
                         element = new DvElementCameraOffset(reader);
                         break;
                     //case DvElementID.ModelFade: break;
-                    case DvElementID.SonicCamera:
-                        element = new DvElementSonicCamera(reader);
+                    case DvElementID.CameraHedgehog:
+                        element = new DvElementCameraHedgehog(reader);
                         break;
-                    case DvElementID.GameCamera:
-                        element = new DvElementGameCamera(reader);
+                    case DvElementID.CameraInGame:
+                        element = new DvElementCameraInGame(reader);
                         break;
                     case DvElementID.VAT:
-                        element = new DvElementVAT(reader);
+                        element = new DvElementVertexAnimationTexture(reader);
                         break;
                     //case DvElementID.Spotlight: break;
                     //case DvElementID.SpotlightModel:
                     //    element = new DvElementSpotlightModel(reader);
                     //    break;
                     //case DvElementID.Bloom: break;
-                    case DvElementID.DOF:
-                        element = new DvElementDOF(reader);
+                    case DvElementID.DOFParam:
+                        element = new DvElementDOFParam(reader);
                         break;
                     case DvElementID.ColorContrast:
                         element = new DvElementColorContrast(reader);
                         break;
-                    case DvElementID.CameraExposure:
-                        element = new DvElementCameraExposure(reader);
+                    case DvElementID.CameraControlParam:
+                        element = new DvElementCameraControlParam(reader);
                         break;
                     case DvElementID.ShadowResolution:
                         element = new DvElementShadowResolution(reader);
@@ -136,11 +136,11 @@ public static class DvNodeReader
                     case DvElementID.AtmosphereHeightFogParam:
                         element = new DvElementAtmosphereHeightFogParam(reader);
                         break;
-                    case DvElementID.ChromaticAberrationFilter:
-                        element = new DvElementChromaticAberrationFilter(reader);
+                    case DvElementID.ChromaticAberrationFilterParam:
+                        element = new DvElementChromaticAberrationFilterParam(reader);
                         break;
-                    case DvElementID.Vignette:
-                        element = new DvElementVignette(reader);
+                    case DvElementID.VignetteParam:
+                        element = new DvElementVignetteParam(reader);
                         break;
                     case DvElementID.Fade:
                         element = new DvElementFade(reader);
@@ -169,14 +169,14 @@ public static class DvNodeReader
                     case DvElementID.LookAtIK:
                         element = new DvElementLookAtIK(reader);
                         break;
-                    case DvElementID.CameraBlur:
-                        element = new DvElementCameraBlur(reader);
+                    case DvElementID.CameraBlurParam:
+                        element = new DvElementCameraBlurParam(reader);
                         break;
                     case DvElementID.GeneralTrigger:
                         element = new DvElementGeneralTrigger(reader);
                         break;
-                    case DvElementID.Dither:
-                        element = new DvElementDither(reader);
+                    case DvElementID.DitherParam:
+                        element = new DvElementDitherParam(reader);
                         break;
                     case DvElementID.QTE:
                         element = new DvElementQTE(reader);
@@ -211,8 +211,8 @@ public static class DvNodeReader
                     case DvElementID.OpeningLogo:
                         element = new DvElementOpeningLogo(reader);
                         break;
-                    case DvElementID.AdditionRange:
-                        element = new DvElementAdditionRange(reader);
+                    case DvElementID.DensitySectorPoint:
+                        element = new DvElementDensitySectorPoint(reader);
                         break;
                     //case DvElementID.FxColUpdate: break;
                     case DvElementID.TheEndCableObject:
@@ -285,26 +285,34 @@ public static class DvNodeReader
         }
         else
         {
-            node.Category = dbNode.FullName;
-            if (dbNode.Name == "Element")
+            if (dbNode.Descriptions.ContainsKey("Unknown"))
             {
-                node = new DvElementTemplate();
-                node.Category = dbNode.FullName;
-                node.Read(reader, dbNode);
-                DiEventDataBase.Node dbElem = db.Elements.Find(x => x.NodeCategory == (int)node.Fields["Element ID"].Value);
-                if (dbElem == null)
-                {
-                    Console.WriteLine($"Not implemented element: {((int)node.Fields["Element ID"].Value).ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize - 32}). SKIPPING");
-                    reader.Skip(nodeSize - 32);
-                }
-                else
-                {
-                    ((DvElementTemplate)node).ElementName = dbElem.FullName;
-                    ((DvElementTemplate)node).ReadElement(reader, dbElem);
-                }
+                Console.WriteLine($"Not implemented category: {category.ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize})");
+                reader.Skip(nodeSize);
             }
             else
-                node.Read(reader, dbNode);
+            {
+                node.Category = dbNode.FullName;
+                if (dbNode.Name == "Element")
+                {
+                    node = new DvElementTemplate();
+                    node.Category = dbNode.FullName;
+                    node.Read(reader, dbNode);
+                    DiEventDataBase.Node dbElem = db.Elements.Find(x => x.NodeCategory == (int)node.Fields["Element ID"].Value);
+                    if (dbElem == null)
+                    {
+                        Console.WriteLine($"Not implemented element: {((int)node.Fields["Element ID"].Value).ToString()} (Name: {nodeName}, GUID: {guid}, Size: {nodeSize - 32}). SKIPPING");
+                        reader.Skip(nodeSize - 32);
+                    }
+                    else
+                    {
+                        ((DvElementTemplate)node).ElementName = dbElem.FullName;
+                        ((DvElementTemplate)node).ReadElement(reader, dbElem);
+                    }
+                }
+                else
+                    node.Read(reader, dbNode);
+            }
         }
 
         node.Guid = guid;

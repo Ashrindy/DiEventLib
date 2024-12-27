@@ -5,13 +5,13 @@ using System;
 namespace DiEventLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Addition Range", "")]
-public class DvElementAdditionRange : DvNodeElement
+[DvNodeDescription("Density Sector Point", "")]
+public class DvElementDensitySectorPoint : DvNodeElement
 {
     public uint Field_00 = 0;
     public float[] Unk01;
 
-    public DvElementAdditionRange() 
+    public DvElementDensitySectorPoint() : base(DvElementID.DensitySectorPoint) 
     { 
         Unk01 = new float[7];
         for (int i = 0; i < 7; i++)
@@ -19,7 +19,7 @@ public class DvElementAdditionRange : DvNodeElement
             Unk01[i] = 0;
         }
     }
-    public DvElementAdditionRange(BinaryObjectReader reader)
+    public DvElementDensitySectorPoint(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

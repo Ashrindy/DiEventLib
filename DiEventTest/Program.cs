@@ -1,4 +1,5 @@
 ﻿using DiEventLib;
+using DiEventLib.IO.Template;
 using System.Text;
 
 namespace DiEventTest
@@ -14,7 +15,12 @@ namespace DiEventTest
             Console.WriteLine("What's the .dvscene?");
             filepath = Console.ReadLine();
 
-            DvScene diEvent = new(filepath);
+            DiEventDataBase dievtdb = new();
+            dievtdb.Open("rangers.json");
+            dievtdb.SaveBinary("rangers.dievtdb");
+            DvScene scene = new();
+            scene.Open(filepath, dievtdb);
+            scene.Save(filepath + ".dvscene", dievtdb);
 
             Console.WriteLine("Loaded");
         }

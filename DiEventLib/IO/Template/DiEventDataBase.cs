@@ -25,7 +25,7 @@ public class DiEventDataBase
     {
         public enum DataType : byte
         {
-            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, array, arraysize, boolean, rgba8, rgb32, padding
+            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, guid, array, arraysize, boolean, rgba8, rgb32, rgba32, padding
         };
 
         public DataType Type = DataType.u8;
@@ -60,10 +60,23 @@ public class DiEventDataBase
         public DataType SubType = DataType.u8;
     }
 
+    public class FieldStructArray : Field
+    {
+        public DataType SubType = DataType.str;
+        public Struct StructValue = new();
+    }
+
     public class FieldDynamicArray : Field
     {
         public DataType SubType = DataType.u8;
         public string ArraySizeField = "";
+    }
+
+    public class FieldStructDynamicArray : Field
+    {
+        public DataType SubType = DataType.str;
+        public string ArraySizeField = "";
+        public Struct StructValue = new();
     }
 
     public class FieldArraySize : Field
@@ -172,24 +185,58 @@ public class DiEventDataBase
             case DiEventDataBaseBinary.Field.DataType.array:
                 if(x.ArraySizeField != "")
                 {
-                    FieldDynamicArray fArray = new();
-                    fArray.Name = x.Name;
-                    fArray.Type = Field.DataType.array;
-                    fArray.Descriptions = x.Descriptions;
-                    fArray.SubType = (Field.DataType)(byte)x.SubType;
-                    fArray.Size = x.Size;
-                    fArray.ArraySizeField = x.ArraySizeField;
-                    return fArray;
+                    if(x.SubType == DiEventDataBaseBinary.Field.DataType.strct)
+                    {
+                        FieldStructDynamicArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        fArray.Descriptions = x.Descriptions;
+                        fArray.Size = x.Size;
+                        fArray.ArraySizeField = x.ArraySizeField;
+                        fArray.StructValue = new();
+                        fArray.StructValue.Name = x.StructValue.StructName;
+                        foreach (var y in x.StructValue.Fields)
+                            fArray.StructValue.Fields.Add(ConvertBinaryFieldToField(y));
+                        return fArray;
+                    }
+                    else
+                    {
+                        FieldDynamicArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        fArray.Descriptions = x.Descriptions;
+                        fArray.SubType = (Field.DataType)(byte)x.SubType;
+                        fArray.Size = x.Size;
+                        fArray.ArraySizeField = x.ArraySizeField;
+                        return fArray;
+                    }
                 }
                 else
                 {
-                    FieldArray fArray = new();
-                    fArray.Name = x.Name;
-                    fArray.Type = Field.DataType.array;
-                    fArray.Descriptions = x.Descriptions;
-                    fArray.SubType = (Field.DataType)(byte)x.SubType;
-                    fArray.Size = x.Size;
-                    return fArray;
+                    if(x.SubType == DiEventDataBaseBinary.Field.DataType.strct)
+                    {
+                        FieldStructArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        fArray.Descriptions = x.Descriptions;
+                        fArray.SubType = (Field.DataType)(byte)x.SubType;
+                        fArray.Size = x.Size;
+                        fArray.StructValue = new();
+                        fArray.StructValue.Name = x.StructValue.StructName;
+                        foreach (var y in x.StructValue.Fields)
+                            fArray.StructValue.Fields.Add(ConvertBinaryFieldToField(y));
+                        return fArray;
+                    }
+                    else
+                    {
+                        FieldArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        fArray.Descriptions = x.Descriptions;
+                        fArray.SubType = (Field.DataType)(byte)x.SubType;
+                        fArray.Size = x.Size;
+                        return fArray;
+                    }
                 }
                 break;
 
@@ -284,26 +331,63 @@ public class DiEventDataBase
             case Field.DataType.array:
                 if(x.ArraySizeField != null)
                 {
-                    FieldDynamicArray fArray = new();
-                    fArray.Name = x.Name;
-                    fArray.Type = Field.DataType.array;
-                    if (hasDescriptions)
-                        fArray.Descriptions = x.Descriptions;
-                    fArray.SubType = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
-                    fArray.Size = x.Size;
-                    fArray.ArraySizeField = x.ArraySizeField;
-                    return fArray;
+                    if((Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType) == Field.DataType.strct)
+                    {
+                        FieldStructDynamicArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        if (hasDescriptions)
+                            fArray.Descriptions = x.Descriptions;
+                        fArray.SubType = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
+                        fArray.Size = x.Size;
+                        fArray.ArraySizeField = x.ArraySizeField;
+                        fArray.StructValue = new();
+                        fArray.StructValue.Name = x.Struct.Name;
+                        foreach (var y in x.Struct.Fields)
+                            fArray.StructValue.Fields.Add(ConvertJSONFieldToField(y));
+                        return fArray;
+                    }
+                    else
+                    {
+                        FieldDynamicArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        if (hasDescriptions)
+                            fArray.Descriptions = x.Descriptions;
+                        fArray.SubType = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
+                        fArray.Size = x.Size;
+                        fArray.ArraySizeField = x.ArraySizeField;
+                        return fArray;
+                    }
                 }
                 else
                 {
-                    FieldArray fArray = new();
-                    fArray.Name = x.Name;
-                    fArray.Type = Field.DataType.array;
-                    if (hasDescriptions)
-                        fArray.Descriptions = x.Descriptions;
-                    fArray.SubType = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
-                    fArray.Size = x.Size;
-                    return fArray;
+                    if ((Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType) == Field.DataType.strct)
+                    {
+                        FieldStructArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        if (hasDescriptions)
+                            fArray.Descriptions = x.Descriptions;
+                        fArray.SubType = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
+                        fArray.Size = x.Size;
+                        fArray.StructValue = new();
+                        fArray.StructValue.Name = x.Struct.Name;
+                        foreach (var y in x.Struct.Fields)
+                            fArray.StructValue.Fields.Add(ConvertJSONFieldToField(y));
+                        return fArray;
+                    }
+                    else
+                    {
+                        FieldArray fArray = new();
+                        fArray.Name = x.Name;
+                        fArray.Type = Field.DataType.array;
+                        if (hasDescriptions)
+                            fArray.Descriptions = x.Descriptions;
+                        fArray.SubType = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
+                        fArray.Size = x.Size;
+                        return fArray;
+                    }
                 }
                 break;
 
@@ -385,6 +469,25 @@ public class DiEventDataBase
                     FieldDynamicArray array = ((FieldDynamicArray)x);
                     field.SubType = (DiEventDataBaseBinary.Field.DataType)((byte)array.SubType);
                     field.ArraySizeField = array.ArraySizeField;
+                }
+                else if(x.GetType() == typeof(FieldStructDynamicArray))
+                {
+                    FieldStructDynamicArray array = ((FieldStructDynamicArray)x);
+                    field.SubType = (DiEventDataBaseBinary.Field.DataType)((byte)array.SubType);
+                    field.ArraySizeField = array.ArraySizeField;
+                    field.StructValue = new();
+                    field.StructValue.StructName = array.StructValue.Name;
+                    foreach (var i in array.StructValue.Fields)
+                        field.StructValue.Fields.Add(ConvertFieldToBinaryField(i));
+                }
+                else if (x.GetType() == typeof(FieldStructArray))
+                {
+                    FieldStructArray array = ((FieldStructArray)x);
+                    field.SubType = (DiEventDataBaseBinary.Field.DataType)((byte)array.SubType);
+                    field.StructValue = new();
+                    field.StructValue.StructName = array.StructValue.Name;
+                    foreach (var i in array.StructValue.Fields)
+                        field.StructValue.Fields.Add(ConvertFieldToBinaryField(i));
                 }
                 else
                 {
@@ -471,6 +574,25 @@ public class DiEventDataBase
                     FieldDynamicArray array = ((FieldDynamicArray)x);
                     field.SubType = array.SubType.ToString();
                     field.ArraySizeField = array.ArraySizeField;
+                }
+                else if (x.GetType() == typeof(FieldStructDynamicArray))
+                {
+                    FieldStructDynamicArray array = ((FieldStructDynamicArray)x);
+                    field.SubType = array.SubType.ToString();
+                    field.ArraySizeField = array.ArraySizeField;
+                    field.Struct = new();
+                    field.Struct.Name = array.StructValue.Name;
+                    foreach (var i in array.StructValue.Fields)
+                        field.Struct.Fields.Add(ConvertFieldToJSONField(i));
+                }
+                else if (x.GetType() == typeof(FieldStructArray))
+                {
+                    FieldStructArray array = ((FieldStructArray)x);
+                    field.SubType = array.SubType.ToString();
+                    field.Struct = new();
+                    field.Struct.Name = array.StructValue.Name;
+                    foreach (var i in array.StructValue.Fields)
+                        field.Struct.Fields.Add(ConvertFieldToJSONField(i));
                 }
                 else 
                 {

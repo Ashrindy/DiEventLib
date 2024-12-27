@@ -6,7 +6,7 @@ namespace DiEventLib;
 
 [DvNodeCategory("Element")]
 [DvNodeDescription("Composite Animation", "Can add any type of animation in one singular element")]
-public class DvElementCompositeAnimation : DvNodeElement
+public class DvElementMultipleAnim : DvNodeElement
 {
     public enum AnimationType : uint
     {
@@ -23,13 +23,13 @@ public class DvElementCompositeAnimation : DvNodeElement
     }
 
     public uint Field_60 = 0;
-    public string StateName = "Dst0000";
+    public string StateName = "DSt0000";
     public uint Field_6c = 0;
     public Animation[] Animations = new Animation[16];
     //public uint ActiveAnimCount { get; set; }
-    public DvElementCompositeAnimation() : base(DvElementID.CompositeAnimation)
+    public DvElementMultipleAnim() : base(DvElementID.MultipleAnim)
     { }
-    public DvElementCompositeAnimation(BinaryObjectReader reader)
+    public DvElementMultipleAnim(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

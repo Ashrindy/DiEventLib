@@ -5,15 +5,15 @@ using System.Numerics;
 namespace DiEventLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Path Adjustment", "Adjusts a paths position, rotation and scale")]
-public class DvElementPathAdjustment : DvNodeElement
+[DvNodeDescription("Path Offset", "Adjusts a paths position, rotation and scale")]
+public class DvElementPathOffset : DvNodeElement
 {
     public Vector3 Position = new(0,0,0);
     public Vector3 Rotation = new(0,0,0);
     public Vector3 Scale = new(0,0,0);
     public uint[] Field_40;
 
-    public DvElementPathAdjustment() : base(DvElementID.PathAdjustment)
+    public DvElementPathOffset() : base(DvElementID.PathOffset)
     {
         Field_40 = new uint[4];
         for (int i = 0; i < 4; i++)
@@ -21,7 +21,7 @@ public class DvElementPathAdjustment : DvNodeElement
             Field_40[i] = 0;
         }
     }
-    public DvElementPathAdjustment(BinaryObjectReader reader)
+    public DvElementPathOffset(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

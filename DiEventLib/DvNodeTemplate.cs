@@ -1,5 +1,6 @@
 ﻿using Amicitia.IO.Binary;
 using DiEventLib.IO.Template;
+using System;
 using System.IO;
 using System.Numerics;
 using System.Reflection.PortableExecutable;
@@ -12,6 +13,8 @@ public class DvNodeTemplate : DvNode
     public string Category = "";
     public Dictionary<string, Field> Fields = new();
     Dictionary<string, Field> arraycounts = new();
+
+    public override string ToString() => $"{NodeName} - {Category}";
 
     public void Read(BinaryObjectReader reader, DiEventDataBase.Node db)
     {
@@ -102,6 +105,38 @@ public class DvNodeTemplate : DvNode
                         flds.Add((Field)ReadFieldValue(reader, new() { Type = fDA.SubType, Size = fDA.Size }));
                     field = new() { Value = flds, Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
                 }
+                else if (fld.GetType() == typeof(DiEventDataBase.FieldStructDynamicArray))
+                {
+                    DiEventDataBase.FieldStructDynamicArray fDA = (DiEventDataBase.FieldStructDynamicArray)fld;
+                    List<Field> flds = new();
+                    for (int i = 0; i < Convert.ToInt32(arraycounts[fDA.ArraySizeField].Value); i++)
+                    {
+                        Dictionary<string, Field> fldstf = new();
+                        foreach (var x in fDA.StructValue.Fields)
+                        {
+                            Tuple<string, Field> fd = ReadField(reader, x);
+                            fldstf.Add(fd.Item1, fd.Item2);
+                        }
+                        flds.Add(new Field() { Value = fldstf, Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) });
+                    }
+                    field = new() { Value = flds, Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
+                }
+                else if (fld.GetType() == typeof(DiEventDataBase.FieldStructArray))
+                {
+                    DiEventDataBase.FieldStructArray fA = (DiEventDataBase.FieldStructArray)fld;
+                    Field[] flds = new Field[fA.Size];
+                    for (int i = 0; i < fA.Size; i++)
+                    {
+                        Dictionary<string, Field> fldstf = new();
+                        foreach (var x in fA.StructValue.Fields)
+                        {
+                            Tuple<string, Field> fd = ReadField(reader, x);
+                            fldstf.Add(fd.Item1, fd.Item2);
+                        }
+                        flds[i] = new Field() { Value = fldstf, Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
+                    }
+                    field = new() { Value = flds, Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
+                }
                 else
                 {
                     DiEventDataBase.FieldArray fA = (DiEventDataBase.FieldArray)fld;
@@ -146,6 +181,14 @@ public class DvNodeTemplate : DvNode
                 enm.Value = Convert.ToInt32(ReadFieldValue(reader, new() { Type = fE.EnumType.Type }).Value.Value);
                 enm.Values = fE.EnumType.Values;
                 field = new() { Value = enm, Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
+                break;
+
+            case DiEventDataBase.Field.DataType.rgba32:
+                field = new() { Value = reader.Read<RGBA32>(), Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
+                break;
+
+            case DiEventDataBase.Field.DataType.guid:
+                field = new() { Value = reader.Read<Guid>(), Descriptions = fld.Descriptions, DataType = (DataType)((byte)fld.Type) };
                 break;
         }
         return field;
@@ -226,6 +269,28 @@ public class DvNodeTemplate : DvNode
                     for (int i = 0; i < Convert.ToInt32(arraycounts[fDA.ArraySizeField].Value); i++)
                         WriteFieldValue(writer, flds[i], new() { Type = fDA.SubType });
                 }
+                else if (fld.GetType() == typeof(DiEventDataBase.FieldStructDynamicArray))
+                {
+                    DiEventDataBase.FieldStructDynamicArray fDA = (DiEventDataBase.FieldStructDynamicArray)fld;
+                    List<Field> flds = (List<Field>)field.Value;
+                    for (int i = 0; i < Convert.ToInt32(arraycounts[fDA.ArraySizeField].Value); i++)
+                    {
+                        Dictionary<string, Field> fldstf = (Dictionary<string, Field>)flds[i].Value;
+                        for (int x = 0; x < fldstf.Count; x++)
+                            WriteFieldValue(writer, fldstf.ElementAt(x).Value, fDA.StructValue.Fields[x]);
+                    }
+                }
+                else if (fld.GetType() == typeof(DiEventDataBase.FieldStructArray))
+                {
+                    DiEventDataBase.FieldStructArray fA = (DiEventDataBase.FieldStructArray)fld;
+                    Field[] flds = (Field[])field.Value;
+                    for (int i = 0; i < fld.Size; i++)
+                    {
+                        Dictionary<string, Field> fldstf = (Dictionary<string, Field>)flds[i].Value;
+                        for (int x = 0; x < fldstf.Count; x++)
+                            WriteFieldValue(writer, fldstf.ElementAt(x).Value, fA.StructValue.Fields[x]);
+                    }
+                }
                 else
                 {
                     DiEventDataBase.FieldArray fA = (DiEventDataBase.FieldArray)fld;
@@ -266,12 +331,20 @@ public class DvNodeTemplate : DvNode
                 Enum enm = (Enum)field.Value;
                 WriteFieldValue(writer, new() { Value = enm.Value, DataType = (DataType)((byte)fE.EnumType.Type) }, new() { Type = fE.EnumType.Type });
                 break;
+
+            case DiEventDataBase.Field.DataType.rgba32:
+                writer.Write((RGBA32)field.Value);
+                break;
+
+            case DiEventDataBase.Field.DataType.guid:
+                writer.Write((Guid)field.Value);
+                break;
         }
     }
 
     public enum DataType
     {
-        UByte = 0, Byte, UShort, Short, UInt, Int, Float, Vector2, Vector3, Vector4, Matrix4x4, Curve, String, Enum, Struct, Array, Boolean, RGBA, RGB32
+        UByte = 0, Byte, UShort, Short, UInt, Int, Float, Vector2, Vector3, Vector4, Matrix4x4, Curve, String, Enum, Struct, Guid, Array, Boolean, RGBA, RGB32, RGBA32
     }
 
     public struct Field

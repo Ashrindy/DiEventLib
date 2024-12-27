@@ -58,7 +58,7 @@ public class DvNodeElement : DvNode
             case DvElementID.Caption: new DvElementCaption(reader); break; 
 
             case DvElementID.Fade: new DvElementFade(reader); break;
-            case DvElementID.GameCamera: new DvElementGameCamera(reader); break;
+            case DvElementID.CameraHedgehog: new DvElementCameraInGame(reader); break;
             case DvElementID.MovieView: new DvElementMovieView(reader); break;
             case DvElementID.LetterBox: new DvElementLetterBox(reader); break;
         }
@@ -85,57 +85,57 @@ public class DvNodeElement : DvNode
 // TODO: Need to find rest
 public enum DvElementID : uint
 {
-    // ParameterSpecifiedCamera = 1,
-    // 2
+    CameraParams = 1,
+    // 2 = Empty, nothing
     DrawOff = 3,
-    // 4
-    PathAdjustment = 5,
+    // 4 = Empty, nothing
+    PathOffset = 5,
     CameraShake = 6,
     CameraShakeLoop = 7,
     Effect = 8,
-    // 9
+    DirectionalLight = 9,
     PathInterpolation = 10,
-    Culling = 11,
-    NearFarSetting = 12,
-    UVAnimation = 13,
-    VisibilityAnimation = 14,
-    MaterialAnimation = 15,
-    CompositeAnimation = 16,
+    CullingDisable = 11,
+    CameraNearFar = 12,
+    UVAnim = 13,
+    VisibilityAnim = 14,
+    MaterialAnim = 15,
+    MultipleAnim = 16,
     CameraOffset = 17,
     ModelFade = 18,
-    // 19
-    SonicCamera = 20,
-    GameCamera = 21,
-    // 22
-    VAT = 23,
+    DebugMotion = 19,
+    CameraHedgehog = 20,
+    CameraInGame = 21,
+    PointLight = 22,
+    VertexAnimationTexture = 23,
     Spotlight = 24,
-    // 25
+    ControllerVibration = 25,
     SpotlightModel = 26,
 
-    Bloom = 1000,
-    DOF = 1001,
+    BloomParam = 1000,
+    DOFParam = 1001,
     ColorContrast = 1002,
-    CameraExposure = 1003,
+    CameraControlParam = 1003,
     ShadowResolution = 1004,
-    // 1005
-    // 1006
+    GodrayParam = 1005,
+    AtmosphereGodrayParam = 1006,
     AtmosphereHeightFogParam = 1007,
-    ChromaticAberrationFilter = 1008,
-    Vignette = 1009,
+    ChromaticAberrationFilterParam = 1008,
+    VignetteParam = 1009,
     Fade = 1010,
     LetterBox = 1011,
     ModelClipping = 1012,
-    // 1013
+    PbaReset = 1013,
     BossName = 1014,
     Caption = 1015,
     Sound = 1016,
     Time = 1017,
     Sun = 1018,
     LookAtIK = 1019,
-    CameraBlur = 1020,
+    CameraBlurParam = 1020,
     GeneralTrigger = 1021,
-    FootIK = 1022,
-    Dither = 1023,
+    FootIk = 1022,
+    DitherParam = 1023,
     QTE = 1024,
     FacialAnimation = 1025,
     OverrideASM = 1026,
@@ -150,9 +150,9 @@ public enum DvElementID : uint
     ShadowMapParam = 1035,
     VariablePointLight = 1036,
     OpeningLogo = 1037,
-    AdditionRange = 1038, // i have no clue what this is
+    DensitySectorPoint = 1038,
     FxColUpdate = 1039,
-    // 1040
+    VAT = 1040,
     QTEAccel = 1041,
     TheEndCableObject = 1042,
     RifleBeastLighting = 1043

@@ -5,8 +5,8 @@ using System.Text;
 namespace DiEventLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("UV Animation", "Adds a .uv-anim into the cutscene")]
-public class DvElementUVAnimation : DvNodeElement
+[DvNodeDescription("Material Animation", "Adds .mat-anim into the cutscene")]
+public class DvElementMaterialAnim : DvNodeElement
 {
     public uint Field_00 = 0;
     public string FileName = "";
@@ -14,8 +14,8 @@ public class DvElementUVAnimation : DvNodeElement
     public float Field_48 = 0;
     public uint Field_4c = 0;
     public uint Field_50 = 0;
-    public DvElementUVAnimation() : base(DvElementID.UVAnimation) { }
-    public DvElementUVAnimation(BinaryObjectReader reader)
+    public DvElementMaterialAnim() : base(DvElementID.MaterialAnim) { }
+    public DvElementMaterialAnim(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

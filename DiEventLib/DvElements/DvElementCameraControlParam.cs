@@ -4,14 +4,14 @@ using DiEventLib.Misc;
 namespace DiEventLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Camera Exposure", "Changes the camera exposure")]
-public class DvElementCameraExposure : DvNodeElement
+[DvNodeDescription("Camera Control", "Edits the camera parameters")]
+public class DvElementCameraControlParam : DvNodeElement
 {
     public int unk1 = 0;
     public float[] Field_48;
     public float[] Field_80;
 
-    public DvElementCameraExposure() : base(DvElementID.CameraExposure)
+    public DvElementCameraControlParam() : base(DvElementID.CameraControlParam)
     {
         Field_48 = new float[7];
         for (int i = 0; i < 7; i++)
@@ -24,7 +24,7 @@ public class DvElementCameraExposure : DvNodeElement
             Field_80[i] = 0;
         }
     }
-    public DvElementCameraExposure(BinaryObjectReader reader)
+    public DvElementCameraControlParam(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

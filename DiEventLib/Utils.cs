@@ -184,12 +184,16 @@ public struct RGBA32
     public uint R { get; set; }
     public uint G { get; set; }
     public uint B { get; set; }
+
+    public override string ToString() => $"#{R:X2}{G:X2}{B:X2}{A:X2}";
 }
 public struct RGB32
 {
     public uint R { get; set; }
     public uint G { get; set; }
     public uint B { get; set; }
+
+    public override string ToString() => $"#{R:X2}{G:X2}{B:X2}";
 }
 
 public struct RGB32F
@@ -197,4 +201,6 @@ public struct RGB32F
     public float R { get; set; }
     public float G { get; set; }
     public float B { get; set; }
+
+    public override string ToString() => $"#{R:X2}{G:X2}{B:X2}";
 }
