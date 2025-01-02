@@ -13,8 +13,8 @@ namespace DiEventTest
             string filepath;
 
             DiEventDataBase dievtdb = new();
-            dievtdb.Open("miller.json");
-            dievtdb.SaveBinary("miller.dievtdb");
+            dievtdb.Open("rangers.json");
+            dievtdb.SaveBinary("rangers.dievtdb");
             dievtdb.Open("miller.dievtdb");
 
             Console.WriteLine("What's the .dvscene?");

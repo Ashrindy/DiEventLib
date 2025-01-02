@@ -1,5 +1,6 @@
 ﻿using Amicitia.IO.Binary;
 using System.IO.Compression;
+using System.Reflection.PortableExecutable;
 using System.Text;
 
 namespace DiEventLib.IO.Template;
@@ -120,6 +121,8 @@ public class DiEventDataBaseBinary
             {
                 case DataType.array or DataType.arraysize:
                     ArraySizeField = reader.ReadStringTableEntry();
+                    if (SubType == DataType.strct)
+                        StructValue.Read(reader);
                     break;
                 case DataType.strct:
                     StructValue.Read(reader); 
@@ -140,6 +143,8 @@ public class DiEventDataBaseBinary
             {
                 case DataType.array or DataType.arraysize:
                     writer.WriteStringTableEntry(ArraySizeField);
+                    if (SubType == DataType.strct)
+                        StructValue.Write(writer);
                     break;
                 case DataType.strct:
                     StructValue.Write(writer);
