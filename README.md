@@ -1,4 +1,4 @@
-# `DiEventLib (C# Library)`
+# `DvSceneLib (C# Library)`
 
 **_C# library for HE2 (.dvscene)_**
 
@@ -11,9 +11,9 @@ A library with simple reading and writing function for the .dvscene file from HE
 
 ## 🗂️ Projects 🗂️
 
-- DiEventLib - The actual C# library itself.
+- DvSceneLib - The actual C# library itself.
 
-- DiEventTest - A testing sandbox for the C# library.
+- DvSceneTest - A testing sandbox for the C# library.
 
 ## 🗃 Dependencies 🗃
 
