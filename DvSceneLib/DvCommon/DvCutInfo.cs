@@ -1,0 +1,25 @@
+﻿using Amicitia.IO.Binary;
+using System;
+using System.Collections.Generic;
+namespace DvSceneLib;
+
+public class DvCutInfo : DvObject, IBinarySerializable
+{
+    public List<float> FrameCut { get; set; } = new();
+
+    public void Read(BinaryObjectReader reader)
+    {
+        Count = reader.Read<int>();
+        AllocatedSize = reader.Read<int>();
+        reader.Skip(8);
+        FrameCut.AddRange(reader.ReadArray<float>(Count));
+    }
+
+    public void Write(BinaryObjectWriter writer)
+    {
+        writer.Write(FrameCut.Count);
+        writer.Write(AllocatedSize);
+        writer.WriteNulls(8);
+        writer.WriteCollection(FrameCut);
+    }
+}

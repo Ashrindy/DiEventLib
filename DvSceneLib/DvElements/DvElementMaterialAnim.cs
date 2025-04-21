@@ -1,0 +1,39 @@
+﻿using Amicitia.IO.Binary;
+using DvSceneLib.Misc;
+using System.Text;
+
+namespace DvSceneLib;
+
+[DvNodeCategory("Element")]
+[DvNodeDescription("Material Animation", "Adds .mat-anim into the cutscene")]
+public class DvElementMaterialAnim : DvNodeElement
+{
+    public uint Flags = 0;
+    public string FileName = "";
+    public uint Field_44 = 0;
+    public float Speed = 0;
+    public uint Field_4c = 0;
+    public uint Field_50 = 0;
+    public DvElementMaterialAnim() : base(DvElementID.MaterialAnim) { }
+    public DvElementMaterialAnim(BinaryObjectReader reader)
+        => Read(reader);
+    public void Read(BinaryObjectReader reader)
+    {
+        Flags = reader.Read<uint>();
+        FileName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
+        Field_44 = reader.Read<uint>();
+        Speed = reader.Read<float>();
+        Field_4c = reader.Read<uint>();
+        Field_50 = reader.Read<uint>();
+    }
+
+    public void Write(BinaryObjectWriter writer)
+    {
+        writer.Write(Flags);
+        writer.WriteDvString(FileName, Utils.StringEncoding.ShiftJIS);
+        writer.Write(Field_44);
+        writer.Write(Speed);
+        writer.Write(Field_4c);
+        writer.Write(Field_50);
+    }
+}
