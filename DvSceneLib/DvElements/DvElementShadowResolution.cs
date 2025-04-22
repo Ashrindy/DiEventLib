@@ -7,14 +7,10 @@ namespace DvSceneLib;
 [DvNodeDescription("Shadow Resolution", "Changes the resolution of shadows")]
 public class DvElementShadowResolution : DvNodeElement
 {
-    public uint Width = 0;
-    public uint Height = 0;    
+    public uint Width = 2048;
+    public uint Height = 2048;    
 
-    public DvElementShadowResolution() : base(DvElementID.ShadowResolution) 
-    { 
-        Width = 2048;
-        Height = 2048;
-    }
+    public DvElementShadowResolution() : base(DvElementID.ShadowResolution) { }
     public DvElementShadowResolution(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
@@ -23,7 +19,7 @@ public class DvElementShadowResolution : DvNodeElement
         Height = reader.Read<uint>();
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Width);
         writer.Write(Height);

@@ -8,135 +8,88 @@ namespace DvSceneLib;
 [DvNodeDescription("Vignette", "Adds a smooth black border around the screen")]
 public class DvElementVignetteParam : DvNodeElement
 {
-    public uint Field_00 = 0;
-    public uint Field_04 = 0;
-    public VignetteParam1 VignetteBefore;
-    public VignetteParam2 VignetteAfter;
-    public float[] CurveData;
-
-    public DvElementVignetteParam() : base(DvElementID.VignetteParam)
+    public enum GradationType : int
     {
-        VignetteBefore = new VignetteParam1 
-        { 
-            Position = new(0,0),
-            Scale = new(0,0),
-            Size = 0,
-            Rotation = 0,
-            Field_18 = 0,
-            Alpha = 0,
-            Field_1c = 0,
-            Unk1 = 0,
-            Unk2 = 0,
-            Center = new(0,0),
-            Direction = new(0,0),
-            PenumbraScale = 0,
-            MinPenumbraScale = 0,
-            MaxPenumbraScale = 0,
-            BokehScale = 0,
-            MinDOFOpacityScale = 0,
-            MaxDOFOpacityScale = 0,
-            MinOpacityScale = 0,
-            MaxOpacityScale = 0,
-            MinOpacityDist = 0,
-            MaxOpacityDist = 0,
-        };
-        VignetteAfter = new VignetteParam2
-        {
-            Position = new(0, 0),
-            Scale = new(0, 0),
-            Size = 0,
-            Rotation = 0,
-            Field_18 = 0,
-            Alpha = 0,
-            Field_1c = 0,
-            Unk1 = 0,
-            Unk2 = 0,
-            Unk3 = 0,
-            PenumbraScale = 0,
-            Unk4 = 0,
-            MinPenumbraScale = 0,
-            MaxPenumbraScale = 0,
-            BokehScale = 0,
-            MinDOFOpacityScale = 0,
-            MaxDOFOpacityScale = 0,
-            MinOpacityScale = 0,
-            MaxOpacityScale = 0,
-            MinOpacityDist = 0,
-            MaxOpacityDist = 0,
-        };
-        CurveData = new float[32];
-        for (int i = 0; i < 32; i++)
-        {
-            CurveData[i] = 1;
-        }
+        Circle,
+        Line
     }
+
+    public enum BlendMode : int
+    {
+        AlphaBlend,
+        Add,
+        Mul,
+        Screen,
+        Overlay
+    }
+
+    public struct VignetteParam
+    {
+        public Vector2 Position;
+        public Vector2 Size;
+        public float Scale;
+        public Vector2 LineDirection;
+        public int Opacity;
+        public RGB32 Color;
+        public float PenumbraScale;
+        public float Intensity;
+        public float Rotation;
+    }
+
+    public struct DepthParam
+    {
+        public float MinPenumbraScale;
+        public float MaxPenumbraScale;
+        public float BokehScale;
+        public float MinDOFOpacityScale;
+        public float MaxDOFOpacityScale;
+        public float MinOpacityScale;
+        public float MaxOpacityScale;
+        public float MinOpacityDist;
+        public float MaxOpacityDist;
+    }
+
+    public bool DepthEnabled = false;
+    public bool CurveEnabled = false;
+    public GradationType GradType = GradationType.Circle;
+    public VignetteParam Params = new();
+    public BlendMode BlendType = BlendMode.AlphaBlend;
+    public DepthParam DepthParams = new();
+    public VignetteParam FinishParams = new();
+    public DepthParam FinishDepthParams = new();
+    public float[] CurveData = new float[32];
+
+    public DvElementVignetteParam() : base(DvElementID.VignetteParam) { }
     public DvElementVignetteParam(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        Field_00 = reader.Read<uint>();
-        Field_04 = reader.Read<uint>();
-        VignetteBefore = reader.Read<VignetteParam1>();
-        VignetteAfter = reader.Read<VignetteParam2>();
+        var Flags = reader.Read<uint>();
+        DepthEnabled = (Flags & 1) != 0;
+        CurveEnabled = (Flags & 2) != 0;
+        GradType = reader.Read<GradationType>();
+        Params = reader.Read<VignetteParam>();
+        reader.Skip(4);
+        BlendType = reader.Read<BlendMode>();
+        DepthParams = reader.Read<DepthParam>();
+        FinishParams = reader.Read<VignetteParam>();
+        FinishDepthParams = reader.Read<DepthParam>();
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
-        writer.Write(Field_00);
-        writer.Write(Field_04);
-        writer.Write(VignetteBefore);
-        writer.Write(VignetteAfter);
+        var Flags = 0;
+        if (DepthEnabled) Flags |= 1;
+        if (CurveEnabled) Flags |= 2;
+        writer.Write(Flags);
+        writer.Write(GradType);
+        writer.Write(Params);
+        writer.WriteNulls(4);
+        writer.Write(BlendType);
+        writer.Write(DepthParams);
+        writer.Write(FinishParams);
+        writer.Write(FinishDepthParams);
         writer.WriteArray(CurveData);
     }
-}
-
-public struct VignetteParam1
-{
-    public Vector2 Position;
-    public Vector2 Scale;
-    public float Size;
-    public float Rotation;
-    public float Field_18;
-    public uint Alpha;
-    public float Field_1c;
-    public float Unk1;
-    public float Unk2;
-    public Vector2 Center;
-    public Vector2 Direction;
-    public float PenumbraScale;
-    public float MinPenumbraScale;
-    public float MaxPenumbraScale;
-    public float BokehScale;
-    public float MinDOFOpacityScale;
-    public float MaxDOFOpacityScale;
-    public float MinOpacityScale;
-    public float MaxOpacityScale;
-    public float MinOpacityDist;
-    public float MaxOpacityDist;
-}
-
-public struct VignetteParam2
-{
-    public Vector2 Position;
-    public Vector2 Scale;
-    public float Size;
-    public float Rotation;
-    public float Field_18;
-    public uint Alpha;
-    public float Field_1c;
-    public float Unk1;
-    public float Unk2;
-    public float Unk3;
-    public float PenumbraScale;
-    public float Unk4;
-    public float MinPenumbraScale;
-    public float MaxPenumbraScale;
-    public float BokehScale;
-    public float MinDOFOpacityScale;
-    public float MaxDOFOpacityScale;
-    public float MinOpacityScale;
-    public float MaxOpacityScale;
-    public float MinOpacityDist;
-    public float MaxOpacityDist;
 }

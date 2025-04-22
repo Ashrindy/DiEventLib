@@ -9,33 +9,32 @@ public class DvElementAura : DvNodeElement
 {
     public AuraNode AuraBefore = new();
     public AuraNode AuraAfter = new();
-    public uint Field_00 = 0;
-    public float[] AnimData;
+    public bool CurveEnabled = false;
+    public bool Enabled = true;
+    public float[] CurveData = new float[32];
 
-    public DvElementAura() : base(DvElementID.Aura)
-    { 
-        AnimData = new float[32];
-        for(int i = 0; i < 32; i++)
-        {
-            AnimData[i] = 1;
-        }
-    }
+    public DvElementAura() : base(DvElementID.Aura) { }
     public DvElementAura(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
         AuraBefore = reader.Read<AuraNode>();
         AuraAfter = reader.Read<AuraNode>();
-        Field_00 = reader.Read<uint>();
-        AnimData = reader.ReadArray<float>(32);
+        var Flags = reader.Read<uint>();
+        CurveEnabled = (Flags & 1) != 0;
+        Enabled = (Flags & 2) != 0;
+        CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(AuraBefore);
         writer.Write(AuraAfter);
-        writer.Write(Field_00);
-        writer.WriteArray(AnimData);
+        var Flags = 0;
+        if (CurveEnabled) Flags |= 1;
+        if (Enabled) Flags |= 2;
+        writer.Write(Flags);
+        writer.WriteArray(CurveData);
     }
 }
 

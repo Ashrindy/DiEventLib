@@ -34,7 +34,7 @@ public class DvElementPathInterpolation : DvNodeElement
         CurveData = reader.ReadArray<float>(128);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(UseAbsolutePosition);
         writer.Align(4);

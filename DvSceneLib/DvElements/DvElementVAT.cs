@@ -5,8 +5,8 @@ using System.Text;
 namespace DvSceneLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Visibility Animation", "Adds .vis-anim into the cutscene")]
-public class DvElementVisibilityAnim : DvNodeElement
+[DvNodeDescription("VAT", "Adds .vat-anim into the cutscene")]
+public class DvElementVAT : DvNodeElement
 {
     public uint Flags = 0;
     public string FileName = "";
@@ -14,8 +14,8 @@ public class DvElementVisibilityAnim : DvNodeElement
     public float Speed = 0;
     public uint Field_4c = 0;
     public uint Field_50 = 0;
-    public DvElementVisibilityAnim() : base(DvElementID.VisibilityAnim) { }
-    public DvElementVisibilityAnim(BinaryObjectReader reader)
+    public DvElementVAT() : base(DvElementID.VAT) { }
+    public DvElementVAT(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

@@ -1,44 +1,34 @@
 ﻿using Amicitia.IO.Binary;
 using DvSceneLib.Misc;
+using System.Numerics;
 
 namespace DvSceneLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Depth of Field", "Adds depth of field")]
+[DvNodeDescription("QTE", "Adds a simple QTE element")]
 public class DvElementQTE : DvNodeElement
 {
-    public QTEType QTEType { get; set; }
-    public QTEButton QTEButton { get; set; }
-    public float RedCircleSize { get; set; }
-    public float RedCircleThickness { get; set; }
-    public float WhiteLineThickness { get; set; }
-    public float WhiteLineSpeed { get; set; }
-    public float Multiplier { get; set; }
-    public float RedCircleOutlineThickness { get; set; }
-    public float WhiteLineOutlineThickness { get; set; }
-    public uint FailCount { get; set; }
-    public uint Field_88 { get; set; }
-    public byte[] Field_8c { get; set; }
-    public float Field_cc { get; set; }
-    public float Field_d0 { get; set; }
-    public float Field_d4 { get; set; }
-    public uint Field_d8 { get; set; }
-    public float Field_dc { get; set; }
-    public byte[] Field_E0 { get; set; }
-    public string SoundCueName { get; set; }
-    public DvElementQTE() : base(DvElementID.QTE)
-    {
-        Field_8c = new byte[64];
-        for(int i = 0; i < 64; i++)
-        {
-            Field_8c[i] = 0;
-        }
-        Field_E0 = new byte[0xC0];
-        for (int i = 0; i < 0xC0; i++)
-        {
-            Field_E0[i] = 0;
-        }
-    }
+    public QTEType QTEType = QTEType.PressPrompt;
+    public QTEButton QTEButton = QTEButton.A;
+    public float RedCircleSize = 0;
+    public float RedCircleThickness = 0;
+    public float WhiteLineThickness = 0;
+    public float WhiteLineSpeed = 0;
+    public float Multiplier = 0;
+    public float RedCircleOutlineThickness = 0;
+    public float WhiteLineOutlineThickness = 0;
+    public uint FailCount = 0;
+    public uint MashCount = 0;
+    public string ASMVariableName = "";
+    public float QTEStart = 0;
+    public float QTEEnd = 0;
+    public float SpeedMultiplier = 0;
+    public Vector2 Offset = new(0,0);
+    public float Unk0 = 0;
+    public byte[] Field_E0 = new byte[0xC0];
+    public string SoundCueName = "";
+
+    public DvElementQTE() : base(DvElementID.QTE) { }
     public DvElementQTE(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
@@ -53,18 +43,18 @@ public class DvElementQTE : DvNodeElement
         RedCircleOutlineThickness = reader.Read<float>();
         WhiteLineOutlineThickness = reader.Read<float>();
         FailCount = reader.Read<uint>();
-        Field_88 = reader.Read<uint>();
-        Field_8c = reader.ReadArray<byte>(64);
-        Field_cc = reader.Read<float>();
-        Field_d0 = reader.Read<float>();
-        Field_d4 = reader.Read<float>();
-        Field_d8 = reader.Read<uint>();
-        Field_dc = reader.Read<float>();
+        MashCount = reader.Read<uint>();
+        ASMVariableName = reader.ReadDvString(Utils.StringEncoding.Default);
+        QTEStart = reader.Read<float>();
+        QTEEnd = reader.Read<float>();
+        SpeedMultiplier = reader.Read<float>();
+        Offset = reader.Read<Vector2>();
+        Unk0 = reader.Read<float>();
         Field_E0 = reader.ReadArray<byte>(0xC0);
         SoundCueName = reader.ReadDvString(Utils.StringEncoding.Default);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(QTEType);
         writer.Write(QTEButton);
@@ -76,13 +66,13 @@ public class DvElementQTE : DvNodeElement
         writer.Write(RedCircleOutlineThickness);
         writer.Write(WhiteLineOutlineThickness);
         writer.Write(FailCount);
-        writer.Write(Field_88);
-        writer.WriteArray(Field_8c);
-        writer.Write(Field_cc);
-        writer.Write(Field_d0);
-        writer.Write(Field_d4);
-        writer.Write(Field_d8);
-        writer.Write(Field_dc);
+        writer.Write(MashCount);
+        writer.WriteDvString(ASMVariableName, Utils.StringEncoding.Default);
+        writer.Write(QTEStart);
+        writer.Write(QTEEnd);
+        writer.Write(SpeedMultiplier);
+        writer.Write(Offset);
+        writer.Write(Unk0);
         writer.WriteArray(Field_E0);
         writer.WriteDvString(SoundCueName, Utils.StringEncoding.Default);
     }

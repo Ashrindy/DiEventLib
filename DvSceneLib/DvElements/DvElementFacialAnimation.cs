@@ -21,10 +21,9 @@ public class DvElementFacialAnimation : DvNodeElement
         public string FileName;
     }
     public Animation[] Animations = new Animation[3];
-    public float[] AnimData;
-    //public uint ActiveAnimCount { get; set; }
-    public DvElementFacialAnimation() : base(DvElementID.FacialAnimation)
-    { }
+    public float[] CurveData = new float[32];
+
+    public DvElementFacialAnimation() : base(DvElementID.FacialAnimation) { }
     public DvElementFacialAnimation(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
@@ -36,10 +35,10 @@ public class DvElementFacialAnimation : DvNodeElement
             Animations[i].FileName = reader.ReadDvString(Utils.StringEncoding.Default);
         }
         var activeAnimCount = reader.Read<uint>();
-        AnimData = reader.ReadArray<float>(32);
+        CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         uint activeAnimCount = 0;
         foreach (var anim in Animations)
@@ -49,6 +48,6 @@ public class DvElementFacialAnimation : DvNodeElement
             activeAnimCount++;
         }
         writer.Write(activeAnimCount);
-        writer.WriteArray(AnimData);
+        writer.WriteArray(CurveData);
     }
 }

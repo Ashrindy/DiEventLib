@@ -19,7 +19,7 @@ public class DvElementModelFade : DvNodeElement
         CurveData = reader.ReadArray<float>(128);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.WriteArray(Unk0);
         writer.WriteArray(CurveData);

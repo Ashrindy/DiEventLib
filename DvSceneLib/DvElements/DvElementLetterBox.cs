@@ -7,16 +7,9 @@ namespace DvSceneLib;
 [DvNodeDescription("Letter Box", "Makes the cutscene use a fake 21:9 aspect ratio")]
 public class DvElementLetterBox : DvNodeElement
 {
-    public float[] CurveData;
+    public float[] CurveData = new float[32];
 
-    public DvElementLetterBox() : base(DvElementID.LetterBox)
-    { 
-        CurveData = new float[32];
-        for(int i = 0; i < 32; i++)
-        {
-            CurveData[i] = 1;
-        }
-    }
+    public DvElementLetterBox() : base(DvElementID.LetterBox) { }
     public DvElementLetterBox(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
@@ -24,7 +17,7 @@ public class DvElementLetterBox : DvNodeElement
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.WriteArray(CurveData);
     }

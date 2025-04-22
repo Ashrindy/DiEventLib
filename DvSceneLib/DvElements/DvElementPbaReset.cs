@@ -4,11 +4,11 @@ using DvSceneLib.Misc;
 namespace DvSceneLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Culling Disable", "Disables the culling of a model")]
-public class DvElementCullingDisable : DvNodeElement
+[DvNodeDescription("PBA Reset", "Resets the simulation of a PBA")]
+public class DvElementPbaReset : DvNodeElement
 {
-    public DvElementCullingDisable() : base(DvElementID.CullingDisable) { }
-    public DvElementCullingDisable(BinaryObjectReader reader)
+    public DvElementPbaReset() : base(DvElementID.PbaReset) { }
+    public DvElementPbaReset(BinaryObjectReader reader) 
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

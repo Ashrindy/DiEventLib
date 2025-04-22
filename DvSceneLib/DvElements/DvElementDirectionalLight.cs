@@ -22,7 +22,7 @@ public class DvElementDirectionalLight : DvNodeElement
         Unk1 = reader.ReadArray<int>(8);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Unk0);
         writer.Write(Direction);

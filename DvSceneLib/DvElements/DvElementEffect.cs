@@ -23,6 +23,8 @@ public class DvElementEffect : DvNodeElement
     public bool QuaternionFlag = false;
     public bool UnkFlag1 = false;
     public bool ModelSpaceNodeFlag = false;
+    public bool UnkFlag2a = false;
+    public bool UnkFlag2b = false;
     public string FileName = "";
     public bool UnkFlag2 = false;
     public bool UnkFlag3 = false;
@@ -53,6 +55,8 @@ public class DvElementEffect : DvNodeElement
         QuaternionFlag = (Flags0 & 2) != 0;
         UnkFlag1 = (Flags0 & 4) != 0;
         ModelSpaceNodeFlag = (Flags0 & 8) != 0;
+        UnkFlag2a = (Flags0 & 16) != 0;
+        UnkFlag2b = (Flags0 & 32) != 0;
         FileName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
         UnkFlag2 = reader.Read<bool>();
         reader.Align(4);
@@ -71,7 +75,7 @@ public class DvElementEffect : DvNodeElement
         CurveData = reader.ReadArray<float>(128);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Utils.ComposeMatrix(Position, Scale, Utils.ToQuaternion(Rotation)));
         var Flags0 = 0;
@@ -79,6 +83,8 @@ public class DvElementEffect : DvNodeElement
         if (QuaternionFlag) Flags0 |= 2;
         if (UnkFlag1) Flags0 |= 4;
         if (ModelSpaceNodeFlag) Flags0 |= 8;
+        if (UnkFlag2a) Flags0 |= 16;
+        if (UnkFlag2b) Flags0 |= 32;
         writer.Write(Flags0);
         writer.WriteDvString(FileName, Utils.StringEncoding.ShiftJIS);
         writer.Write(UnkFlag2);
@@ -86,6 +92,7 @@ public class DvElementEffect : DvNodeElement
         var Flags1 = 0;
         if (UnkFlag3) Flags1 |= 1;
         if (Persistent) Flags1 |= 2;
+        writer.Write(Flags1);
         writer.Write(EffectColor.B);
         writer.Write(EffectColor.G);
         writer.Write(EffectColor.R);

@@ -55,7 +55,7 @@ public class DvElementCameraParams : DvNodeElement
         CurveData = reader.ReadArray<float>(256);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         var Flags = 0;
         if (CameraSetup.Flags.EnabledPosition) Flags |= 1;

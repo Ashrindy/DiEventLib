@@ -23,7 +23,7 @@ public class DvElementControllerVibration : DvNodeElement
         reader.Skip(12);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         var Flags = 0;
         if (IgnoreEnd) Flags |= 2;

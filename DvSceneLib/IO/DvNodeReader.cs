@@ -66,7 +66,7 @@ public static class DvNodeReader
                 switch (elementID)
                 {
                     case DvElementID.CameraParams:
-                        element = new DvElementDrawOff(reader);
+                        element = new DvElementCameraParams(reader);
                         break;
                     case DvElementID.DrawOff:
                         element = new DvElementDrawOff(reader);
@@ -82,6 +82,9 @@ public static class DvNodeReader
                         break;
                     case DvElementID.Effect:
                         element = new DvElementEffect(reader);
+                        break;
+                    case DvElementID.DirectionalLight:
+                        element = new DvElementDirectionalLight(reader);
                         break;
                     case DvElementID.PathInterpolation:
                         element = new DvElementPathInterpolation(reader);
@@ -134,7 +137,9 @@ public static class DvNodeReader
                     //case DvElementID.SpotlightModel:
                     //    element = new DvElementSpotlightModel(reader);
                     //    break;
-                    //case DvElementID.Bloom: break;
+                    case DvElementID.BloomParam:
+                        element = new DvElementBloomParam(reader);
+                        break;
                     case DvElementID.DOFParam:
                         element = new DvElementDOFParam(reader);
                         break;
@@ -146,6 +151,12 @@ public static class DvNodeReader
                         break;
                     case DvElementID.ShadowResolution:
                         element = new DvElementShadowResolution(reader);
+                        break;
+                    case DvElementID.GodrayParam:
+                        element = new DvElementGodrayParam(reader);
+                        break;
+                    case DvElementID.AtmosphereGodrayParam:
+                        element = new DvElementAtmosphereGodrayParam(reader);
                         break;
                     case DvElementID.AtmosphereHeightFogParam:
                         element = new DvElementAtmosphereHeightFogParam(reader);
@@ -164,6 +175,9 @@ public static class DvNodeReader
                         break;
                     case DvElementID.ModelClipping:
                         element = new DvElementModelClipping(reader);
+                        break;
+                    case DvElementID.PbaReset:
+                        element = new DvElementPbaReset(reader);
                         break;
                     case DvElementID.BossName:
                         element = new DvElementBossName(reader);
@@ -198,7 +212,9 @@ public static class DvNodeReader
                     case DvElementID.FacialAnimation:
                         element = new DvElementFacialAnimation(reader);
                         break;
-                    //case DvElementID.OverrideASM: break;
+                    case DvElementID.OverrideASM: 
+                        element = new DvElementOverrideASM(reader);
+                        break;
                     case DvElementID.Aura:
                         element = new DvElementAura(reader);
                         break;
@@ -208,17 +224,24 @@ public static class DvNodeReader
                     case DvElementID.CyberSpaceNoise:
                         element = new DvElementCyberSpaceNoise(reader);
                         break;
+                    case DvElementID.LipAnimation:
+                        element = new DvElementLipAnimation(reader);
+                        break;
                     case DvElementID.AuraRoad:
                         element = new DvElementAuraRoad(reader);
                         break;
                     case DvElementID.MovieView:
                         element = new DvElementMovieView(reader);
                         break;
-                    //case DvElementID.CrossFade: break;
+                    case DvElementID.CrossFade: 
+                        element = new DvElementCrossFade(reader);
+                        break;
                     case DvElementID.Weather:
                         element = new DvElementWeather(reader);
                         break;
-                    //case DvElementID.ShadowMapParam: break;
+                    case DvElementID.ShadowMapParam: 
+                        element = new DvElementShadowMapParam(reader);
+                        break;
                     case DvElementID.VariablePointLight:
                         element = new DvElementVariablePointLight(reader);
                         break;
@@ -228,7 +251,15 @@ public static class DvNodeReader
                     case DvElementID.DensitySectorPoint:
                         element = new DvElementDensitySectorPoint(reader);
                         break;
-                    //case DvElementID.FxColUpdate: break;
+                    case DvElementID.FxColUpdate: 
+                        element = new DvElementFxColUpdate(reader);
+                        break;
+                    case DvElementID.VAT:
+                        element = new DvElementVAT(reader);
+                        break;
+                    case DvElementID.QTEAccel:
+                        element = new DvElementQTEAccel(reader);
+                        break;
                     case DvElementID.TheEndCableObject:
                         element = new DvElementTheEndCableObject(reader);
                         break;

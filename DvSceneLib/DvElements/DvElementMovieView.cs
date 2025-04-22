@@ -14,7 +14,7 @@ public class DvElementMovieView : DvNodeElement
         //ElementRead(reader);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
     }
 }

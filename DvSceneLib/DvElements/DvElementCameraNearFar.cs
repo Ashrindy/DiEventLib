@@ -25,7 +25,7 @@ public class DvElementCameraNearFar : DvNodeElement
         reader.Skip(20);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         var Flags = 0;
         if (!EnabledNearClip) Flags |= 1;

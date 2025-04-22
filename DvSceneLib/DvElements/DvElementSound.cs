@@ -11,6 +11,7 @@ public class DvElementSound : DvNodeElement
     public string CueName = "";
     public MixerID SoundID = MixerID.BGM;
     public uint Field_a4 = 0;
+
     public DvElementSound() : base(DvElementID.Sound) { }
     public DvElementSound(BinaryObjectReader reader)
         => Read(reader);
@@ -21,7 +22,7 @@ public class DvElementSound : DvNodeElement
         Field_a4 = reader.Read<uint>();
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, CueName, 64);
         writer.Write(SoundID);

@@ -1,33 +1,32 @@
 ﻿using Amicitia.IO.Binary;
+using DvSceneLib.Misc;
 
-namespace DiEventLib;
+namespace DvSceneLib;
 
-public class DvElementCrossFade : DvNodeObject
+[DvNodeCategory("Element")]
+[DvNodeDescription("Cross Fade", "Cross fades between Movie Views")]
+public class DvElementCrossFade : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public uint Field_04 { get; set; } = 0;
-    public float[] CurveData { get; set; }
-    public DvElementCrossFade() 
-    {
-        CurveData = new float[32];
-        for(int i = 0; i < 32; i++)
-        {
-            CurveData[i] = 1;
-        }
-    }
+    public bool CurveEnabled = false;
+    public int Unk0 = 0;
+    public float[] CurveData = new float[32];
+
+    public DvElementCrossFade() : base(DvElementID.CrossFade) { }
     public DvElementCrossFade(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
-        Field_00 = reader.Read<uint>();
-        Field_04 = reader.Read<uint>();
+        CurveEnabled = reader.Read<bool>();
+        reader.Align(4);
+        Unk0 = reader.Read<int>();
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
-        writer.Write(Field_00);
-        writer.Write(Field_04);
+        writer.Write(CurveEnabled);
+        writer.Align(4);
+        writer.Write(Unk0);
         writer.WriteArray(CurveData);
     }
 }

@@ -14,7 +14,7 @@ public class DvElementOpeningLogo : DvNodeElement
     {
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
     }
 }

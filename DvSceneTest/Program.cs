@@ -2,7 +2,7 @@
 using DvSceneLib.IO.Template;
 using System.Text;
 
-namespace DiEventTest
+namespace DvSceneTest
 {
     internal class Program
     {
@@ -12,17 +12,17 @@ namespace DiEventTest
             Console.OutputEncoding = Encoding.GetEncoding("Shift-JIS");
             string filepath;
 
-            DiEventDataBase dievtdb = new();
-            dievtdb.Open("rangers.json");
-            dievtdb.SaveBinary("rangers.dievtdb");
-            dievtdb.Open("miller.dievtdb");
+            //DiEventDataBase dievtdb = new();
+            //dievtdb.Open("rangers.json");
+            //dievtdb.SaveBinary("rangers.dievtdb");
+            //dievtdb.Open("miller.dievtdb");
 
             Console.WriteLine("What's the .dvscene?");
             filepath = Console.ReadLine();
 
             DvScene scene = new();
-            scene.Open(filepath, dievtdb);
-            scene.Save(filepath + ".dvscene", dievtdb);
+            scene.Open(filepath);
+            scene.Save(filepath + ".dvscene");
 
             Console.WriteLine("Loaded");
         }

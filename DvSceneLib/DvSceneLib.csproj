@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<EnableDynamicLoading>true</EnableDynamicLoading>
@@ -15,10 +15,6 @@
 
   <ItemGroup>
     <Compile Remove="DvElements\DvElementBloom.cs" />
-    <Compile Remove="DvElements\DvElementCrossFade.cs" />
-    <Compile Remove="DvElements\DvElementLipAnimation.cs" />
-    <Compile Remove="DvElements\DvElementOverrideASM.cs" />
-    <Compile Remove="DvElements\DvElementShadowMapParam.cs" />
     <Compile Remove="Helper.cs" />
     <Compile Remove="Reader.cs" />
     <Compile Remove="Resource.cs" />

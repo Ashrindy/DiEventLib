@@ -7,34 +7,25 @@ namespace DvSceneLib;
 [DvNodeDescription("Fade", "Overlays the screen with a specific color that can be faded in and out")]
 public class DvElementFade : DvNodeElement
 {
-    public RGBA32 Color;
-    public float[] CurveData;
+    public bool Enabled = true;
+    public RGB32 Color;
+    public float[] CurveData = new float[32];
 
-    public DvElementFade() : base(DvElementID.Fade)
-    {
-        Color = new RGBA32
-        {
-            R = 0,
-            G = 0, 
-            B = 0, 
-            A = 0,
-        };
-        CurveData = new float[32];
-        for(int i = 0; i < 32; i++)
-        {
-            CurveData[i] = 1;
-        }
-    }
+    public DvElementFade() : base(DvElementID.Fade) { }
     public DvElementFade(BinaryObjectReader reader) 
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        Color = reader.Read<RGBA32>();
+        Enabled = reader.Read<bool>();
+        reader.Align(4);
+        Color = reader.Read<RGB32>();
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
+        writer.Write(Enabled);
+        writer.Align(4);
         writer.Write(Color);
         writer.WriteArray(CurveData);
     }

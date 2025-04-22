@@ -22,7 +22,7 @@ public class DvElementDrawOff : DvNodeElement
         Field_00 = reader.ReadArray<int>(3);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         var Flags = 0;
         if (Visible) Flags |= 1;

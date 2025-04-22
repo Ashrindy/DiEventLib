@@ -39,7 +39,7 @@ public class DvElementSpotlight : DvNodeElement
         CurveData = reader.ReadArray<float>(64);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(CurveEnabled);
         writer.Align(4);

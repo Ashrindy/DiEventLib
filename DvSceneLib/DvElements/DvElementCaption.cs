@@ -9,9 +9,9 @@ namespace DvSceneLib;
 public class DvElementCaption : DvNodeElement
 {
     [DvValue("Caption Name", DvValueType.String, 16)]
-    public string Name;
+    public string Name = "";
     [DvValue("Language", DvValueType.Enum)]
-    public Language Language;
+    public Language Language = Language.English;
 
     public DvElementCaption() : base(DvElementID.Caption) { }
     public DvElementCaption(string name, Language language) : base(DvElementID.Caption)
@@ -24,13 +24,12 @@ public class DvElementCaption : DvNodeElement
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        //ElementRead(reader);
         Name = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 16);
         Language = reader.Read<Language>();
         reader.Skip(4);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, Name, 16);
         writer.Write(Language);

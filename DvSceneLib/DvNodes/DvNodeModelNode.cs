@@ -13,7 +13,7 @@ public class DvNodeModelNode : DvNode
     public void Read(BinaryObjectReader reader)
     {
         Field00 = reader.Read<uint>();
-        NodeName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
+        ModelNodeName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
         reader.Skip(12);
     }
 

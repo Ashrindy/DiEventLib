@@ -8,55 +8,37 @@ namespace DvSceneLib;
 [DvNodeDescription("Chromatic Aberration Filter", "Adds chromatic aberration to the cutscene")]
 public class DvElementChromaticAberrationFilterParam : DvNodeElement
 {
-    public ChromaticAberration ChromaticAberrationBefore;
-    public float Field_08 = 0;
-    public ChromaticAberration ChromaticAberrationAfter;
-    public float[] CurveData;
-    public DvElementChromaticAberrationFilterParam() : base(DvElementID.ChromaticAberrationFilterParam)
+    public struct ChromaticAberration
     {
-        ChromaticAberrationBefore = new ChromaticAberration
-        {
-            ColorOffset = new(0, 0, 0),
-            SphereCurve = 0,
-            Scale = new(0, 0),
-            Position = new(0, 0)
-        };
-        ChromaticAberrationAfter = new ChromaticAberration
-        {
-            ColorOffset = new(0, 0, 0),
-            SphereCurve = 0,
-            Scale = new(0, 0),
-            Position = new(0, 0)
-        };
-        CurveData = new float[32];
-        for(int i = 0; i < 32; i++)
-        {
-            CurveData[i] = 1;
-        }
+        public Vector3 ColorOffset;
+        public float SphereCurve;
+        public Vector2 Scale;
+        public Vector2 Position;
     }
+
+    public ChromaticAberration Node;
+    public bool CurveEnabled = false;
+    public ChromaticAberration FinishNode;
+    public float[] CurveData = new float[32];
+
+    public DvElementChromaticAberrationFilterParam() : base(DvElementID.ChromaticAberrationFilterParam) { }
     public DvElementChromaticAberrationFilterParam(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        ChromaticAberrationBefore = reader.Read<ChromaticAberration>();
-        Field_08 = reader.Read<float>();
-        ChromaticAberrationAfter = reader.Read<ChromaticAberration>();
+        Node = reader.Read<ChromaticAberration>();
+        CurveEnabled = reader.Read<bool>();
+        reader.Align(4);
+        FinishNode = reader.Read<ChromaticAberration>();
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
-        writer.Write(ChromaticAberrationBefore);
-        writer.Write(Field_08);
-        writer.Write(ChromaticAberrationAfter);
+        writer.Write(Node);
+        writer.Write(CurveEnabled);
+        writer.Align(4);
+        writer.Write(FinishNode);
         writer.WriteArray(CurveData);
     }
-}
-
-public struct ChromaticAberration
-{
-    public Vector3 ColorOffset { get; set; }
-    public float SphereCurve { get; set; }
-    public Vector2 Scale { get; set; }
-    public Vector2 Position { get; set; }
 }

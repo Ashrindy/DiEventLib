@@ -50,7 +50,7 @@ public class DvElementCameraHedgehog : DvNodeElement
         CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Flags);
         writer.Write(CameraBefore);

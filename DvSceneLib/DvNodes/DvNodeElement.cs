@@ -76,10 +76,12 @@ public class DvNodeElement : DvNode
         writer.Write(PlayType);
         writer.Write(UpdateTiming);
         writer.WriteNulls(4);
-        //if (unkElementData != null)
-        //    writer.WriteArray(unkElementData);
-        //else
-         //   Element.Write(writer);
+        WriteElement(writer);
+    }
+
+    protected virtual void WriteElement(BinaryObjectWriter writer)
+    {
+
     }
 }
 

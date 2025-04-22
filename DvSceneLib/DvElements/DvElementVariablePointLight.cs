@@ -1,5 +1,6 @@
 ﻿using Amicitia.IO.Binary;
 using DvSceneLib.Misc;
+using System.Numerics;
 
 namespace DvSceneLib;
 
@@ -7,32 +8,53 @@ namespace DvSceneLib;
 [DvNodeDescription("Point Light", "Adds a point light for lighting up the cutscene")]
 public class DvElementVariablePointLight : DvNodeElement
 {
-    public float[] Unk1;
-    public int[] Unk2;
-    public float[] Unk3;
-    public int Unk4 = 0;
-    public int[] Unk5;
-    public float[] CurveData;
+    public struct Parameters
+    {
+        public float Range;
+        public float Intensity;
+        public float Falloff;
+        public float Angle;
+    }
+
+    public int Unk0 = 0;
+    public Vector3 Position = new(0, 0, 0);
+    public Vector3 FinishPosition = new(0, 0, 0);
+    public RGB32 Color = new();
+    public RGB32 FinishColor = new();
+    public Parameters Params = new();
+    public Parameters FinishParams = new();
+    public int Unk1 = 0;
+    public int[] Unk2 = new int[10];
+    public float[] CurveData = new float[128];
+
     public DvElementVariablePointLight() : base(DvElementID.VariablePointLight) { }
     public DvElementVariablePointLight(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        Unk1 = reader.ReadArray<float>(7);
-        Unk2 = reader.ReadArray<int>(6);
-        Unk3 = reader.ReadArray<float>(8);
-        Unk4 = reader.Read<int>();
-        Unk5 = reader.ReadArray<int>(10);
+        Unk0 = reader.Read<int>();
+        Position = reader.Read<Vector3>();
+        FinishPosition = reader.Read<Vector3>();
+        Color = reader.Read<RGB32>();
+        FinishColor = reader.Read<RGB32>();
+        Params = reader.Read<Parameters>();
+        FinishParams = reader.Read<Parameters>();
+        Unk1 = reader.Read<int>();
+        Unk2 = reader.ReadArray<int>(10);
         CurveData = reader.ReadArray<float>(128);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
-        writer.WriteArray(Unk1);
+        writer.Write(Unk0);
+        writer.Write(Position);
+        writer.Write(FinishPosition);
+        writer.Write(Color);
+        writer.Write(FinishColor);
+        writer.Write(Params);
+        writer.Write(FinishParams);
+        writer.Write(Unk1);
         writer.WriteArray(Unk2);
-        writer.WriteArray(Unk3);
-        writer.Write(Unk4);
-        writer.WriteArray(Unk5);
         writer.WriteArray(CurveData);
     }
 }

@@ -8,38 +8,29 @@ namespace DvSceneLib;
 [DvNodeDescription("Sun", "Modifies the sun data like rotation")]
 public class DvElementSun : DvNodeElement
 {
-    public uint Field_00 = 0;
+    public bool CurveEnabled = false;
     public Vector3 Rotation = new(0, 0, 0);
-    public uint[] Field_01;
-    public uint[] AnimData;
-    public DvElementSun() : base(DvElementID.Sun)
-    {
-        Field_01 = new uint[3];
-        for (int i = 0; i < 3; i++)
-        {
-            Field_01[i] = 0;
-        }
-        AnimData = new uint[32];
-        for (int i = 0; i < 32; i++)
-        {
-            AnimData[i] = 1;
-        }
-    }
+    public Vector3 FinishRotation = new(0, 0, 0);
+    public float[] CurveData = new float[32];
+
+    public DvElementSun() : base(DvElementID.Sun) { }
     public DvElementSun(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        Field_00 = reader.Read<uint>();
+        CurveEnabled = reader.Read<bool>();
+        reader.Align(4);
         Rotation = reader.Read<Vector3>();
-        Field_01 = reader.ReadArray<uint>(3);
-        AnimData = reader.ReadArray<uint>(32);
+        FinishRotation = reader.Read<Vector3>();
+        CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
-        writer.Write(Field_00);
+        writer.Write(CurveEnabled);
+        writer.Align(4);
         writer.Write(Rotation);
-        writer.WriteArray(Field_01);
-        writer.WriteArray(AnimData);
+        writer.Write(FinishRotation);
+        writer.WriteArray(CurveData);
     }
 }

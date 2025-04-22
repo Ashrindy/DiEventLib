@@ -17,7 +17,7 @@ public class DvElementCameraInGame : DvNodeElement
         Field_4c = reader.ReadArray<float>(26);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.WriteArray(Field_4c);
     }

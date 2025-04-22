@@ -28,7 +28,7 @@ public class DvElementPathOffset : DvNodeElement
         Field_40 = reader.ReadArray<uint>(3);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Utils.ComposeMatrix(Position, Scale, Utils.ToQuaternion(Rotation)));
         writer.Write(!Enabled);

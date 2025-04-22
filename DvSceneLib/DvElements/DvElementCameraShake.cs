@@ -25,7 +25,7 @@ public class DvElementCameraShake : DvNodeElement
         reader.Skip(16);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Skip(4);
         writer.Write(Enabled);

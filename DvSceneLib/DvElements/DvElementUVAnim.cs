@@ -27,7 +27,7 @@ public class DvElementUVAnim : DvNodeElement
         Field_50 = reader.Read<uint>();
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Flags);
         writer.WriteDvString(FileName, Utils.StringEncoding.ShiftJIS);

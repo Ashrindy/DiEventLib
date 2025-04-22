@@ -24,11 +24,11 @@ public class DvElementCameraShakeLoop : DvNodeElement
         reader.Align(4);
         Unk0 = reader.Read<float>();
         Unk1 = reader.Read<float>();
-        reader.Skip(12);
+        reader.Skip(16);
         CurveData = reader.ReadArray<float>(64);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Pattern);
         writer.Align(4);
@@ -36,7 +36,7 @@ public class DvElementCameraShakeLoop : DvNodeElement
         writer.Align(4);
         writer.Write(Unk0);
         writer.Write(Unk1);
-        writer.WriteNulls(12);
+        writer.WriteNulls(16);
         writer.WriteArray(CurveData);
     }
 }

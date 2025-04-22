@@ -4,11 +4,11 @@ using DvSceneLib.Misc;
 namespace DvSceneLib;
 
 [DvNodeCategory("Element")]
-[DvNodeDescription("Culling Disable", "Disables the culling of a model")]
-public class DvElementCullingDisable : DvNodeElement
+[DvNodeDescription("FxCol Update", "Updates the fxcol")]
+public class DvElementFxColUpdate : DvNodeElement
 {
-    public DvElementCullingDisable() : base(DvElementID.CullingDisable) { }
-    public DvElementCullingDisable(BinaryObjectReader reader)
+    public DvElementFxColUpdate() : base(DvElementID.FxColUpdate) { }
+    public DvElementFxColUpdate(BinaryObjectReader reader) 
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {

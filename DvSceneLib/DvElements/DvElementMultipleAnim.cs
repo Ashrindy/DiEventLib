@@ -45,7 +45,7 @@ public class DvElementMultipleAnim : DvNodeElement
         var activeAnimCount = reader.Read<uint>();
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Field_60);
         writer.WriteDvString(StateName, Utils.StringEncoding.ShiftJIS, 8);

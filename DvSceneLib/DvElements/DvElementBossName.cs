@@ -7,15 +7,10 @@ namespace DvSceneLib;
 [DvNodeDescription("Boss Name", "Displays the bosses name")]
 public class DvElementBossName : DvNodeElement
 {
-    public uint Field_00;
-    public BossID BossName;
+    public uint Field_00 = 0;
+    public BossID BossName = BossID.Giganto;
 
-    public DvElementBossName() : base(DvElementID.BossName)
-    {
-        Field_00 = 0;
-        BossName = BossID.Giganto;
-    }
-
+    public DvElementBossName() : base(DvElementID.BossName) { }
     public DvElementBossName(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
@@ -24,7 +19,7 @@ public class DvElementBossName : DvNodeElement
         BossName = reader.Read<BossID>();
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
         writer.Write(Field_00);
         writer.Write(BossName);

@@ -1,50 +1,30 @@
 ﻿using Amicitia.IO.Binary;
-using System.Text;
+using DvSceneLib.Misc;
 
-namespace DiEventLib;
+namespace DvSceneLib;
 
-public class DvElementLipAnimation : DvNodeObject
+[DvNodeCategory("Element")]
+[DvNodeDescription("Lip Animation", "Adds animation to the characters lips")]
+public class DvElementLipAnimation : DvNodeElement
 {
-    public uint Field_00 { get; set; } = 0;
-    public string FileName { get; set; } = "";
-    public uint[] Field_04 { get; set; }
-    public float[] Data { get; set; }
-    public float[] CurveData { get; set; }
-    public DvElementLipAnimation() 
-    {
-        Field_04 = new uint[3];
-        for(int i = 0; i < 3; i++)
-        {
-            Field_04[i] = 0;
-        }
-        Data = new float[32];
-        for (int i = 0; i < 32; i++)
-        {
-            Data[i] = 0;
-        }
-        CurveData = new float[32];
-        for (int i = 0; i < 32; i++)
-        {
-            CurveData[i] = 0;
-        }
-    }
+    public int Unk0 = 0;
+    public string FileName = "";
+    public int Unk1 = 0;
+
+    public DvElementLipAnimation() : base(DvElementID.LipAnimation) { }
     public DvElementLipAnimation(BinaryObjectReader reader)
         => Read(reader);
-    public override void Read(BinaryObjectReader reader)
+    public void Read(BinaryObjectReader reader)
     {
-        Field_00 = reader.Read<uint>();
-        FileName = reader.ReadString(Encoding.Default, StringBinaryFormat.FixedLength, 64);
-        Field_04 = reader.ReadArray<uint>(3);
-        Data = reader.ReadArray<float>(32);
-        CurveData = reader.ReadArray<float>(32);
+        Unk0 = reader.Read<int>();
+        FileName = reader.ReadDvString(Utils.StringEncoding.Default);
+        Unk1 = reader.Read<int>();
     }
 
-    public override void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
-        writer.Write(Field_00);
-        writer.WriteString(Encoding.Default, StringBinaryFormat.FixedLength, FileName, 64);
-        writer.WriteArray(Field_04);
-        writer.WriteArray(Data);
-        writer.WriteArray(CurveData);
+        writer.Write(Unk0);
+        writer.WriteDvString(FileName, Utils.StringEncoding.Default);
+        writer.Write(Unk1);
     }
 }

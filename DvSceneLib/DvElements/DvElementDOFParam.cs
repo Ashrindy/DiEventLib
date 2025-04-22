@@ -7,77 +7,67 @@ namespace DvSceneLib;
 [DvNodeDescription("Depth of Field", "Adds depth of field")]
 public class DvElementDOFParam : DvNodeElement
 {
-    public uint Field_60 = 0;
-    public DOFParam[] DOFParams;
-    public float Field_84 = 0;
-    public float Field_88 = 0;
-    public uint Field_8c = 0;
-    public uint Field_90 = 0;
-    public float Field_94 = 0;
-    public float Field_98 = 0;
-    public float Field_9c = 0;
-    public float Field_a0 = 0;
-    public float Field_a4 = 0;
-    public float Field_a8 = 0;
-    public float Field_ac = 0;
-    public float[] AnimData;
-
-    public DvElementDOFParam() : base(DvElementID.DOFParam)
+    public struct DOFParam
     {
-        DOFParams = new DOFParam[2];
-        for (int i = 0; i < 2; i++)
-        {
-            DOFParams[i] = new DOFParam { Focus = 0, FocusRange = 0, Near = 0, Far = 0 };
-        }
-        AnimData = new float[32];
-        for (int i = 0; i < 32; i++)
-        {
-            AnimData[i] = 1;
-        }
+        public float ForegroundMaxDepth;
+        public float ForegroundStartDepth;
+        public float BackgroundMaxDepth;
+        public float BackgroundStartDepth;
     }
+
+    public bool UseFocusLookAt = false;
+    public bool EnableCircleDOF = false;
+    public bool DrawFocalPlane = false;
+    public bool CurveEnabled = false;
+    public DOFParam Params = new DOFParam();
+    public DOFParam FinishParams = new DOFParam();
+    public float COCMaxRadius = 0;
+    public float FocalTransition = 0;
+    public int BokehSampleCount = 10;
+    public int BokehQuality = 1;
+    public float BokehIntensity = 1;
+    public float RenderTargetScale = 0;
+    public float[] CurveData = new float[32];
+
+    public DvElementDOFParam() : base(DvElementID.DOFParam) { }
     public DvElementDOFParam(BinaryObjectReader reader)
         => Read(reader);
     public void Read(BinaryObjectReader reader)
     {
-        Field_60 = reader.Read<uint>();
-        DOFParams = reader.ReadArray<DOFParam>(2);
-        Field_84 = reader.Read<float>();
-        Field_88 = reader.Read<float>();
-        Field_8c = reader.Read<uint>();
-        Field_90 = reader.Read<uint>();
-        Field_94 = reader.Read<float>();
-        Field_98 = reader.Read<float>();
-        Field_9c = reader.Read<float>();
-        Field_a0 = reader.Read<float>();
-        Field_a4 = reader.Read<float>();
-        Field_a8 = reader.Read<float>();
-        Field_ac = reader.Read<float>();
-        AnimData = reader.ReadArray<float>(32);
+        var Flags = reader.Read<uint>();
+        UseFocusLookAt = (Flags & 1) != 0;
+        EnableCircleDOF = (Flags & 2) != 0;
+        DrawFocalPlane = (Flags & 4) != 0;
+        CurveEnabled = (Flags & 8) != 0;
+        Params = reader.Read<DOFParam>();
+        FinishParams = reader.Read<DOFParam>();
+        COCMaxRadius = reader.Read<float>();
+        FocalTransition = reader.Read<float>();
+        BokehSampleCount = reader.Read<int>();
+        BokehQuality = reader.Read<int>();
+        BokehIntensity = reader.Read<float>();
+        RenderTargetScale = reader.Read<float>();
+        reader.Skip(20);
+        CurveData = reader.ReadArray<float>(32);
     }
 
-    public void Write(BinaryObjectWriter writer)
+    protected override void WriteElement(BinaryObjectWriter writer)
     {
-        writer.Write(Field_60);
-        writer.WriteArray(DOFParams);
-        writer.Write(Field_84);
-        writer.Write(Field_88);
-        writer.Write(Field_8c);
-        writer.Write(Field_90);
-        writer.Write(Field_94);
-        writer.Write(Field_98);
-        writer.Write(Field_9c);
-        writer.Write(Field_a0);
-        writer.Write(Field_a4);
-        writer.Write(Field_a8);
-        writer.Write(Field_ac);
-        writer.WriteArray(AnimData);
+        var Flags = 0;
+        if (UseFocusLookAt) Flags |= 1;
+        if (EnableCircleDOF) Flags |= 2;
+        if (DrawFocalPlane) Flags |= 4;
+        if (CurveEnabled) Flags |= 8;
+        writer.Write(Flags);
+        writer.Write(Params);
+        writer.Write(FinishParams);
+        writer.Write(COCMaxRadius);
+        writer.Write(FocalTransition);
+        writer.Write(BokehSampleCount);
+        writer.Write(BokehQuality);
+        writer.Write(BokehIntensity);
+        writer.Write(RenderTargetScale);
+        writer.WriteNulls(20);
+        writer.WriteArray(CurveData);
     }
-}
-
-public struct DOFParam
-{
-    public float Focus { get; set; }
-    public float FocusRange { get; set; }
-    public float Near { get; set; }
-    public float Far { get; set; }
 }
