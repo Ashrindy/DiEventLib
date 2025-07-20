@@ -27,24 +27,20 @@ public class ResourceEntry : IBinarySerializable
 {
     public enum DvResourceType : uint
     {
-        Unknown1 = 0x0,
-        Unknown2 = 0x1,
         Character = 0x2,
-        Unknown3 = 0x3,
         CameraMotion = 0x4,
-        PathMotion = 0x5,
-        AssetMotion = 0x6,
+        ModelMotion = 0x6,
         CharacterMotion = 0x7,
-        Unknown5 = 0x8,
-        Unknown6 = 0x9,
         Model = 0xA
     }
     public Guid Guid { get; set; } = Guid.NewGuid();
-    public DvResourceType Type { get; set; } = DvResourceType.Unknown1;
+    public DvResourceType Type { get; set; } = DvResourceType.Character;
     public int Field14 { get; set; } = 0;
     public int Field18 { get; set; } = 1;
     public string Name { get; set; } = "";
-    public byte[] Data { get; set; } = new byte[0x254];
+    public int Unk0 { get; set; } = 0;
+    public int Unk1 { get; set; } = 0;
+    public byte[] Data { get; set; } = new byte[0x0c];
 
     // TODO: Find Start and End like in Yakuza games
     public void Read(BinaryObjectReader reader)
@@ -53,8 +49,10 @@ public class ResourceEntry : IBinarySerializable
         Type = reader.Read<DvResourceType>();
         Field14 = reader.Read<int>();
         Field18 = reader.Read<int>();
-        Name = reader.ReadString(StringBinaryFormat.FixedLength,192);
-        Data = reader.ReadArray<byte>(0x254);
+        Name = reader.ReadString(StringBinaryFormat.FixedLength, 0x300);
+        Unk0 = reader.Read<int>();
+        Unk1 = reader.Read<int>();
+        Data = reader.ReadArray<byte>(0x0c);
     }
 
     public void Write(BinaryObjectWriter writer)
@@ -63,7 +61,9 @@ public class ResourceEntry : IBinarySerializable
         writer.Write(Type);
         writer.Write(Field14);
         writer.Write(Field18);
-        writer.WriteString(StringBinaryFormat.FixedLength, Name, 192);
-        writer.WriteNulls(0x254);
+        writer.WriteString(StringBinaryFormat.FixedLength, Name, 0x300);
+        writer.Write(Unk0);
+        writer.Write(Unk1);
+        writer.WriteNulls(0x0C);
     }
 }

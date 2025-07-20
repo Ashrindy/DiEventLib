@@ -24,7 +24,7 @@ public class DiEventDataBase
     {
         public enum DataType : byte
         {
-            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, guid, array, arraysize, boolean, rgba8, rgb32, rgba32, padding
+            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, guid, array, arraysize, boolean, rgba8, rgb32, rgba32, rgb32f, flags, padding
         };
 
         public DataType Type = DataType.u8;
@@ -37,6 +37,12 @@ public class DiEventDataBase
             public Dictionary<string, int> Values = new();
         }
 
+        public class Flag
+        {
+            public DataType Type = DataType.none;
+            public List<string> Values = new();
+        }
+
         public class Struct
         {
             public string Name = "";
@@ -47,6 +53,11 @@ public class DiEventDataBase
     public class FieldEnum : Field
     {
         public Enum EnumType = new();
+    }
+
+    public class FieldFlag : Field
+    {
+        public Flag FlagType = new();
     }
 
     public class FieldStruct : Field
@@ -85,6 +96,7 @@ public class DiEventDataBase
     }
 
     public int Version = 1;
+    public bool AutoAlign = false;
     public List<Node> Nodes = new();
     public List<Node> Elements = new();
 
@@ -129,6 +141,7 @@ public class DiEventDataBase
         DiEventDataBaseBinary data = new();
         data.Read(new(new MemoryStream(fdata), Amicitia.IO.Streams.StreamOwnership.Retain, Amicitia.IO.Binary.Endianness.Little));
         Version = data.Version;
+        AutoAlign = data.AutoAlign;
         foreach (var i in data.Nodes)
         {
             Node node = new();
@@ -179,6 +192,17 @@ public class DiEventDataBase
                 fEnm.EnumType.Type = (Field.DataType)(byte)x.SubType;
                 fEnm.EnumType.Values = x.EnumType.Values;
                 return fEnm;
+                break;
+
+            case DiEventDataBaseBinary.Field.DataType.flags:
+                FieldFlag fFl = new();
+                fFl.Name = x.Name;
+                fFl.Type = Field.DataType.flags;
+                fFl.Descriptions = x.Descriptions;
+                fFl.FlagType = new();
+                fFl.FlagType.Type = (Field.DataType)(byte)x.SubType;
+                fFl.FlagType.Values = x.FlagType.Values;
+                return fFl;
                 break;
 
             case DiEventDataBaseBinary.Field.DataType.array:
@@ -268,6 +292,7 @@ public class DiEventDataBase
         DiEventDataBaseJSON.MainJSON json = JsonSerializer.Deserialize<DiEventDataBaseJSON.MainJSON>(Encoding.Default.GetString(fdata));
         Version = json.Version;
         hasDescriptions = json.HasDescriptions;
+        AutoAlign = json.AutoAlign;
         foreach (var i in json.Nodes)
         {
             Node node = new();
@@ -325,6 +350,18 @@ public class DiEventDataBase
                 fEnm.EnumType.Type = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
                 fEnm.EnumType.Values = x.Enum.Values;
                 return fEnm;
+                break;
+
+            case Field.DataType.flags:
+                FieldFlag fFl = new();
+                fFl.Name = x.Name;
+                fFl.Type = Field.DataType.flags;
+                if (hasDescriptions)
+                    fFl.Descriptions = x.Descriptions;
+                fFl.FlagType = new();
+                fFl.FlagType.Type = (Field.DataType)Enum.Parse(typeof(Field.DataType), x.SubType);
+                fFl.FlagType.Values = x.Flag.Values;
+                return fFl;
                 break;
 
             case Field.DataType.array:
@@ -419,6 +456,7 @@ public class DiEventDataBase
     {
         DiEventDataBaseBinary binary = new();
         binary.Version = Version;
+        binary.AutoAlign = AutoAlign;
         foreach(var i in Nodes)
             binary.Nodes.Add(ConvertNodeToBinaryNode(i));
         foreach (var i in Elements)
@@ -460,6 +498,13 @@ public class DiEventDataBase
                 field.EnumType.Name = enm.EnumType.Name;
                 field.SubType = (DiEventDataBaseBinary.Field.DataType)((byte)enm.EnumType.Type);
                 field.EnumType.Values = enm.EnumType.Values;
+                break;
+
+            case Field.DataType.flags:
+                FieldFlag fl = ((FieldFlag)x);
+                field.FlagType = new();
+                field.SubType = (DiEventDataBaseBinary.Field.DataType)((byte)fl.FlagType.Type);
+                field.FlagType.Values = fl.FlagType.Values;
                 break;
 
             case Field.DataType.array:
@@ -515,6 +560,7 @@ public class DiEventDataBase
                 break;
             }   
         json.HasDescriptions = hasDescriptions;
+        json.AutoAlign = AutoAlign;
         json.Nodes = new();
         json.Elements = new();
         foreach(var i in Nodes)
@@ -565,6 +611,13 @@ public class DiEventDataBase
                 field.Enum.Name = enm.EnumType.Name;
                 field.SubType = enm.EnumType.Type.ToString();
                 field.Enum.Values = enm.EnumType.Values;
+                break;
+
+            case Field.DataType.flags:
+                FieldFlag fl = ((FieldFlag)x);
+                field.Flag = new();
+                field.SubType = fl.FlagType.Type.ToString();
+                field.Flag.Values = fl.FlagType.Values;
                 break;
 
             case Field.DataType.array:

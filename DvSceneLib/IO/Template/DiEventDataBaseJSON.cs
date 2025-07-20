@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace DvSceneLib.IO.Template;
 
@@ -25,6 +20,12 @@ public class DiEventDataBaseJSON
         public Dictionary<string, int> Values { get; set; }
     }
 
+    public class FlagJSON
+    {
+        [JsonPropertyName("values"), JsonPropertyOrder(1)]
+        public List<string> Values { get; set; }
+    }
+
     public class StructJSON
     {
         [JsonPropertyName("name"), JsonPropertyOrder(0)]
@@ -43,9 +44,11 @@ public class DiEventDataBaseJSON
         public int Size { get; set; }
         [JsonPropertyName("enum"), JsonPropertyOrder(5)]
         public EnumJSON? Enum { get; set; }
-        [JsonPropertyName("struct"), JsonPropertyOrder(6)]
+        [JsonPropertyName("flag"), JsonPropertyOrder(6)]
+        public FlagJSON? Flag { get; set; }
+        [JsonPropertyName("struct"), JsonPropertyOrder(7)]
         public StructJSON? Struct { get; set; }
-        [JsonPropertyName("arraysizefield"), JsonPropertyOrder(7)]
+        [JsonPropertyName("arraysizefield"), JsonPropertyOrder(8)]
         public string? ArraySizeField { get; set; }
     }
 
@@ -65,9 +68,11 @@ public class DiEventDataBaseJSON
         public int Version { get; set; }
         [JsonPropertyName("hasDescriptions"), JsonPropertyOrder(1)]
         public bool HasDescriptions { get; set; }
-        [JsonPropertyName("nodes"), JsonPropertyOrder(2)]
+        [JsonPropertyName("autoAlign"), JsonPropertyOrder(2)]
+        public bool AutoAlign { get; set; }
+        [JsonPropertyName("nodes"), JsonPropertyOrder(3)]
         public List<NodeJSON> Nodes { get; set; }
-        [JsonPropertyName("elements"), JsonPropertyOrder(3)]
+        [JsonPropertyName("elements"), JsonPropertyOrder(4)]
         public List<NodeJSON>? Elements { get; set; }
     }
 }

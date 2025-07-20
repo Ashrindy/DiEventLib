@@ -1,7 +1,4 @@
 ﻿using Amicitia.IO.Binary;
-using System.IO.Compression;
-using System.Reflection.PortableExecutable;
-using System.Text;
 
 namespace DvSceneLib.IO.Template;
 
@@ -72,12 +69,13 @@ public class DiEventDataBaseBinary
     {
         public enum DataType : byte
         {
-            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, guid, array, arraysize, boolean, rgba8, rgb32, rgba32, padding
+            none = 255, u8 = 0, s8, u16, s16, u32, s32, f32, vec2, vec3, vec4, mat4x4, curve, str, enm, strct, guid, array, arraysize, boolean, rgba8, rgb32, rgba32, rgb32f, flags, padding
         };
 
         public DataType Type = DataType.none;
         public DataType SubType = DataType.none;
         public Enum EnumType = new();
+        public Flag FlagType = new();
         public Struct StructValue = new();
         public short Size = 0;
         public string ArraySizeField = "";
@@ -111,6 +109,25 @@ public class DiEventDataBaseBinary
             }
         }
 
+        public class Flag
+        {
+            public List<string> Values = new();
+
+            public void Read(BinaryObjectReader reader)
+            {
+                int valueCount = reader.Read<int>();
+                for (int i = 0; i < valueCount; i++)
+                    Values.Add(reader.ReadStringTableEntry());
+            }
+
+            public void Write(BinaryObjectWriter writer)
+            {
+                writer.Write(Values.Count);
+                foreach (var i in Values)
+                    writer.WriteStringTableEntry(i);
+            }
+        }
+
         public void Read(BinaryObjectReader reader)
         {
             ReadBase(reader);
@@ -129,6 +146,9 @@ public class DiEventDataBaseBinary
                     break;
                 case DataType.enm:
                     EnumType.Read(reader); 
+                    break;
+                case DataType.flags:
+                    StructValue.Read(reader);
                     break;
             }
         }
@@ -151,6 +171,9 @@ public class DiEventDataBaseBinary
                     break;
                 case DataType.enm:
                     EnumType.Write(writer);
+                    break;
+                case DataType.flags:
+                    StructValue.Write(writer);
                     break;
             }
         }
@@ -191,6 +214,7 @@ public class DiEventDataBaseBinary
     public const string Signature = "DiEvtDB";
 
     public int Version = 1;
+    public bool AutoAlign = false;
     public List<Node> Nodes = new();
     public List<Node> Elements = new();
     public Endianness Endianness = Endianness.Little;
@@ -201,7 +225,7 @@ public class DiEventDataBaseBinary
         BigEndian = 1,
         Descriptions = 2,
         Bit = 4,
-        CompressedStringTable = 8,
+        AutoAlign = 8,
     }
 
     public void Read(BinaryObjectReader reader)
@@ -214,27 +238,11 @@ public class DiEventDataBaseBinary
             Endianness = Endianness.Big;
         DataBaseBinaryHandler.Descriptions = flags.HasFlag(Flags.Descriptions);
         DataBaseBinaryHandler.Bit = flags.HasFlag(Flags.Bit);
-        DataBaseBinaryHandler.CompressedStringTable = flags.HasFlag(Flags.CompressedStringTable);
+        AutoAlign = flags.HasFlag(Flags.AutoAlign);
         reader.Endianness = Endianness;
         Version = reader.Read<int>();
         short nodeCount = reader.Read<short>();
         short elementCount = reader.Read<short>();
-        if (DataBaseBinaryHandler.CompressedStringTable)
-        {
-            StringTableHandler.StringTableOffset = DataBaseBinaryHandler.Bit ? reader.Read<long>() : reader.Read<int>();
-            reader.Skip(DataBaseBinaryHandler.Bit ? -8 : -4);
-            byte[] compressedStringTable = new byte[reader.Length - StringTableHandler.StringTableOffset];
-            reader.ReadAtOffset(StringTableHandler.StringTableOffset, () => compressedStringTable = reader.ReadArray<byte>((int)(reader.Length - StringTableHandler.StringTableOffset)) );
-            var resultStream = new MemoryStream();
-            using(var memStream = new MemoryStream(compressedStringTable))
-            {
-                using(var gzipStream = new GZipStream(memStream, CompressionMode.Decompress))
-                {
-                    gzipStream.CopyTo(resultStream);
-                }
-            }
-            StringTableHandler.StringTableReader = new(resultStream, Amicitia.IO.Streams.StreamOwnership.Retain, Endianness);
-        }
 
         for (int i = 0; i < nodeCount; i++)
         {
@@ -266,8 +274,8 @@ public class DiEventDataBaseBinary
             flags |= Flags.Descriptions;
         if (DataBaseBinaryHandler.Bit)
             flags |= Flags.Bit;
-        if (DataBaseBinaryHandler.CompressedStringTable)
-            flags |= Flags.CompressedStringTable;
+        if (AutoAlign)
+            flags |= Flags.AutoAlign;
         Endianness = writer.Endianness;
         writer.Write(flags);
         writer.Write(Version);
@@ -287,7 +295,6 @@ public static class DataBaseBinaryHandler
 {
     public static bool Descriptions = false;
     public static bool Bit = true;
-    public static bool CompressedStringTable = false;
 }
 
 public static class StringTableHandler
@@ -297,6 +304,19 @@ public static class StringTableHandler
     public static string StringTable = "";
     public static long StringTableOffset = 0;
     public static BinaryObjectReader StringTableReader = null;
+
+    public static string ReadStringTableEntry(this BinaryObjectReader reader)
+    {
+        long ptr = DataBaseBinaryHandler.Bit ? reader.Read<long>() : reader.Read<int>();
+        if (ptr > 0)
+        {
+            string value = "";
+            reader.ReadAtOffset(ptr, () => value = reader.ReadString(StringBinaryFormat.NullTerminated));
+            return value;
+        }
+        else
+            return "";
+    }
 
     public static void WriteStringTableEntry(this BinaryObjectWriter writer, string rawEntry)
     {
@@ -337,22 +357,7 @@ public static class StringTableHandler
     public static void WriteStringTable(this BinaryObjectWriter writer)
     {
         long stringtableoffset = writer.Position;
-        if (DataBaseBinaryHandler.CompressedStringTable)
-        {
-            using (MemoryStream memStream = new())
-            {
-                using (var gzipStream = new GZipStream(memStream, CompressionLevel.SmallestSize))
-                {
-                    gzipStream.Write(Encoding.UTF8.GetBytes(StringTable), 0, StringTable.Length);
-
-                }
-                writer.WriteArray(memStream.ToArray());
-                memStream.Close();
-                memStream.Dispose();
-            }
-        }
-        else
-            writer.WriteString(StringBinaryFormat.FixedLength, StringTable, StringTable.Length);
+        writer.WriteString(StringBinaryFormat.FixedLength, StringTable, StringTable.Length);
           
         foreach (var i in StringTableOffsets)
         {

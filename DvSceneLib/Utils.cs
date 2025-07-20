@@ -7,23 +7,6 @@ namespace DvSceneLib;
 
 public static class Utils
 {
-    public static string ReadStringTableEntry(this BinaryObjectReader reader)
-    {
-        long ptr = DataBaseBinaryHandler.Bit ? reader.Read<long>() : reader.Read<int>();
-        if (ptr > 0)
-        {
-            string value = "";
-            var test = ptr - StringTableHandler.StringTableOffset;
-            if (DataBaseBinaryHandler.CompressedStringTable)
-                StringTableHandler.StringTableReader.ReadAtOffset(ptr - StringTableHandler.StringTableOffset, () => value = StringTableHandler.StringTableReader.ReadString(StringBinaryFormat.NullTerminated));
-            else
-                reader.ReadAtOffset(ptr, () => value = reader.ReadString(StringBinaryFormat.NullTerminated));
-            return value;
-        }
-        else
-            return "";
-    }
-
     public enum StringEncoding
     { 
         Default,

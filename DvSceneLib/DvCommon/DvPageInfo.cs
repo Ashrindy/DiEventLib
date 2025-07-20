@@ -54,7 +54,7 @@ public class DvPage : IBinarySerializable
         var SkipLinkIndexNum = reader.Read<int>();
         reader.Skip(12);
         Name = reader.ReadDvString(Utils.StringEncoding.UTF8, 32);
-        UnkFields.AddRange(reader.ReadArray<int>(SkipLinkIndexNum / 4));
+        UnkFields.AddRange(reader.ReadArray<int>(SkipLinkIndexNum));
         Transitions.AddRange(reader.ReadObjectArray<Transition>(TransitionCount));
     }
 
@@ -102,7 +102,7 @@ public class Transition : IBinarySerializable
                     break;
 
                 case Condition.Type.QTE:
-                    Conditions.Add(new ConditionPageEnd(reader));
+                    Conditions.Add(new ConditionQTE(reader));
                     break;
 
                 default:
@@ -129,7 +129,7 @@ public class Condition : IBinarySerializable
 {
     public enum Type : uint
     {
-        PageEnd = 3,
+        PageEnd = 4,
         QTE = 1000
     }
 

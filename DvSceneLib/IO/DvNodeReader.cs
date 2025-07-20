@@ -18,6 +18,9 @@ public static class DvNodeReader
         var priority = reader.Read<int>();
         reader.Skip(12);
         var nodeName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
+
+        long propsPrePos = reader.Position;
+
         var node = new DvNode();
 
         switch (category)
@@ -295,6 +298,8 @@ public static class DvNodeReader
                 reader.Skip(nodeSize - 32);
                 break;
         }
+        reader.Skip(nodeSize - (int)(reader.Position - propsPrePos)); // This is here for weirdly aligned exports from the C++ counterpart
+
         node.Guid = guid;
         node.Category = category;
         node.NodeSize = nodeSize;
@@ -321,6 +326,9 @@ public static class DvNodeReader
         var priority = reader.Read<int>();
         reader.Skip(12);
         var nodeName = reader.ReadDvString(Utils.StringEncoding.ShiftJIS);
+
+        long propsPrePos = reader.Position;
+
         var node = new DvNodeTemplate();
 
         DiEventDataBase.Node dbNode = db.Nodes.Find(x => x.NodeCategory == (int)category);
@@ -343,7 +351,7 @@ public static class DvNodeReader
                 {
                     node = new DvElementTemplate();
                     node.Category = dbNode.FullName;
-                    node.Read(reader, dbNode);
+                    node.Read(reader, dbNode, db.AutoAlign);
                     DiEventDataBase.Node dbElem = db.Elements.Find(x => x.NodeCategory == (int)node.Fields["Element ID"].Value);
                     if (dbElem == null)
                     {
@@ -365,9 +373,10 @@ public static class DvNodeReader
                     }
                 }
                 else
-                    node.Read(reader, dbNode);
+                    node.Read(reader, dbNode, db.AutoAlign);
             }
         }
+        reader.Skip(nodeSize - (int)(reader.Position - propsPrePos)); // This is here for weirdly aligned exports from the C++ counterpart
 
         node.Guid = guid;
         node.NodeSize = nodeSize;
