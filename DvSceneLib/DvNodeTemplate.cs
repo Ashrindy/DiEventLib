@@ -1,8 +1,6 @@
 ﻿using Amicitia.IO.Binary;
 using DvSceneLib.IO.Template;
 using System.Numerics;
-using System.Reflection.PortableExecutable;
-using System.Runtime.Intrinsics.X86;
 
 namespace DvSceneLib;
 
@@ -11,7 +9,7 @@ public class DvNodeTemplate : DvNode
     public string Category = "";
     public Dictionary<string, Field> Fields = new();
     Dictionary<string, Field> arraycounts = new();
-    bool AutoAlign = false;
+    bool AutoAlign = true;
 
     public DvNodeTemplate() { }
 
